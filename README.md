@@ -3,98 +3,99 @@
 </p>
 
 <p align="center">
-  <img src="assets/figures/landing_hero.png" alt="CHARM13 — wait, what is this" width="920"/>
+  <img src="assets/figures/landing_hero.png" alt="CHARM13 overview" width="920"/>
 </p>
 
-<p align="center">
-  <em>Camouflage factory + refuse-if-blown detector for encrypted-volume habitats.<br/>
-  Not a new cipher. Not T4. Finite-model math included.</em>
-</p>
+<p align="center"><em>
+Camouflage factory and detection oracle for encrypted-volume habitats.<br/>
+Construct a cover. Smell it. Refuse if blown. Measure the limits of that oracle.
+</em></p>
 
 ---
 
-### Install & try
+## Abstract
+
+Encrypted volumes solve confidentiality of **bytes**. They do not solve the problem of **narrative**. A multi-gigabyte high-entropy blob named like a lab product, dropped beside toy decoys, does not fail cryptanalysis—it fails *plausibility*. CHARM13 treats that failure mode as an engineering object: habitats are constructed, measured by a detection oracle, and **refused** when the cover is blown.
+
+The system is deliberately layered. Layer 0 (cipher) is borrowed—VeraCrypt or an equivalent volume tool. CHARM13 owns cover construction (templates, identities, decoys, size bands, checksums), ecological constraints (which specialist formats belong in which habitat), and the refuse loop. The product promise is not “undetectable encryption.” The product promise is a **detection-backed camouflage workflow** with honest threat-model tiers and an explicit refusal path.
+
+Alongside the tool sits a finite-model research program on **budgeted adaptive inspection**. A short inspection is not necessarily a fixed checklist. An adaptive policy may choose the next observation from the transcript so far. On explicit synthetic habitat families, the gap between adaptive and nonadaptive distinguishing power can be driven arbitrarily close to its theoretical maximum at fixed look-budget. That fact is packaged as doctrine for operators: clean static smell is necessary machinery, not a certificate against every curious adaptive look of similar length.
 
 ```text
 pip install -e .
 charm doctor
 charm bench
+charm templates
 charm forge -o D:\packs\demo -t photo_library --placeholder -s 1024 --force
 charm smell D:\packs\demo -t photo_library
 charm explain score_semantics
 charm explain adaptive_t1
+charm explain gate_before_local
 ```
 
 <p align="center">
-  <img src="assets/figures/charm_loop.png" alt="forge → smell → refuse" width="780"/>
+  <img src="assets/figures/anim_loop.gif" alt="FORGE → SMELL → REFUSE" width="720"/>
 </p>
 
 ---
 
-## The result that should make you sit up
+## Design thesis
 
-On an explicit family of synthetic habitats (*k* branches: ask *which*, then check that branch):
+Three commitments structure the project.
 
-| Quantity | Value |
-|----------|------:|
-| Adaptive advantage at budget 2 | **1** (perfect) |
-| Best fixed checklist of budget 2 | **2 / k** |
-| Gap as *k* → ∞ | **→ 1** |
-| Myopic “strongest local first” ratio | **k / 2 → ∞** |
-| Adaptive camouflage capacity (ε &lt; 1) | **0** |
+**1. Naturalness is habitat-relative.**  
+A cover is blown if it is unnatural *for the habitat it claims*—not if it fails an encyclopedia of every file type on Earth. Genomics packs were an early calibration fixture because they fail loudly when faked; they are not the product identity. Habitats include media caches, steam depots, VM disks, photo libraries, SQL handoffs, docker layers, mail stores, ISO mirrors, incomplete downloads, optional WGS lab packs, and untyped bulk.
 
-<p align="center">
-  <img src="assets/figures/adaptivity_gap_B2.png" alt="Adaptivity gap at B=2" width="860"/>
-</p>
+**2. Detection is first-class.**  
+Forge without smell is cosplay. Smell without refuse is advisory theater. The default path is: construct, measure, exit non-zero when blown unless the operator explicitly overrides with `--i-know`.
 
-<p align="center">
-  <img src="assets/figures/capacity_zero.png" alt="Capacity zero under adaptive inspection" width="860"/>
-</p>
+**3. Claims are tiered and finite.**  
+T0–T1 are the product-facing inspection regimes. T2 depends on borrowed crypto. T3 waits on CELLAR. T4 is never claimed. Research results are finite-model statements with assumptions named; they are not laboratory warranties.
 
 ---
 
-## Formula board
+## The mathematical spine (animated)
+
+On the **k-pair family**—uniform random branch, payload bit differs under the two hypotheses—an adaptive policy with budget two (observe branch identity, then the bit on that branch) achieves total-variation advantage **1**. The best nonadaptive suite of budget two achieves **2/k**. The gap is **1 − 2/k**, which tends to **1** as branching grows. Myopic “pick the locally strongest single check first” never opens with the branch query and suffers approximation ratio **k/2**.
 
 <p align="center">
-  <img src="assets/figures/formula_sheet.png" alt="Closed forms" width="860"/>
-</p>
-
-| Symbol | Meaning |
-|--------|---------|
-| \(D_B^{\mathrm{ad}}\) | Best **adaptive** distinguishing advantage with look-budget *B* |
-| \(D_B^{\mathrm{na}}\) | Best **fixed checklist** of total cost *B* |
-| \(\mathrm{Gap}_B\) | How much curiosity beats a script |
-| `blown_score` | Severity monoid — **not** \(P(\text{fake})\) |
-| refuse | **any bad** **or** score ≥ 0.6 |
-
-<p align="center">
-  <img src="assets/figures/score_dual_gate.png" alt="Dual refuse gate" width="860"/>
-</p>
-
-| Guide | Link |
-|-------|------|
-| Operator doctrine | [docs/T1_BUDGET.md](docs/T1_BUDGET.md) |
-| “What field is this?” | [docs/FIELD_GUIDE.md](docs/FIELD_GUIDE.md) |
-| Where to publish / DOI | [docs/WHERE_TO_SHARE.md](docs/WHERE_TO_SHARE.md) |
-
----
-
-## More charts
-
-<p align="center">
-  <img src="assets/figures/gap_all_B.png" alt="Gap for all B" width="860"/>
+  <img src="assets/figures/anim_gap_growth.gif" alt="Adaptive vs nonadaptive advantage as k grows" width="860"/>
 </p>
 
 <p align="center">
-  <img src="assets/figures/budget_separation.png" alt="Budget separation adaptive vs nonadaptive" width="860"/>
+  <img src="assets/figures/anim_gap_to_one.gif" alt="Gap approaching one" width="860"/>
+</p>
+
+The same envelope extends to every fixed budget B ≥ 2: nonadaptive advantage is min(B,k)/k while adaptive advantage saturates at 1 once B ≥ 2. A fixed-size checklist therefore cannot uniformly bound adaptive risk across all branching factors.
+
+<p align="center">
+  <img src="assets/figures/gap_all_B.png" alt="Gap for multiple budgets" width="860"/>
+</p>
+
+For **parity-style payloads** (local bit marginals matched; global parity differs per branch), adaptive perfect separation costs **1+m** looks (select branch, then read m bits). Nonadaptive perfect separation requires instrumenting every branch fully: budget **k·m**. The ratio grows without bound in k.
+
+<p align="center">
+  <img src="assets/figures/anim_budget_race.gif" alt="Adaptive vs nonadaptive budget race" width="860"/>
+</p>
+
+Under adaptive inspection with B ≥ 2 on the k-pair family, indistinguishability capacity for any ε &lt; 1 is **zero**: no branching factor reduces adaptive advantage below one. Large k helps checklists; it does not help against that adaptive policy class.
+
+<p align="center">
+  <img src="assets/figures/anim_capacity_zero.gif" alt="Capacity zero under adaptive inspection" width="860"/>
 </p>
 
 <p align="center">
-  <img src="assets/figures/greedy_ratio.png" alt="Greedy approximation ratio" width="860"/>
+  <img src="assets/figures/formula_sheet.png" alt="Closed-form board" width="860"/>
 </p>
 
-Regenerate: `python assets/render_figures.py`  
-Research ladder: [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md)
+Static charts and SVG sources live in [`assets/figures/`](assets/figures/). Regenerate:
+
+```powershell
+python assets/render_figures.py
+python assets/render_animations.py
+```
+
+Research index: [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md) (missions M4–M18, exact rational certificates).
 
 ```powershell
 cd research\ladder
@@ -102,38 +103,138 @@ python run_ladder.py
 python run_ladder_high.py
 ```
 
-**Novelty packaging:** broad adaptivity phenomena are classical (`KNOWN RESULT, NEW APPLICATION`). Residual work is exact envelopes, assumptions, and product scars.
+**Novelty packaging.** The abstract phenomenon that adaptivity can dominate nonadaptive experiments is classical (sequential hypothesis testing, costly feature acquisition). Residual contribution of this repository is exact closed forms on filesystem-shaped query models, reproducible certificates, assumption hygiene (including path-prefix legality), and **product scars**—doctrine that changes how the tool describes itself.
+
+---
+
+## Score semantics (binding)
+
+<p align="center">
+  <img src="assets/figures/score_dual_gate.png" alt="Dual refuse gate" width="860"/>
+</p>
+
+```text
+blown_score = 1 − Π_i (1 − w_sev(i))     # bad=0.55, warn=0.25, info=0.05
+refused     = (∃ finding with severity bad)  ∨  (blown_score ≥ 0.6)
+```
+
+| Fact | Implication |
+|------|-------------|
+| Weights are ordinal | Not calibrated likelihoods or posteriors |
+| Product is a monoid | Commutative severity aggregation, not P(generated) |
+| Dual gate | One bad finding alone scores 0.55 and still refuses |
+| Clean report | Necessary for refuse automation—not a full adaptive T1 bound |
+
+Operator doctrine: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md) · field positioning: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md) · dissemination: [`docs/WHERE_TO_SHARE.md`](docs/WHERE_TO_SHARE.md)
+
+```text
+charm explain score_semantics
+charm explain adaptive_t1
+charm explain gate_before_local
+```
 
 ---
 
 ## Threat model
 
-| Tier | Adversary | Claim |
-|------|-----------|--------|
-| T0 | Glancing human | Strong on implemented tells |
-| T1 | Curious tech, short look | Helps; not a general adaptive warranty |
-| T2 | Stolen disk | Crypto holds |
-| T3 | Password demand | Not until CELLAR |
-| T4 | Lab + process | **No claim. Ever.** |
-
-## Habitats
-
-`adobe_cache` (default) · `steam_depot` · `vm_disk` · `photo_library` ·  
-`sql_backup` · `docker_cache` · `mail_store` · `iso_mirror` ·  
-`incomplete_download` · `wgs_lab` · `generic`  
-
-→ [docs/NATURAL.md](docs/NATURAL.md)
-
-## Not this
-
-New cipher · probability-of-fakery marketing · anti-forensics cookbook · T4  
-
-## Docs
-
-[MASTER](docs/MASTER.md) · [T1_BUDGET](docs/T1_BUDGET.md) · [FIELD_GUIDE](docs/FIELD_GUIDE.md) · [WHERE_TO_SHARE](docs/WHERE_TO_SHARE.md) · [SECURITY](SECURITY.md)
+| Tier | Adversary | CHARM13 claim |
+|------|-----------|----------------|
+| **T0** | Glancing human | Strong on implemented tells |
+| **T1** | Curious technical peer, short session | Improves cost of casual tells; static smell is nonadaptive; see T1_BUDGET |
+| **T2** | Offline stolen disk | Crypto holds if L0 holds; cover may affect prioritization only |
+| **T3** | Compelled password | Not a product claim until CELLAR |
+| **T4** | Laboratory process + time | **No claim. Ever.** |
 
 ---
 
-**Purdue black** `#000000` / `#0A0A0A` · **old gold** `#CFB991` · Boiler Up  
+## Habitats
+
+| Template | Narrative |
+|----------|-----------|
+| `adobe_cache` | Media cache debris (default) |
+| `steam_depot` | Local depot fragment |
+| `vm_disk` | VM metadata + disk-like blob |
+| `photo_library` | Managed library store |
+| `sql_backup` | Database dump handoff |
+| `docker_cache` | Overlay / layer residue |
+| `mail_store` | Mailbox export slice |
+| `iso_mirror` | Install media fragment |
+| `incomplete_download` | Interrupted transfer |
+| `wgs_lab` | Optional sequencing pack habitat |
+| `generic` | Untyped bulk |
+
+Naturalness law and ecology rules: [`docs/NATURAL.md`](docs/NATURAL.md).  
+Payloads use **opaque** extensions when the volume is not a genuine public format. Specialist names are checked for magic and habitat membership. Famous public sample IDs are forbidden as decoration. Published checksums must match bytes.
+
+---
+
+## Commands
+
+| Command | Purpose |
+|---------|---------|
+| `charm forge` | Build habitat tree + optional volume / placeholder |
+| `charm smell` | Findings, severity score, dual refuse |
+| `charm bench` | Calibration fixtures (known-bad must blow) |
+| `charm explain [code]` | Finding catalog |
+| `charm doctor` | Environment + doctrine pointers |
+| `charm templates` | List habitats |
+| `charm which-vc` | Locate VeraCrypt |
+
+Forge refuses blown covers by default. `--i-know` is an informed override. `--write-seed` is off by default (operator receipt is T1-visible). Size ceilings require `--unsafe-size` when deliberately exceeded.
+
+---
+
+## Architecture (abbreviated)
+
+```text
+charm
+├── forge      constructor + refuse gate
+├── smell      findings + severity monoid + dual gate
+├── props      habitat decoy trees
+├── caliper    size bands / opaque payload policy
+├── ecology    specialist families + habitat membership
+├── forgery    seeded identity fields
+├── kernel     VeraCrypt create (L0)
+├── bench      fixtures
+└── catalog    explain surface
+```
+
+Binding doctrine: [`docs/MASTER.md`](docs/MASTER.md) · process: [`docs/SKUNKWORKS.md`](docs/SKUNKWORKS.md) · security notes: [`SECURITY.md`](SECURITY.md)
+
+---
+
+## Research program (M4–M18)
+
+The ladder under `research/` develops, in increasing strength:
+
+- exact adaptive-versus-nonadaptive gap certificates  
+- size-minimality under unguarded depth-two policies  
+- unbounded gap envelopes for every fixed B ≥ 2  
+- myopic greedy failure with unbounded ratio  
+- checklist incompleteness theorems  
+- adaptive capacity-zero statements on the k-pair family  
+- parity payload budget separation B*_ad = 1+m vs B*_na = k·m  
+- query-complexity form (nonadaptive Ω(k) vs adaptive O(1) for constant advantage)  
+- product doctrine mapping math → smell/docs  
+
+Reproduce certificates with the ladder runners and `research/m4` / `research/m5` test suites. Static and animated figures are first-class artifacts of that program, not decoration.
+
+---
+
+## Explicit non-goals
+
+- Inventing or “improving” ciphers  
+- Probability-of-generation marketing for `blown_score`  
+- Operational guidance for concealing material from forensic inspection  
+- Exhaustive file-type encyclopedias  
+- T4 claims under any packaging  
+
+---
+
+## Colors
+
+**Purdue black** `#000000` / `#0A0A0A` · **old gold** `#CFB991` · Boiler Up.
+
+## License & version
 
 MIT · **v0.3.4**

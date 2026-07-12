@@ -1,69 +1,52 @@
-# What field is this? (plain English)
+# Field guide — CHARM13 and budgeted inspection
 
-You asked. Fair.
+## Positioning
 
-## One sentence
+CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees.
 
-**CHARM13 sits at the intersection of:**
+It does not introduce a new cipher. Confidentiality of bytes is delegated to an established volume-encryption layer (e.g. VeraCrypt). The product surface is cover naturalness, detection, and refuse-on-blown behavior.
 
-1. **systems / privacy tooling** — building folder “cover stories” around encrypted volumes, then detecting when those stories fail; and  
-2. **finite-model statistics / sequential testing** — measuring how well a short, adaptive look can tell “natural habitat tree” from “generated habitat tree.”
+## Two layers people conflate
 
-It is **not** inventing a new encryption algorithm.  
-It is **not** “breaking AES.”  
-It is **not** (and must not become) a cookbook for hiding evidence from labs.
+| Layer | Role | Owner |
+|-------|------|--------|
+| Cryptographic ciphertext | Secrecy of content | External L0 (VeraCrypt, etc.) |
+| Cover / habitat story | On-disk narrative and structure | CHARM13 forge + smell |
 
-## The two products people confuse
+Most tools stop at ciphertext. CHARM13 treats the **story adjacent to ciphertext** as first-class: construct, measure, refuse.
 
-| Thing | What it is | Who usually owns it |
-|-------|------------|---------------------|
-| **Cipher** | Scramble bytes so content is secret | Cryptographers / VeraCrypt / etc. |
-| **Cover / naturalness** | Make the *on-disk story* boring | Us (CHARM13) + detection theory |
+## Research neighborhood
 
-Most tools stop at the cipher. CHARM13 is about the **story next to the cipher**.
+The mathematical work is closest to:
 
-## The research area (academic names)
+- active / sequential hypothesis testing under a look budget  
+- costly feature acquisition for binary discrimination  
+- total variation between transcript laws under restricted observation maps  
 
-When we write math about “budgeted adaptive inspection,” specialists would file it near:
+Results are stated for **explicit finite synthetic families** (k-branch which-then-bit; m-bit parity habitats), with exact rational certificates. Broad “adaptivity can help” is classical; residual contributions are closed-form envelopes, assumption hygiene, and product doctrine.
 
-- **active / sequential hypothesis testing** — choose the next experiment based on past answers  
-- **costly feature acquisition** — each look costs budget  
-- **restricted statistical distance** — total variation after limited observations  
-- sometimes **experimental design** / **value of information**
+## Product oracle vs adaptive T1
 
-We package exact results on **synthetic filesystem-shaped** models (branches, parity, checklists).  
-Broad “adaptivity helps” is classical. Our residual is **exact envelopes + product honesty**.
+`charm smell` is a **deterministic nonadaptive checklist**: fixed rules, full walk, severity monoid, dual refuse gate.
 
-## What a T1 observer is
+A human T1 inspector may be **adaptive**: the next observation depends on prior answers. On the synthetic families in `research/`, adaptive advantage at fixed budget can strictly dominate any nonadaptive suite of the same cost, with gap approaching one as branching grows. Clean smell remains necessary refuse machinery; it is not advertised as a complete adaptive risk certificate.
 
-**T1** = curious technically competent person with a short time box  
-(list a folder, peek at headers, compare a few facts).
+## Score semantics
 
-`charm smell` is a **fixed checklist**.  
-A human can be **adaptive**: answer 1 changes question 2.  
-The ladder proves that difference can be **arbitrarily large** on explicit families.
+```text
+blown_score = 1 − ∏ (1 − w_sev)
+refused     = (∃ bad) ∨ (blown_score ≥ 0.6)
+```
 
-## How to talk about it without sounding cranky
+Weights are ordinal engineering severities. The product is a monoid, not a calibrated posterior probability of generation. One `bad` finding refuses even when the scalar sits below 0.6.
 
-**Good:**  
-“We built a refuse-if-blown cover factory and proved, on finite models, that adaptive short inspection can dominate static checklists; we demoted our own score from probability cosplay.”
+## Non-claims
 
-**Bad:**  
-“We invented undetectable encryption / new distance / beat forensics.”
+- No T4 laboratory guarantees  
+- No operational guidance for concealing material from inspection workflows  
+- No assertion that empirical disk populations equal the synthetic k-pair family  
+- No novelty claim for total variation or for the abstract existence of adaptive gains  
 
-## If you want to go deeper (starter reading shape)
+## Reproduction
 
-Search terms (not endorsements of any single paper):
-
-- fixed-horizon active hypothesis testing  
-- adaptive vs nonadaptive experimental design  
-- feature acquisition for classification  
-- total variation distance  
-
-Entry we already logged: arXiv:1911.06912 (active HT survey-ish entry).
-
-## Bottom line for a Boilermaker who doesn’t live in this field
-
-You built an **engineering tool with a research spine**:  
-construct → detect → refuse, plus math that prevents you from lying about what the detector means.  
-That combination is rare. It is also why the landing page can look intimidating — and should still stay honest.
+See `research/LADDER_MASTER.md` and `docs/T1_BUDGET.md`.

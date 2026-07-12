@@ -1,13 +1,11 @@
-# Press note — CHARM13 Mission M4 (lay summary)
+# Press note — CHARM13 Mission M4
 
-**STATUS: EMBARGO — DO NOT PUBLISH AS-IS WITHOUT HUMAN OWNER SIGN-OFF**  
-**Reason:** External scientist review (2026-07-12) flagged overclaim risk on headlines.  
-**Accurate framing only below.**
+**STATUS: DRAFT / NOT FOR EXTERNAL RELEASE WITHOUT REVIEW**  
+**Constraint:** No overclaim headlines; no “proves when” characterizations of general folders.
 
-**For:** general / technical press (when cleared)  
 **Project:** CHARM13  
 **Mission:** M4 — Budgeted Habitat Indistinguishability  
-**Tone:** plain language; no novelty cosplay; no “proves when”
+**Tone:** precise; no novelty cosplay
 
 ---
 
