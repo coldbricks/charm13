@@ -3,29 +3,27 @@
 </p>
 
 <p align="center">
-  <img src="assets/figures/landing_hero.png" alt="CHARM13 — finite-model inspection geometry" width="920"/>
+  <img src="assets/figures/landing_hero.png" alt="CHARM13 finite-model inspection geometry" width="920"/>
 </p>
 
 ---
 
-## Field guide — CHARM13 and budgeted inspection
+## Field guide: CHARM13 and budgeted inspection
 
 ### Positioning
 
-Encrypted volumes already solve confidentiality of **bytes**. They do not solve the **on-disk story**. A multi-gigabyte high-entropy object that fails the habitat it claims is not a crypto break — it is a cover failure. That is the problem CHARM13 is built for.
+CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees.
 
-CHARM13 constructs habitat cover trees, measures them with a detection oracle, and **refuses** when the cover is blown. Alongside the tool is a finite-model program on **budgeted adaptive distinguishability**: static checklists are necessary machinery; they are not a certificate against every adaptive look of similar length. Threat tiers are named; T4 is unclaimed.
-
-It does not introduce a new cipher. Byte confidentiality is **L0** (borrowed — VeraCrypt or equivalent). CHARM13 owns cover construction, habitat ecology, and the refuse joint.
+It does not introduce a new cipher. Confidentiality of bytes is external L0 (e.g. VeraCrypt). CHARM13 owns cover naturalness, detection, and refuse-on-blown.
 
 | Layer | Role | Owner |
 |-------|------|--------|
-| Ciphertext | Confidentiality of content | External L0 (VeraCrypt, etc.) |
-| Cover / habitat | On-disk narrative; detection; refuse | CHARM13 forge + inspect |
+| Cryptographic ciphertext | Secrecy of content | External L0 (VeraCrypt, etc.) |
+| Cover / habitat story | On-disk narrative | CHARM13 forge + inspect |
 
-Loop: **construct → measure → refuse**. Override only with informed `--i-know`.
+Most tools stop at the ciphertext. CHARM13 runs **construct → measure → refuse**.
 
-Full field notes: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md) · doctrine: [`docs/MASTER.md`](docs/MASTER.md) · T1 budget: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md)
+Full field notes: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md). Doctrine: [`docs/MASTER.md`](docs/MASTER.md). T1 budget: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md).
 
 ```text
 pip install -e .

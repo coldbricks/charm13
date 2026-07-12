@@ -1,21 +1,19 @@
-# Field guide — CHARM13 and budgeted inspection
+# Field guide: CHARM13 and budgeted inspection
 
 ## Positioning
 
-Encrypted volumes already solve confidentiality of **bytes**. They do not solve the **on-disk story**. A high-entropy object that fails the habitat it claims is not a crypto break — it is a cover failure. That is the problem CHARM13 is built for.
+CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees.
 
-CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees. Construct, measure, refuse. Static inspection is necessary QC; it is not a full adaptive T1 certificate. T4 is unclaimed.
-
-It does not introduce a new cipher. Confidentiality of bytes is **L0** (external, e.g. VeraCrypt). CHARM13 owns cover naturalness, detection, and refuse-on-blown.
+It does not introduce a new cipher. Confidentiality of bytes is external L0 (e.g. VeraCrypt). CHARM13 owns cover naturalness, detection, and refuse-on-blown.
 
 ## Two layers people conflate
 
 | Layer | Role | Owner |
 |-------|------|--------|
-| Cryptographic ciphertext | Foundation — secrecy of content | External L0 (VeraCrypt, etc.) |
-| Cover / habitat story | Superstructure — on-disk narrative | CHARM13 forge + inspect |
+| Cryptographic ciphertext | Secrecy of content | External L0 (VeraCrypt, etc.) |
+| Cover / habitat story | On-disk narrative | CHARM13 forge + inspect |
 
-Most tools stop at the foundation. CHARM13 draws a continuous load path: **construct → measure → refuse**.
+Most tools stop at the ciphertext. CHARM13 runs **construct → measure → refuse**.
 
 ## Research neighborhood
 
