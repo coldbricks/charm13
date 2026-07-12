@@ -533,38 +533,179 @@ def anim_parity_ratio_3d() -> None:
 
 
 def anim_cyclic_gate_walk() -> None:
-    """Clean cyclic-gate walk: highlight branch i, then bit on that spoke."""
+    """Wild pattern demo on the cyclic gate — paper-linked tile illumination.
+
+    Dim red sectors light in sequences that map to the theory:
+      adaptive spoke (g then b_i), nonadaptive pair (mass 1/K),
+      rotating pair, opposite chords, fifths-step chase, full ring flash
+      (capacity-zero / gap→1 energy), then collapse back to one named branch.
+    """
+    from matplotlib.patches import Wedge
+
+    # dim crimson — not neon alarm, still wild on black
+    RED = "#6E1515"
+    RED_GLOW = "#9A2222"
+    RED_DIM = "#3A0C0C"
+
     K = 12
-    # Clockwise fifths from C at 12 o'clock
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
-    n_frames = 96
-    fig = plt.figure(figsize=(7.0, 7.6), dpi=130)
+    # Pattern schedule: (name, frames, intensity fn(frame_in_phase) -> list of (j, alpha))
+    # Each pattern returns per-sector activation 0..1
+
+    def pattern_adaptive_chase(t: float) -> np.ndarray:
+        """Single lit spoke walks the circle — adaptive names i then reads bit."""
+        a = np.zeros(K)
+        i = int(t * K) % K
+        frac = (t * K) % 1.0
+        a[i] = 0.55 + 0.45 * np.sin(np.pi * frac)  # pulse
+        return a
+
+    def pattern_nonadaptive_pair(t: float) -> np.ndarray:
+        """Two fixed pins — nonadaptive budget 2 (mass ~1/K)."""
+        a = np.zeros(K)
+        # fixed pair that slowly rotates as "which pair you chose"
+        base = int(t * 6) % K
+        a[base] = 0.75
+        a[(base + 5) % K] = 0.75  # not adjacent — two instruments
+        return a
+
+    def pattern_adjacent_pair(t: float) -> np.ndarray:
+        """Adjacent pair sweeping — checklist of two neighboring checks."""
+        a = np.zeros(K)
+        base = int(t * K) % K
+        a[base] = 0.7
+        a[(base + 1) % K] = 0.55
+        return a
+
+    def pattern_opposites(t: float) -> np.ndarray:
+        """Diameter chords — maximal separation nonadaptive probes."""
+        a = np.zeros(K)
+        base = int(t * K) % K
+        a[base] = 0.8
+        a[(base + K // 2) % K] = 0.8
+        return a
+
+    def pattern_fifths_skip(t: float) -> np.ndarray:
+        """Every perfect-fifth step lit in a chase (walk the circle by construction)."""
+        a = np.zeros(K)
+        # light a trail of 3 along fifths order
+        head = int(t * K) % K
+        for k, strength in ((0, 0.9), (1, 0.5), (2, 0.28)):
+            a[(head + k) % K] = strength
+        return a
+
+    def pattern_gap_wave(t: float) -> np.ndarray:
+        """Gap→1 energy: growing arc of lit tiles (more branches, larger gap)."""
+        a = np.zeros(K)
+        width = 1 + int(t * (K - 1))
+        start = int(t * 3) % K
+        for k in range(width):
+            a[(start + k) % K] = 0.35 + 0.55 * (k + 1) / width
+        return a
+
+    def pattern_full_flash(t: float) -> np.ndarray:
+        """Capacity zero under adaptive B≥2 — whole wheel can separate."""
+        pulse = 0.35 + 0.55 * (0.5 + 0.5 * np.sin(2 * np.pi * t * 3))
+        return np.full(K, pulse)
+
+    def pattern_collapse_to_spoke(t: float) -> np.ndarray:
+        """All red drains into one adaptive branch."""
+        a = np.full(K, max(0.0, 0.5 * (1 - t)))
+        a[0] = 0.4 + 0.6 * t  # C / branch 1 absorbs
+        return a
+
+    phases = [
+        ("adaptive: name $i$, read $b_i$  →  $D=1$", 28, pattern_adaptive_chase),
+        ("nonadaptive pair  →  mass $1/K$", 22, pattern_nonadaptive_pair),
+        ("adjacent checklist pair", 18, pattern_adjacent_pair),
+        ("opposite probes", 18, pattern_opposites),
+        ("walk by fifths (construction order)", 24, pattern_fifths_skip),
+        (r"$\mathrm{Gap}\to 1$ as branching grows", 26, pattern_gap_wave),
+        (r"adaptive capacity: full separation", 16, pattern_full_flash),
+        ("collapse to one named branch", 20, pattern_collapse_to_spoke),
+    ]
+    phase_lens = [p[1] for p in phases]
+    total = sum(phase_lens)
+    # cumulative
+    starts = np.cumsum([0] + phase_lens[:-1])
+
+    fig = plt.figure(figsize=(7.2, 7.8), dpi=130)
     fig.patch.set_facecolor(VOID)
     ax = fig.add_subplot(111)
     R = 0.74
+    R_in = 0.18
+
+    def sector_wedge(j: int, alpha: float):
+        if alpha <= 0.02:
+            return None
+        # sector centered at am, width 2pi/K
+        am = np.pi / 2 - 2 * np.pi * j / K
+        # Wedge uses degrees, 0 at +x, CCW; our am is math angle from +x
+        # matplotlib Wedge: theta1, theta2 in degrees CCW from +x
+        # sector spans am ± pi/K
+        # convert: mpl_theta = degrees(am) but Wedge goes CCW from east
+        # For filled sector between edges at am+pi/K and am-pi/K going the short way:
+        t1 = np.degrees(am - np.pi / K)
+        t2 = np.degrees(am + np.pi / K)
+        # ensure t2 > t1 for wedge
+        if t2 < t1:
+            t1, t2 = t2, t1
+        color = RED_GLOW if alpha > 0.65 else (RED if alpha > 0.35 else RED_DIM)
+        return Wedge(
+            (0, 0),
+            R,
+            t1,
+            t2,
+            width=R - R_in,
+            facecolor=color,
+            edgecolor=GOLD,
+            linewidth=0.6,
+            alpha=min(0.92, 0.25 + 0.7 * alpha),
+            zorder=3,
+        )
 
     def update(frame):
         ax.clear()
         ax.set_xlim(-1.15, 1.15)
-        ax.set_ylim(-1.25, 1.22)
+        ax.set_ylim(-1.32, 1.22)
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_facecolor(VOID)
         fig.patch.set_facecolor(VOID)
-        ax.text(0, 1.12, r"Cyclic gate  ·  adaptive: $g$ then $b_i$", ha="center", color=WHITE, fontsize=12.5, fontfamily="serif")
-        ax.add_patch(plt.Circle((0, 0), 0.88, fill=False, edgecolor=SOFT, lw=1.3))
-        ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.0))
-        ax.add_patch(plt.Circle((0, 0), 0.18, fill=False, edgecolor=GOLD, lw=1.3))
-        active = (frame // (n_frames // K)) % K
+
+        # which phase
+        f = frame % total
+        pi = int(np.searchsorted(starts, f, side="right") - 1)
+        pi = max(0, min(pi, len(phases) - 1))
+        name, length, fn = phases[pi]
+        t_local = (f - starts[pi]) / max(length - 1, 1)
+        acts = fn(t_local)
+
+        ax.text(0, 1.12, "Cyclic gate  ·  pattern demo", ha="center", color=WHITE, fontsize=13, fontfamily="serif")
+        ax.text(0, 1.00, name, ha="center", color=GOLD, fontsize=10, fontfamily="serif", style="italic")
+
+        # base rings
+        ax.add_patch(plt.Circle((0, 0), 0.88, fill=False, edgecolor=SOFT, lw=1.2, zorder=5))
+        ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.0, zorder=5))
+        ax.add_patch(plt.Circle((0, 0), R_in, facecolor=VOID, edgecolor=GOLD, lw=1.4, zorder=8))
+
+        # lit tiles (under labels)
         for j in range(K):
-            am = np.pi / 2 - 2 * np.pi * j / K  # C at top
+            w = sector_wedge(j, float(acts[j]))
+            if w is not None:
+                ax.add_patch(w)
+
+        # spokes + labels
+        for j in range(K):
+            am = np.pi / 2 - 2 * np.pi * j / K
             a_spoke = am + np.pi / K
-            on = j == active
+            on = acts[j] > 0.2
             ax.plot(
-                [0.18 * np.cos(a_spoke), R * np.cos(a_spoke)],
-                [0.18 * np.sin(a_spoke), R * np.sin(a_spoke)],
+                [R_in * np.cos(a_spoke), R * np.cos(a_spoke)],
+                [R_in * np.sin(a_spoke), R * np.sin(a_spoke)],
                 color=GOLD if on else GOLD_DEEP,
-                lw=2.0 if on else 1.05,
+                lw=1.8 if on else 1.0,
+                zorder=6,
             )
             ax.text(
                 0.50 * np.cos(am),
@@ -575,13 +716,40 @@ def anim_cyclic_gate_walk() -> None:
                 color=WHITE if on else MUTED,
                 fontsize=11 if on else 9,
                 fontfamily="serif",
+                zorder=9,
             )
-        ax.text(0, 0.03, r"$g$", ha="center", color=WHITE, fontsize=15, fontfamily="serif")
-        ax.text(0, -0.10, rf"$b_{{{active+1}}}$", ha="center", color=GOLD, fontsize=12, fontfamily="serif")
+            ax.text(
+                0.64 * np.cos(am),
+                0.64 * np.sin(am),
+                str(j + 1),
+                ha="center",
+                va="center",
+                color=GOLD if on else DIM,
+                fontsize=8,
+                fontfamily="serif",
+                zorder=9,
+            )
+
+        # hub
+        hub_on = float(np.max(acts))
+        ax.add_patch(
+            plt.Circle(
+                (0, 0),
+                R_in * 0.92,
+                facecolor=RED_DIM if hub_on > 0.4 else VOID,
+                edgecolor=GOLD,
+                lw=1.3,
+                alpha=0.85,
+                zorder=8,
+            )
+        )
+        ax.text(0, 0.03, r"$g$", ha="center", color=WHITE, fontsize=15, fontfamily="serif", zorder=10)
+        ax.text(0, -0.10, r"$b_i$", ha="center", color=GOLD, fontsize=12, fontfamily="serif", zorder=10)
+
         ax.text(
             0,
-            -1.12,
-            rf"$i={active+1}$ ({fifths[active]})  ·  $D_{{\mathrm{{ad}}}}=1$  ·  nonadaptive pair $\Rightarrow 1/K$",
+            -1.18,
+            r"dim red = active observation mass  ·  $G_2(K)=1-1/K$",
             ha="center",
             color=MUTED,
             fontsize=9,
@@ -589,8 +757,8 @@ def anim_cyclic_gate_walk() -> None:
         )
         return []
 
-    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 12, blit=False)
-    _save_gif(ani, OUT / "anim_cyclic_gate.gif", fps=12)
+    ani = animation.FuncAnimation(fig, update, frames=total, interval=1000 / 14, blit=False)
+    _save_gif(ani, OUT / "anim_cyclic_gate.gif", fps=14)
     plt.close(fig)
 
 
