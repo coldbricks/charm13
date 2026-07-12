@@ -12,16 +12,18 @@
 
 ### Positioning
 
-CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees. Read it like a design package for a large structure: design basis, load path, capacity, connections, as-built checks — not a feature list.
+Encrypted volumes already solve confidentiality of **bytes**. They do not solve the **on-disk story**. A multi-gigabyte high-entropy object that fails the habitat it claims is not a crypto break — it is a cover failure. That is the problem CHARM13 is built for.
 
-It does not introduce a new cipher. Confidentiality of bytes is the **foundation** (external L0, e.g. VeraCrypt). CHARM13 owns the **superstructure**: cover naturalness, detection, refuse-on-blown.
+CHARM13 constructs habitat cover trees, measures them with a detection oracle, and **refuses** when the cover is blown. Alongside the tool is a finite-model program on **budgeted adaptive distinguishability**: static checklists are necessary machinery; they are not a certificate against every adaptive look of similar length. Threat tiers are named; T4 is unclaimed.
+
+It does not introduce a new cipher. Byte confidentiality is **L0** (borrowed — VeraCrypt or equivalent). CHARM13 owns cover construction, habitat ecology, and the refuse joint.
 
 | Layer | Role | Owner |
 |-------|------|--------|
-| Cryptographic ciphertext | Foundation — secrecy of content | External L0 (VeraCrypt, etc.) |
-| Cover / habitat story | Superstructure — on-disk narrative | CHARM13 forge + smell |
+| Ciphertext | Confidentiality of content | External L0 (VeraCrypt, etc.) |
+| Cover / habitat | On-disk narrative; detection; refuse | CHARM13 forge + smell |
 
-Most tools stop at the foundation. CHARM13 draws a continuous load path: **construct → measure → refuse**.
+Loop: **construct → measure → refuse**. Override only with informed `--i-know`.
 
 Full field notes: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md) · doctrine: [`docs/MASTER.md`](docs/MASTER.md) · T1 budget: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md)
 

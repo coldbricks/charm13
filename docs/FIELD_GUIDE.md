@@ -2,9 +2,11 @@
 
 ## Positioning
 
-CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees. Read it like a design package for a large structure: design basis, load path, capacity, connections, as-built checks — not a feature list.
+Encrypted volumes already solve confidentiality of **bytes**. They do not solve the **on-disk story**. A high-entropy object that fails the habitat it claims is not a crypto break — it is a cover failure. That is the problem CHARM13 is built for.
 
-It does not introduce a new cipher. Confidentiality of bytes is the **foundation** (external L0, e.g. VeraCrypt). CHARM13 owns the **superstructure**: cover naturalness, detection, refuse-on-blown.
+CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees. Construct, measure, refuse. Static smell is necessary QC; it is not a full adaptive T1 certificate. T4 is unclaimed.
+
+It does not introduce a new cipher. Confidentiality of bytes is **L0** (external, e.g. VeraCrypt). CHARM13 owns cover naturalness, detection, and refuse-on-blown.
 
 ## Two layers people conflate
 
