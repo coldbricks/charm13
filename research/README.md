@@ -1,6 +1,6 @@
-# Research — CHARM13
+# Research notes — CHARM13
 
-Finite-model theory of **budgeted adaptive inspection** on habitat-shaped query systems: exact capacity envelopes, equality classification, and product scars that change how the tool is detailed. Think stress analysis for inspection budgets — demand vs capacity under named load cases — not theater. Detection / claim-validity framing only. No concealment-from-inspection operations guidance. No T4 claims. No literature-novelty press for the sharp seed package.
+Finite-model notes on **budgeted adaptive inspection** for habitat-shaped query systems: exact envelopes, equality classification, rational certificates, and the engineering corollaries used by the tool. Detection and claim-validity framing only. No operational guidance for concealment from inspection. No T4 claims. No assertion of literature novelty for the sharp seed package.
 
 ## Start here
 

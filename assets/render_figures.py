@@ -667,7 +667,7 @@ def fig_wtf_hero() -> None:
     ax_l.text(
         0.0,
         0.86,
-        "design basis  ·  budgeted inspection  ·  finite models",
+        "notes on budgeted adaptive inspection",
         color=MUTED,
         fontsize=12.0,
         fontstyle="italic",
@@ -677,12 +677,12 @@ def fig_wtf_hero() -> None:
     ax_l.text(
         0.0,
         0.72,
-        "Capacity envelopes for adaptive versus nonadaptive\n"
+        "Exact envelopes for adaptive versus nonadaptive\n"
         "total variation under a look budget.\n\n"
         "Flattening · root-arity · sharp gap G₂(K)=1−1/K\n"
-        "support-minimal binary extremizer · capacity zero\n"
-        "on habitat-shaped query families.\n\n"
-        "Load path: forge → smell → refuse.  T4 unstamped.",
+        "support-minimal binary extremizer · habitat forms\n"
+        "with exact rational certificates.\n\n"
+        "Finite OPEN model.  Priority of the seed package open.",
         color=SOFT,
         fontsize=10.6,
         linespacing=1.55,
@@ -693,22 +693,22 @@ def fig_wtf_hero() -> None:
     ax_l.plot([0.0, 0.92], [0.38, 0.38], color=DIM, lw=0.9)
 
     bullets = [
-        ("01", r"$r \leq B+1 \Rightarrow D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}$  (OPEN)"),
-        ("02", r"$G_2(K)=1-1/K$  capacity  ·  matching construction"),
-        ("03", "butterfly: support-minimal & gap-maximal (K=2)"),
-        ("04", "service QC ≠ adaptive demand  ·  monoid score"),
-        ("05", "T4 unclaimed  ·  novelty unresolved for seed package"),
+        ("§1", r"$r \leq B+1 \Rightarrow D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}$"),
+        ("§2", r"$G_2(K)=1-1/K$  ·  matching construction"),
+        ("§3", "butterfly: unique support-minimal binary extremizer"),
+        ("§4", "habitat closed forms  ·  capacity remarks"),
+        ("§5", "novelty unresolved  ·  T4 unclaimed"),
     ]
     y = 0.32
     for num, text in bullets:
-        ax_l.text(0.0, y, num, color=GOLD, fontsize=9.0, fontfamily="monospace", va="center")
+        ax_l.text(0.0, y, num, color=GOLD, fontsize=9.0, fontfamily="serif", va="center")
         ax_l.text(0.09, y, text, color=SOFT, fontsize=9.8, fontfamily="serif", va="center")
         y -= 0.048
 
     ax_l.text(
         0.0,
         0.02,
-        "Purdue black & old gold  ·  name the loads, stamp the limits",
+        "finite models  ·  machine certificates  ·  engineering corollary in §6",
         color=MUTED,
         fontsize=8.5,
         fontfamily="serif",

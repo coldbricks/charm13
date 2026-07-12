@@ -7,47 +7,47 @@
 </p>
 
 <p align="center"><em>
-Exact envelopes for budgeted adaptive inspection.<br/>
-Finite models. Matching constructions. Machine certificates.<br/>
-Product doctrine is a scar of the theorems — not the other way around.
+Notes on budgeted adaptive inspection in finite models.<br/>
+Exact envelopes, matching constructions, and certificates.<br/>
+An engineering application is recorded after the mathematics.
 </em></p>
 
 ---
 
-## Stance
+## Preface
 
-This repository is a **finite-model research spine** with an engineering scar.
+These notes develop the comparison between **adaptive** and **nonadaptive** observation under a fixed look budget $B$, measured in total variation of transcript laws. The ambient setting is finite. Queries are maps $q\colon W\to Y_q$. Unless otherwise stated they are *open*: globally addressable, of unit cost, and non-destructive.
 
-The primary object is the worst-case additive gap between adaptive and nonadaptive total variation under a look budget, in an OPEN unit-cost query model. The sharp budget-two law is proved in-model:
+The principal quantity is the worst-case additive gap at budget two under active arity at most $K$:
 
 $$
 G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K.
 $$
 
-Literature novelty of that seed package is **unresolved**. Abstract adaptivity gains are classical. What is carried here, coldly: support flattening, root-arity, matching constructions, equality classification of the binary extremizer, habitat closed forms, exact rational certificates, and the product consequences that follow if one refuses to lie about static checklists.
+The identity is proved inside the frozen model below and is attained by an explicit construction. Whether the package is new relative to the broader literature on sequential testing and costly feature acquisition is left open; the abstract existence of adaptive gains is classical. What is collected here is a closed finite theory: flattening, root-arity, equality classification of the binary extremizer, habitat-shaped closed forms, exact rational certificates, and the consequences for a static detection checklist used as engineering quality control.
 
-No T4 claims. No new cipher. No score-as-probability marketing. If a statement is not sealed, it is left blank.
+We do not claim laboratory (T4) hardness, a new cipher, or a probabilistic interpretation of severity scores.
 
-Catalog · proofs · ladder:  
-[`research/THEOREMS.md`](research/THEOREMS.md) · [`research/m5/SEED_THEOREMS.md`](research/m5/SEED_THEOREMS.md) · [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md)
-
----
-
-## Objects
-
-Let $W$ be finite. Distributions $P,Q$. Signed mass $\mu=P-Q$. Query $q:W\to Y_q$. Adaptive policies: decision trees of depth $\le B$. Nonadaptive policies: at most $B$ queries fixed in advance. Objectives $D_B^{\mathrm{ad}}$, $D_B^{\mathrm{na}}$ = optimal transcript total variation. Active support:
-
-$$
-r=\bigl|\\{w:\mu(w)\ne 0\\}\bigr|.
-$$
-
-**OPEN** means globally addressable, unit cost, non-destructive — unless a theorem says otherwise.
+**Contents of the mathematical part.**  
+[`research/THEOREMS.md`](research/THEOREMS.md) (catalog) · [`research/m5/SEED_THEOREMS.md`](research/m5/SEED_THEOREMS.md) (proofs) · [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md) (missions M4–M18).
 
 ---
 
-## Crown theorems (proved in the frozen OPEN model)
+## §1. Notation
 
-### Flattening
+Let $W$ be a finite set of worlds and let $P,Q$ be probability distributions on $W$. Write $\mu=P-Q$ for the signed mass and
+
+$$
+r=\bigl|\\{w:\mu(w)\ne 0\\}\bigr|
+$$
+
+for the size of the active support. A *policy of budget $B$* is either adaptive (a decision tree of depth at most $B$) or nonadaptive (a fixed collection of at most $B$ queries). The quantities $D_B^{\mathrm{ad}}(P,Q)$ and $D_B^{\mathrm{na}}(P,Q)$ are the respective maximal transcript total variations.
+
+---
+
+## §2. Principal results (OPEN model)
+
+### Theorem (Flattening).
 
 If $r\le B+1$, then
 
@@ -55,11 +55,11 @@ $$
 D_B^{\mathrm{ad}}(P,Q)=D_B^{\mathrm{na}}(P,Q).
 $$
 
-A budget-two adaptivity gap therefore requires at least **four** active worlds.
+In particular, a strict adaptivity gap at budget two requires at least four active worlds.
 
-### Root-arity and sharp law
+### Theorem (Root-arity and sharp gap).
 
-If every query has active arity at most $K$, then at budget two
+If every query has active arity at most $K$, then
 
 $$
 D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},
@@ -67,15 +67,19 @@ D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},
 D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le 1-\frac1K.
 $$
 
-Both bounds are **exactly sharp**: there exists a finite construction with $D_2^{\mathrm{ad}}=1$ and $D_2^{\mathrm{na}}=1/K$. Hence the exact worst-case additive gap is
+Both bounds are sharp: there exists a finite system with $D_2^{\mathrm{ad}}=1$ and $D_2^{\mathrm{na}}=1/K$. Consequently
 
 $$
 \boxed{G_2(K)=1-\dfrac{1}{K}.}
 $$
 
-Binary case $K=2$: additive gap at most $1/2$, attained by the four-world **butterfly**, which is unique up to natural symmetries among support-minimal binary extremizers.
+### Theorem (Binary extremizer).
 
-**Novelty of the sharp seed package is unresolved.** The abstract fact that adaptivity can dominate nonadaptive experiments is classical (sequential testing, costly feature acquisition, classification trees). Residual value: support flattening, exact root-arity envelope, equality classification of the butterfly, first stability statement, habitat closed forms, and product scars.
+For $K=2$ the additive gap is at most $1/2$. Among four-world, binary, OPEN systems attaining the bound, the extremal geometry is unique up to the natural symmetries and coincides with the four-world *butterfly* recorded in the M4/M5 notes.
+
+### Remark (Priority).
+
+The sharp seed package is proved in the frozen model. Its literature priority is unresolved. Residual contributions emphasized here are support flattening, the exact root-arity envelope, equality classification, habitat closed forms, and the engineering corollaries in §6.
 
 <p align="center">
   <img src="assets/figures/equation_wall.png" alt="Identity wall" width="920"/>
@@ -127,7 +131,7 @@ Binary case $K=2$: additive gap at most $1/2$, attained by the four-world **butt
 
 ---
 
-## Formal apparatus
+## §3. Formal apparatus
 
 $$
 \mu:=P-Q,\quad
@@ -194,9 +198,9 @@ Full write-up: [`research/THEOREMS.md`](research/THEOREMS.md) · analytic proofs
 
 ---
 
-## Habitat geometry (application families)
+## §4. Habitat-shaped families
 
-Filesystem-shaped query models—not replacements for $G_2(K)$.
+The following closed forms describe filesystem-shaped query geometries. They are applications of the general apparatus, not replacements for the sharp law $G_2(K)$.
 
 **$k$-pair (which-then-bit).** Uniform random branch; payload bit differs under the two hypotheses; off-branch bits return $\mathtt{na}$. Adaptive with budget two achieves TV $=1$; best nonadaptive suite of budget two achieves $2/k$. Gap $1-2/k\to 1$. Myopic “strongest local check first” never opens with the branch query; ratio $k/2\to\infty$.
 
@@ -252,7 +256,9 @@ $$
 
 ---
 
-## Machine certificates
+## §5. Certificates and figures
+
+The identities above are accompanied by exact-rational machine checks.
 
 ```powershell
 pip install -e .
@@ -266,24 +272,15 @@ cd ..\m4\EXPERIMENTS
 python test_certificates.py
 ```
 
-Expected: all green; sharp table $K=2..7$ gives $\mathrm{ad}=1$, $\mathrm{na}=1/K$; $k$-pair $k=2..12$ gives $\mathrm{na}=2/k$.
-
-Figures:
-
-```powershell
-python assets/render_figures.py
-python assets/render_animations.py
-```
+On success: for $K=2,\ldots,7$ one has $\mathrm{ad}=1$ and $\mathrm{na}=1/K$; for the $k$-pair family with $k=2,\ldots,12$ one has $\mathrm{na}=2/k$. Figures and animations under `assets/figures/` may be regenerated by `python assets/render_figures.py` and `python assets/render_animations.py`.
 
 ---
 
-## Implementation scar (secondary)
+## §6. Application: habitat cover construction
 
-Encrypted volumes solve confidentiality of **bytes**. They do not solve **narrative**. The engineering layer constructs habitat cover trees, measures them, and **refuses** when the cover is blown. Cipher capacity (L0) is borrowed. Cover construction and the refuse joint are owned here.
+Encrypted volumes secure the confidentiality of bytes; they do not, by themselves, secure the *narrative* those bytes present on disk. The software layer collected in this repository constructs habitat-shaped cover trees, subjects them to a deterministic detection oracle, and refuses emission when the cover is judged blown. The cipher (Layer 0) is external. Cover construction and the refuse rule are internal.
 
-**Design basis (compressed).** Name the loads. Draw the load path (`forge → smell → refuse`). Size members for controlling cases. Detail connections (dual gate; severity monoid ≠ posterior). Leave T4 unstamped. As-built checks: `charm bench`, known-bad must fail.
-
-**Static smell is nonadaptive.** Clean reports are necessary QC — not an adaptive demand certificate at comparable look length. That is the theorem speaking through the tool.
+The design may be read as a load path: construction (`forge`), inspection (`smell`), and a dual refuse gate. Severity aggregation is a monoid on ordinal weights, not a posterior probability of forgery. Laboratory-scale adversaries (T4) are excluded from the sealed claims. Static smell is a nonadaptive checklist: necessary quality control, not a substitute for the adaptive envelopes of §§2–4.
 
 ```text
 charm doctor
@@ -322,15 +319,15 @@ Doctrine: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md) · naturalness: [`docs/NATURA
 
 ---
 
-## Load cases (threat model)
+## §7. Threat model (load cases)
 
-| Case | Adversary | Design stance |
-|------|-----------|---------------|
-| **T0** | Glancing human | Service — strong on implemented tells |
-| **T1** | Curious technical peer, short session | Service — raise cost of casual tells; smell is nonadaptive; see T1_BUDGET |
-| **T2** | Offline stolen disk | Foundation governs if L0 holds; cover may shift prioritization only |
-| **T3** | Compelled password | Not stamped until CELLAR is detailed |
-| **T4** | Laboratory process + time | **Unclaimed. No stamp. Ever.** |
+| Case | Adversary | Claim |
+|------|-----------|--------|
+| **T0** | Glancing human | Strong on implemented tells |
+| **T1** | Curious technical peer, short session | Improves cost of casual tells; smell is nonadaptive; see `docs/T1_BUDGET.md` |
+| **T2** | Offline stolen disk | Crypto holds if L0 holds; cover may affect prioritization only |
+| **T3** | Compelled password | Not claimed until CELLAR is complete |
+| **T4** | Laboratory process and time | **No claim.** |
 
 ---
 
@@ -397,7 +394,7 @@ Reproduce: ladder runners + M4/M5 test suites. Static and animated figures are f
 
 ---
 
-## System sections (abbreviated)
+## §8. Software layout (abbreviated)
 
 ```text
 charm
@@ -420,9 +417,9 @@ Process: [`docs/SKUNKWORKS.md`](docs/SKUNKWORKS.md) · security: [`SECURITY.md`]
 
 **Purdue black** `#000000` / `#0A0A0A` · **old gold** `#CFB991` · Boiler Up.
 
-## Author · license · version
+## Colophon
 
-**David Lombardo** · MIT · **v0.3.8**  
+**David Lombardo** · MIT License · v0.3.8  
 [github.com/coldbricks/charm13](https://github.com/coldbricks/charm13)
 
-Statements are finite, falsifiable, and deliberately cold.
+All mathematical claims are relative to the finite models named in the text. Open questions are listed in the theorem catalog.

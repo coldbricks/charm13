@@ -4,9 +4,9 @@
 
 ### Voice / packaging
 
-- Landing stance: research spine first; product as implementation scar
-- Colder theorem-forward abstract; compressed design basis moved below the math
-- Repo metadata aligned to exact-envelope framing
+- Monograph / textbook register: preface, §-numbered sections, Theorem/Remark labels
+- Same visual system (black boards, figures, animations); product deferred to application §
+- Catalog and research index in reference-sheet prose
 
 ## 0.3.7
 
