@@ -44,7 +44,7 @@ Assume OPEN unit-cost queries. If $r\le B+1$, then
 $$
 D_B^{\mathrm{ad}}(P,Q)=D_B^{\mathrm{na}}(P,Q).
 $$
-**Idea.** Reduce an adaptive tree to active worlds; every internal node has active outdegree $\ge 2$, so $\#\text{internal}\le r-1\le B$. Ask those query labels nonadaptively: joint outputs refine adaptive leaves on $S_\mu$.
+**Idea.** Reduce an adaptive tree to active worlds; every internal node has active outdegree $\ge 2$, so the number of internal nodes satisfies $I\le r-1\le B$. Ask those query labels nonadaptively: joint outputs refine adaptive leaves on $S_\mu$.
 
 **Scope.** Can fail for guarded discovery queries (legality of asking a query depends on path history). That is access restriction, not a counterexample to OPEN flattening.
 
