@@ -10,16 +10,16 @@ M5 math does **not** ship a new cipher or T4 claim. It changes how we treat **in
 
 | Fact | Use in product language |
 |------|-------------------------|
-| \(G_2(K)=1-1/K\) | Sharp universal budget-2 gap under active arity \(\le K\) |
-| Binary case gap \(\le 1/2\) | M4 witness is gap-maximal among binary OPEN queries |
-| Flattening \(r\le B+1\) | Small signed support cannot create OPEN adaptivity gaps |
-| k-pair \(D_{\mathrm{na}}=2/k\) | Habitat / branching story; greedy “local first” failure |
+| $G_2(K)=1-1/K$ | Sharp universal budget-2 gap under active arity $\le K$ |
+| Binary case gap $\le 1/2$ | M4 witness is gap-maximal among binary OPEN queries |
+| Flattening $r\le B+1$ | Small signed support cannot create OPEN adaptivity gaps |
+| k-pair $D_{\mathrm{na}}=2/k$ | Habitat / branching story; greedy “local first” failure |
 | Static smell | Nonadaptive observer — not adaptive T1 |
 
-Do **not** present \(2/k\) as the universal extremal constant. Prefer:
+Do **not** present $2/k$ as the universal extremal constant. Prefer:
 
-- “On an explicit branching habitat, gap \(1-2/k\to 1\)” for operator narrative.  
-- “Under arity-\(K\) queries the sharp additive envelope is \(1-1/K\)” for research accuracy.
+- “On an explicit branching habitat, gap $1-2/k\to 1$” for operator narrative.  
+- “Under arity-$K$ queries the sharp additive envelope is $1-1/K$” for research accuracy.
 
 ---
 
@@ -35,7 +35,7 @@ Do **not** present \(2/k\) as the universal extremal constant. Prefer:
 - An adaptive T1 with the same number of looks can be **arbitrarily stronger** as branching / arity grows.  
 - **Passing a static smell suite does not upper-bound adaptive T1 risk.**  
 - Myopic “run the strongest local check first” can be **arbitrarily bad** vs asking a gate/branch question first.  
-- Sharp finite law: \(G_2(K)=1-1/K\) (proved in-model; novelty unresolved).
+- Sharp finite law: $G_2(K)=1-1/K$ (proved in-model; novelty unresolved).
 
 **T-tiers:** T1 clarification. Not T3/T4.
 
@@ -59,7 +59,7 @@ No automatic repair from M5. Doctrine only until fixtures exist.
 
 ## Acceptance tests for this delta
 
-- [x] Docs distinguish sharp \(1-1/K\) vs k-pair \(2/k\)  
+- [x] Docs distinguish sharp $1-1/K$ vs k-pair $2/k$  
 - [x] RESULT/M5 linked from research README  
 - [ ] Product tests still green (run at ship)  
 - [x] No “undetectable under budget B” language  

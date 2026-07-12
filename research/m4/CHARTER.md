@@ -195,15 +195,15 @@ D_B(P,Q)
      \mathrm{TV}\bigl(\mathrm{Law}_P(T_\pi),\; \mathrm{Law}_Q(T_\pi)\bigr)
 $$
 
-with total variation \(\mathrm{TV}(\mu,\nu)=\tfrac12\sum |μ−ν|\).
+with total variation $\mathrm{TV}(\mu,\nu)=\tfrac12\sum |μ−ν|$.
 
 **Notes (non-novelty):**
 
 - This is **restricted statistical distance** under an adaptive experiment class; related to active/sequential hypothesis testing, controlled sensing, Le Cam deficiency for restricted experiment classes, Blackwell comparison.  
 - MIRROR owns collision search; **do not rename** if exact match found — cite and specialize.  
-- Decision error form: for equal priors, max Bayes accuracy = \(\tfrac12 + \tfrac12 D_B\) when the policy’s terminal decision is optimal for the transcript law (standard).
+- Decision error form: for equal priors, max Bayes accuracy = $\tfrac12 + \tfrac12 D_B$ when the policy’s terminal decision is optimal for the transcript law (standard).
 
-Nonadaptive variant \(D_B^{\mathrm{na}}\): sup over fixed query sets of total cost ≤ B (order may still matter if queries are destructive — default: non-destructive, order irrelevant for nonadaptive).
+Nonadaptive variant $D_B^{\mathrm{na}}$: sup over fixed query sets of total cost ≤ B (order may still matter if queries are destructive — default: non-destructive, order irrelevant for nonadaptive).
 
 ### 2.6 Habitat camouflage capacity (secondary object)
 
@@ -217,7 +217,7 @@ $$
 
 Hard constraints include: specialist extension policy, size-band ceilings unless unsafe, no GIAB tokens, checksum consistency when published.
 
-Treat \(C_H\) as **analysis object**. Honest reduction to distribution matching / rate-distortion / stego capacity when applicable is success, not failure.
+Treat $C_H$ as **analysis object**. Honest reduction to distribution matching / rate-distortion / stego capacity when applicable is success, not failure.
 
 ### 2.7 Smell as nonadaptive policy (bridge)
 
@@ -225,8 +225,8 @@ CHARM smell ≈ a **single fixed nonadaptive policy** with large effective B (fu
 
 Therefore:
 
-- Fixture “BLOWN” ≠ proved \(D_B > 0\) for all adaptive π;  
-- Fixture “clean” ≠ proved \(D_B \le ε\).
+- Fixture “BLOWN” ≠ proved $D_B > 0$ for all adaptive π;  
+- Fixture “clean” ≠ proved $D_B \le ε$.
 
 ---
 
@@ -243,8 +243,8 @@ There exist explicit finite distributions P, Q on rooted attributed trees with |
 `𝒬₀ = {list(v), stat(u), head(u)}`  
 such that for budget B = 2:
 
-1. \(D_2^{\mathrm{na}}(P,Q) \le 1/4\),  
-2. \(D_2(P,Q) = 1/2\),  
+1. $D_2^{\mathrm{na}}(P,Q) \le 1/4$,  
+2. $D_2(P,Q) = 1/2$,  
 
 and no instance with |V| ≤ 3 achieves a strict adaptive gap under `𝒬₀` with unit costs and rational masses with denominator ≤ 12.
 
@@ -278,9 +278,9 @@ and both (1) and (2) occur already for |Φ(d)| ≤ 3, ≤ 2 defects, and the act
 For every finite family of predicates {φⱼ} each depending on at most ℓ nodes/attributes (a model of smell rule supports), there exist distributions P, Q on trees with O(ℓ) nodes such that:
 
 1. Law_P(φⱼ(X)) = Law_Q(φⱼ(X)) for all j (identical local pass rates),  
-2. yet \(D_1(P,Q) ≥ 1/2\) via a single cost-1 **global relation query** (e.g. parity of a path attribute, or checksum-of-declared-companions consistency not in {φⱼ}).
+2. yet $D_1(P,Q) ≥ 1/2$ via a single cost-1 **global relation query** (e.g. parity of a path attribute, or checksum-of-declared-companions consistency not in {φⱼ}).
 
-Moreover, under the extra assumption that P and Q are **tree-Markov** with known factorization and all maximal-clique marginals matched, \(D_B\) can be small — **state the positive companion carefully** so the negative result is sharp, not vague.
+Moreover, under the extra assumption that P and Q are **tree-Markov** with known factorization and all maximal-clique marginals matched, $D_B$ can be small — **state the positive companion carefully** so the negative result is sharp, not vague.
 
 **Interpretation:** Passing every implemented local smell does not imply small D_B; global ecological invariants are first-class.
 

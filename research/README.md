@@ -12,25 +12,25 @@ Finite-model theory of **budgeted adaptive inspection** on habitat-shaped query 
 | [m5/RESULT.md](m5/RESULT.md) | Crown status table + correction to habitat packaging |
 | [ladder/](ladder/) | Exact-rational kernel + recursive runners |
 | [m4/](m4/) | Adaptive gap certificates, minimality, score hygiene |
-| [m5/](m5/) | Flattening, \(G_2(K)=1-1/K\), butterfly, \(k\)-pair |
+| [m5/](m5/) | Flattening, $G_2(K)=1-1/K$, butterfly, $k$-pair |
 | [m6/](m6/)–[m18/](m18/) | Envelopes, capacity zero, parity, query complexity, doctrine |
 
 ## Crown statements (one screen)
 
-\[
+$$
 r\le B+1 \;\Rightarrow\; D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}
 \qquad\text{(OPEN flattening)}
-\]
+$$
 
-\[
+$$
 D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
 \qquad
 G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K
-\]
+$$
 
 Binary extremizer: M4 four-world butterfly — support-minimal and gap-maximal among OPEN binary queries at budget two (unique up to symmetry).
 
-Habitat closed forms (\(k\)-pair, parity) are **application geometry**, not the sharp universal envelope.
+Habitat closed forms ($k$-pair, parity) are **application geometry**, not the sharp universal envelope.
 
 ## Reproduce
 

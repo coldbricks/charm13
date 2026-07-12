@@ -25,7 +25,7 @@ CHARM13 is built the way a large structure is designed: **name the loads, draw t
 | **Load path** | `forge` → construct → `smell` → dual refuse. Continuity matters: forge must not emit what smell would blow, unless the operator overrides with `--i-know`. |
 | **Service loads** | T0–T1: glancing and short technical inspection. Designed for. |
 | **Ultimate / unclaimed** | T4 laboratory process. Explicitly off the sealed drawings. |
-| **Member capacity** | Finite-model envelopes \(G_2(K)\), habitat closed forms — exact, not vibe. |
+| **Member capacity** | Finite-model envelopes $G_2(K)$, habitat closed forms — exact, not vibe. |
 | **Connection detailing** | Dual refuse gate; severity monoid (not a posterior); gate-before-local doctrine. |
 | **As-built checks** | `charm bench`, machine certificates, known-bad fixtures must fail. |
 
@@ -35,11 +35,11 @@ Math is the stress analysis. The CLI is the construction sequence. Threat tiers 
 
 ## Objects
 
-Let \(W\) be finite. Fix distributions \(P,Q\) and signed mass \(\mu=P-Q\). A **query** is a total map \(q:W\to Y_q\). An **adaptive** budget-\(B\) policy is a decision tree of depth \(\le B\); a **nonadaptive** policy fixes \(\le B\) queries before any observation. Write \(D_B^{\mathrm{ad}}\) and \(D_B^{\mathrm{na}}\) for optimal transcript total variation. Active support size:
+Let $W$ be finite. Fix distributions $P,Q$ and signed mass $\mu=P-Q$. A **query** is a total map $q:W\to Y_q$. An **adaptive** budget-$B$ policy is a decision tree of depth $\le B$; a **nonadaptive** policy fixes $\le B$ queries before any observation. Write $D_B^{\mathrm{ad}}$ and $D_B^{\mathrm{na}}$ for optimal transcript total variation. Active support size:
 
-\[
+$$
 r=\bigl|\{w:\mu(w)\ne 0\}\bigr|.
-\]
+$$
 
 Unless marked otherwise, queries are **OPEN** (globally addressable, unit cost, non-destructive).
 
@@ -51,31 +51,31 @@ Canonical statement catalog: [`research/THEOREMS.md`](research/THEOREMS.md) · p
 
 ### Flattening
 
-If \(r\le B+1\), then
+If $r\le B+1$, then
 
-\[
+$$
 D_B^{\mathrm{ad}}(P,Q)=D_B^{\mathrm{na}}(P,Q).
-\]
+$$
 
 A budget-two adaptivity gap therefore requires at least **four** active worlds.
 
 ### Root-arity and sharp law
 
-If every query has active arity at most \(K\), then at budget two
+If every query has active arity at most $K$, then at budget two
 
-\[
+$$
 D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
 \qquad
 D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le 1-\frac1K.
-\]
+$$
 
-Both bounds are **exactly sharp**: there exists a finite construction with \(D_2^{\mathrm{ad}}=1\) and \(D_2^{\mathrm{na}}=1/K\). Hence the exact worst-case additive gap is
+Both bounds are **exactly sharp**: there exists a finite construction with $D_2^{\mathrm{ad}}=1$ and $D_2^{\mathrm{na}}=1/K$. Hence the exact worst-case additive gap is
 
-\[
+$$
 \boxed{G_2(K)=1-\dfrac{1}{K}.}
-\]
+$$
 
-Binary case \(K=2\): additive gap at most \(1/2\), attained by the four-world **butterfly**, which is unique up to natural symmetries among support-minimal binary extremizers.
+Binary case $K=2$: additive gap at most $1/2$, attained by the four-world **butterfly**, which is unique up to natural symmetries among support-minimal binary extremizers.
 
 **Novelty of the sharp seed package is unresolved.** The abstract fact that adaptivity can dominate nonadaptive experiments is classical (sequential testing, costly feature acquisition, classification trees). Residual value: support flattening, exact root-arity envelope, equality classification of the butterfly, first stability statement, habitat closed forms, and product scars.
 
@@ -131,58 +131,58 @@ Binary case \(K=2\): additive gap at most \(1/2\), attained by the four-world **
 
 ## Formal apparatus
 
-\[
+$$
 \mu:=P-Q,\quad
 \sum_{w\in W}\mu(w)=0,\quad
 S_\mu=\{w:\mu(w)\ne0\},\quad
 r=|S_\mu|.
-\]
+$$
 
-\[
+$$
 V_\mu(\Pi)=\frac12\sum_{C\in\Pi}|\mu(C)|
 =\mathrm{TV}(\mathrm{Law}_P T,\mathrm{Law}_Q T).
-\]
+$$
 
 Bayes bridge (weighted classification trees):
 
-\[
+$$
 M(w,0)=\tfrac12 P(w),\;
 M(w,1)=\tfrac12 Q(w),\qquad
 V_\mu(\Pi)=1-2R(\Pi),
-\]
+$$
 
-\[
+$$
 D_B^{\mathrm{ad}}=1-2R_B^{\mathrm{tree}},\qquad
 D_B^{\mathrm{na}}=1-2R_B^{\mathrm{static}}.
-\]
+$$
 
-Root-arity proof core: \(V(\pi)=\sum_{i=1}^k v_i\) and \(D_2^{\mathrm{na}}\ge\max_i v_i\), hence
+Root-arity proof core: $V(\pi)=\sum_{i=1}^k v_i$ and $D_2^{\mathrm{na}}\ge\max_i v_i$, hence
 
-\[
+$$
 D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},\qquad
 D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le\Bigl(1-\frac1K\Bigr)D_2^{\mathrm{ad}}\le 1-\frac1K.
-\]
+$$
 
-Matching address family \(W_K=\{(i,x):i\le K,\;x\in\{0,1\}^K\}\):
+Matching address family $W_K=\{(i,x):i\le K,\;x\in\{0,1\}^K\}$:
 
-\[
+$$
 P(i,x)=\frac{\mathbf{1}_{x_i=0}}{K\,2^{K-1}},\quad
 Q(i,x)=\frac{\mathbf{1}_{x_i=1}}{K\,2^{K-1}},\quad
 g(i,x)=i,\; b_j(i,x)=x_j.
-\]
+$$
 
 Gain-sensitive support bound and open curve:
 
-\[
+$$
 D_2^{\mathrm{na}}\ge V_0+\max_i g_i,\qquad
 m\le\min\Bigl\{K,\Big\lfloor\tfrac r2\Big\rfloor\Bigr\},
-\]
+$$
 
-\[
+$$
 G_2(K,r)=\sup\bigl\{D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}:\mathrm{arity}\le K,\;|S_\mu|\le r\bigr\}.
-\]
+$$
 
-Known anchors: \(G_2(K,r)=0\) for \(r\le 3\); \(G_2(2,4)=1/2\); \(G_2(K,\infty)=1-1/K\). Exact intermediate surface mostly open.
+Known anchors: $G_2(K,r)=0$ for $r\le 3$; $G_2(2,4)=1/2$; $G_2(K,\infty)=1-1/K$. Exact intermediate surface mostly open.
 
 <p align="center">
   <img src="assets/figures/stability_board.png" alt="Stability and G2(K,r)" width="720"/>
@@ -198,15 +198,15 @@ Full write-up: [`research/THEOREMS.md`](research/THEOREMS.md) · analytic proofs
 
 ## Habitat geometry (application families)
 
-Filesystem-shaped query models—not replacements for \(G_2(K)\).
+Filesystem-shaped query models—not replacements for $G_2(K)$.
 
-**\(k\)-pair (which-then-bit).** Uniform random branch; payload bit differs under the two hypotheses; off-branch bits return \(\mathtt{na}\). Adaptive with budget two achieves TV \(=1\); best nonadaptive suite of budget two achieves \(2/k\). Gap \(1-2/k\to 1\). Myopic “strongest local check first” never opens with the branch query; ratio \(k/2\to\infty\).
+**$k$-pair (which-then-bit).** Uniform random branch; payload bit differs under the two hypotheses; off-branch bits return $\mathtt{na}$. Adaptive with budget two achieves TV $=1$; best nonadaptive suite of budget two achieves $2/k$. Gap $1-2/k\to 1$. Myopic “strongest local check first” never opens with the branch query; ratio $k/2\to\infty$.
 
-**All fixed budgets.** On the same family, for every \(B\ge 2\):
+**All fixed budgets.** On the same family, for every $B\ge 2$:
 
-\[
+$$
 D_B^{\mathrm{ad}}=1,\qquad D_B^{\mathrm{na}}=\frac{\min(B,k)}{k},\qquad \mathrm{Gap}_B(k)\to 1\ (k\to\infty).
-\]
+$$
 
 A fixed-size checklist cannot uniformly bound adaptive risk across branching factors.
 
@@ -218,11 +218,11 @@ A fixed-size checklist cannot uniformly bound adaptive risk across branching fac
   <img src="assets/figures/habitat_forms.png" alt="Habitat closed forms" width="720"/>
 </p>
 
-**Parity payloads.** Local bit marginals matched; global parity differs per branch. Perfect adaptive separation costs \(B^\star_{\mathrm{ad}}=1+m\); perfect nonadaptive separation costs \(B^\star_{\mathrm{na}}=k\cdot m\). Ratio unbounded in \(k\):
+**Parity payloads.** Local bit marginals matched; global parity differs per branch. Perfect adaptive separation costs $B^\star_{\mathrm{ad}}=1+m$; perfect nonadaptive separation costs $B^\star_{\mathrm{na}}=k\cdot m$. Ratio unbounded in $k$:
 
-\[
+$$
 \frac{B^\star_{\mathrm{na}}}{B^\star_{\mathrm{ad}}}=\frac{km}{m+1}\to\infty.
-\]
+$$
 
 <p align="center">
   <img src="assets/figures/anim_budget_race.gif" alt="Adaptive vs nonadaptive budget race" width="860"/>
@@ -232,7 +232,7 @@ A fixed-size checklist cannot uniformly bound adaptive risk across branching fac
   <img src="assets/figures/anim_parity_ratio_3d.gif" alt="3D parity budget ratio surface" width="720"/>
 </p>
 
-**Capacity zero.** Under adaptive inspection with \(B\ge 2\) on the \(k\)-pair family, indistinguishability capacity for any \(\varepsilon<1\) is **zero**. Large branching helps checklists; it does not help against which-then-bit.
+**Capacity zero.** Under adaptive inspection with $B\ge 2$ on the $k$-pair family, indistinguishability capacity for any $\varepsilon<1$ is **zero**. Large branching helps checklists; it does not help against which-then-bit.
 
 <p align="center">
   <img src="assets/figures/anim_capacity_zero.gif" alt="Capacity zero under adaptive inspection" width="860"/>
@@ -248,9 +248,9 @@ A fixed-size checklist cannot uniformly bound adaptive risk across branching fac
 
 | Family | Role | Gap / separation |
 |--------|------|------------------|
-| Address construction (arity \(K\)) | **Extremal law** | \(G_2(K)=1-1/K\) |
-| \(k\)-pair | Habitat + greedy scar | \(1-2/k\) at \(B=2\) |
-| Parity (\(m\)-bit) | Budget race | \(B^\star_{\mathrm{ad}}=1+m\) vs \(B^\star_{\mathrm{na}}=km\) |
+| Address construction (arity $K$) | **Extremal law** | $G_2(K)=1-1/K$ |
+| $k$-pair | Habitat + greedy scar | $1-2/k$ at $B=2$ |
+| Parity ($m$-bit) | Budget race | $B^\star_{\mathrm{ad}}=1+m$ vs $B^\star_{\mathrm{na}}=km$ |
 
 ---
 
@@ -268,7 +268,7 @@ cd ..\m4\EXPERIMENTS
 python test_certificates.py
 ```
 
-Expected: all green; sharp table \(K=2..7\) gives \(\mathrm{ad}=1\), \(\mathrm{na}=1/K\); \(k\)-pair \(k=2..12\) gives \(\mathrm{na}=2/k\).
+Expected: all green; sharp table $K=2..7$ gives $\mathrm{ad}=1$, $\mathrm{na}=1/K$; $k$-pair $k=2..12$ gives $\mathrm{na}=2/k$.
 
 Figures:
 
@@ -314,7 +314,7 @@ refused     = (∃ finding with severity bad)  ∨  (blown_score ≥ 0.6)
 | Fact | Implication |
 |------|-------------|
 | Weights are ordinal | Not calibrated likelihoods or posteriors |
-| Product is a monoid | Commutative severity aggregation, not \(\mathbb{P}(\text{generated})\) |
+| Product is a monoid | Commutative severity aggregation, not $\mathbb{P}(\text{generated})$ |
 | Dual gate | One bad finding alone scores 0.55 and still refuses |
 | Clean report | Necessary for refuse automation—not a full adaptive T1 bound |
 
@@ -375,14 +375,14 @@ Forge refuses blown covers by default. `--i-know` is an informed override. `--wr
 | Band | Content |
 |------|---------|
 | M4 | Finite adaptive gap certificates, score hygiene, witnesses |
-| M5 | Flattening, root-arity, \(G_2(K)=1-1/K\), butterfly uniqueness, \(k\)-pair |
-| M6–M9 | All-\(B\) envelopes, greedy failure, checklist incompleteness, capacity zero |
+| M5 | Flattening, root-arity, $G_2(K)=1-1/K$, butterfly uniqueness, $k$-pair |
+| M6–M9 | All-$B$ envelopes, greedy failure, checklist incompleteness, capacity zero |
 | M10–M13 | Closed forms vs DP, doctrine pack, parity budgets, unbounded separation |
 | M14–M18 | Nesting, score–LR reversals, query complexity, randomized NA, mega-pack |
 
 Reproduce: ladder runners + M4/M5 test suites. Static and animated figures are first-class artifacts of the certificates, not decoration.
 
-**Open frontier.** Support-constrained curve \(G_2(K,r)\); equality for \(K>2\); sharp \(G_B(K)\) for \(B\ge 3\); guarded compilation; Lean formalization of the seed package; completed primary-source collision.
+**Open frontier.** Support-constrained curve $G_2(K,r)$; equality for $K>2$; sharp $G_B(K)$ for $B\ge 3$; guarded compilation; Lean formalization of the seed package; completed primary-source collision.
 
 ---
 

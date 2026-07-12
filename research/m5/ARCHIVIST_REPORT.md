@@ -24,8 +24,8 @@ Full starter map: `PRIOR_ART.md`.
 |-------|-------------------|
 | Deterministic policies / TV mixtures | KNOWN RESULT |
 | Classification-tree reduction | KNOWN RESULT — NEW APPLICATION (bridge into inspection language) |
-| Flattening \(r\le B+1\) | PROVED — NOVELTY UNRESOLVED |
-| \(G_2(K)=1-1/K\) | PROVED — NOVELTY UNRESOLVED (candidate sharp finite law) |
+| Flattening $r\le B+1$ | PROVED — NOVELTY UNRESOLVED |
+| $G_2(K)=1-1/K$ | PROVED — NOVELTY UNRESOLVED (candidate sharp finite law) |
 | Butterfly uniqueness | PROVED — NOVELTY UNRESOLVED |
 | k-pair unbounded gap packaging | KNOWN RESULT, NEW APPLICATION |
 

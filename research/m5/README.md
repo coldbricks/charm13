@@ -6,23 +6,23 @@
 
 ## Crown result
 
-At inspection budget **2**, with query active-arity at most \(K\):
+At inspection budget **2**, with query active-arity at most $K$:
 
-\[
+$$
 G_2(K) = \sup\bigl(D_2^{\mathrm{ad}} - D_2^{\mathrm{na}}\bigr) = 1 - \frac1K.
-\]
+$$
 
-Matching construction: \(D_2^{\mathrm{ad}}=1\), \(D_2^{\mathrm{na}}=1/K\).
+Matching construction: $D_2^{\mathrm{ad}}=1$, $D_2^{\mathrm{na}}=1/K$.
 
-Companion theorems: flattening (\(r\le B+1\) kills the gap), four-world butterfly uniqueness, first stability statement.
+Companion theorems: flattening ($r\le B+1$ kills the gap), four-world butterfly uniqueness, first stability statement.
 
 ## Habitat application (k-pair)
 
 CHARM-shaped **which-then-bit** family (off-branch `na`):
 
-- Adaptive: \(D=1\) for every \(k\)
-- Nonadaptive: \(D=2/k\)
-- Gap \(1-2/k\to 1\); greedy ratio \(k/2\to\infty\)
+- Adaptive: $D=1$ for every $k$
+- Nonadaptive: $D=2/k$
+- Gap $1-2/k\to 1$; greedy ratio $k/2\to\infty$
 
 Valid and product-critical; **not** the sharp universal envelope (see `RESULT.md` correction table).
 
@@ -45,5 +45,5 @@ python test_m5.py
 
 ## Relation to M4
 
-M4: one gap of \(1/2\), support \(n=4\).  
-M5: proves that binary budget-two gap \(1/2\) is **globally maximal**, support-minimal, and uniquely the butterfly; then lifts to sharp arity-\(K\) law \(1-1/K\).
+M4: one gap of $1/2$, support $n=4$.  
+M5: proves that binary budget-two gap $1/2$ is **globally maximal**, support-minimal, and uniquely the butterfly; then lifts to sharp arity-$K$ law $1-1/K$.

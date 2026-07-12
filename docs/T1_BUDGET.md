@@ -45,17 +45,17 @@ Two finite-model layers matter:
 
 ### 3a. Sharp budget-2 law (arity-constrained, OPEN queries)
 
-Under globally addressable unit-cost queries of active arity at most \(K\),
+Under globally addressable unit-cost queries of active arity at most $K$,
 
-\[
+$$
 D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
 \qquad
 G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K.
-\]
+$$
 
-Binary queries (\(K=2\)): additive gap at most \(1/2\), and the M4 four-world
+Binary queries ($K=2$): additive gap at most $1/2$, and the M4 four-world
 butterfly attains it. Flattening: if active signed support has size
-\(r\le B+1\), then adaptive and nonadaptive values coincide (no OPEN gap).
+$r\le B+1$, then adaptive and nonadaptive values coincide (no OPEN gap).
 
 Reference: `research/m5/SEED_THEOREMS.md`, `research/m5/RESULT.md`.
 
@@ -73,9 +73,9 @@ On explicit infinite families (k-branch “which-then-bit” and m-bit parity):
 | Adaptive indistinguishability capacity is 0 for ε < 1 when B ≥ 2 on that family | M9 |
 | Parity-style globals: adaptive cost 1+m vs nonadaptive k·m | M12–M13 |
 
-**Packaging note:** k-pair nonadaptive value \(2/k\) at budget 2 is a
+**Packaging note:** k-pair nonadaptive value $2/k$ at budget 2 is a
 **habitat** closed form. The **sharp universal** nonadaptive ceiling under
-arity-\(K\) queries is \(1/K\), not \(2/k\).
+arity-$K$ queries is $1/K$, not $2/k$.
 
 **Product reading (careful):**  
 A cover that is **clean under the static smell suite** is not thereby proven

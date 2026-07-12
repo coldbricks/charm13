@@ -2,12 +2,12 @@
 
 **Status:** PROVED (analytic) + machine-checked for k ∈ {2,…,12}  
 **Role:** CHARM-shaped **application family** (which-then-bit with off-branch `na`).  
-**Not** the sharp universal envelope — that is \(G_2(K)=1-1/K\) in `SEED_THEOREMS.md` / `SHARP_ROOT_ARITY.md`.  
+**Not** the sharp universal envelope — that is $G_2(K)=1-1/K$ in `SEED_THEOREMS.md` / `SHARP_ROOT_ARITY.md`.  
 **Novelty posture:** `KNOWN RESULT, NEW APPLICATION` pending full MIRROR sweep  
   — the *phenomenon* (adaptivity helps) is classical; residual is an  
   **exact infinite family** with closed-form `D₂=1`, `D₂^{na}=2/k`, unbounded gap and  
   ratio, plus **unbounded greedy failure**, specialized to CHARM’s inspection language.  
-**Do not claim:** a new statistical distance; do not claim \(2/k\) is the best possible nonadaptive value under arity-\(k\) queries (the sharp construction achieves \(1/K\)).
+**Do not claim:** a new statistical distance; do not claim $2/k$ is the best possible nonadaptive value under arity-$k$ queries (the sharp construction achieves $1/K$).
 
 ---
 

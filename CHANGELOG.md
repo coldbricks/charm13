@@ -5,9 +5,9 @@
 ### Research surface
 
 - Canonical theorem catalog: `research/THEOREMS.md` (notation, crown laws, habitat forms, open problems, certificates)
-- Math-first README: formal apparatus, matching construction, stability / \(G_2(K,r)\), dense identity boards
+- Math-first README: formal apparatus, matching construction, stability / $G_2(K,r)$, dense identity boards
 - Additional black academic boards: formalism, address construction, butterfly uniqueness, stability, habitat forms, equation wall, support-curve sketch
-- Research GIFs at readable pace (~12–14 fps); selective 3D orbit surfaces: \(\mathrm{Gap}_B(k)\), \(G_2(K,r)\) envelope sketch, parity budget-ratio
+- Research GIFs at readable pace (~12–14 fps); selective 3D orbit surfaces: $\mathrm{Gap}_B(k)$, $G_2(K,r)$ envelope sketch, parity budget-ratio
 - Design-basis framing: load path, service vs unclaimed loads, capacity envelopes, as-built checks
 - Novelty posture held: sharp seed package proved-in-model, literature novelty unresolved
 
@@ -25,9 +25,9 @@
 
 ### M5 theorem package (math → doctrine)
 
-- Install full M5 seed package: flattening \(r\le B+1\), root-arity bound, sharp law \(G_2(K)=1-1/K\), four-world butterfly uniqueness, first stability statement
+- Install full M5 seed package: flattening $r\le B+1$, root-arity bound, sharp law $G_2(K)=1-1/K$, four-world butterfly uniqueness, first stability statement
 - Exact-rational certificates: `research/m5/EXPERIMENTS/m5_exact.py` (K=2..7, butterfly cores, support sanity)
-- Correct packaging: k-pair \(D_{\mathrm{na}}=2/k\) is a **habitat** family; sharp universal envelope is \(1-1/K\)
+- Correct packaging: k-pair $D_{\mathrm{na}}=2/k$ is a **habitat** family; sharp universal envelope is $1-1/K$
 - Retain k-pair / greedy failure as product scar (gate-before-local)
 - Docs: `docs/T1_BUDGET.md`, README mathematical spine, `research/LADDER_MASTER.md`
 - Novelty label held: **PROVED — NOVELTY UNRESOLVED** for the sharp seed package

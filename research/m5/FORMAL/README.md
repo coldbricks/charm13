@@ -8,9 +8,9 @@
 2. Transcript partitions  
 3. Refinement monotonicity  
 4. Deterministic-policy reduction (finite)  
-5. Flattening theorem \(r\le B+1\)  
+5. Flattening theorem $r\le B+1$  
 6. Root-arity bound  
-7. \(K\)-ary sharp construction  
+7. $K$-ary sharp construction  
 8. Four-world butterfly classification  
 9. Strongest surviving stability result  
 
