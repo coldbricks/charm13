@@ -2,6 +2,10 @@
 
 ## 0.3.5
 
+### Attribution
+
+- Author / copyright: **David Lombardo** (LICENSE, package metadata, README)
+
 ### M5 theorem package (math → doctrine)
 
 - Install full M5 seed package: flattening \(r\le B+1\), root-arity bound, sharp law \(G_2(K)=1-1/K\), four-world butterfly uniqueness, first stability statement

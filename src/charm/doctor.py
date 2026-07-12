@@ -15,6 +15,7 @@ def doctor_text() -> str:
     lines = [
         "charm doctor",
         f"  version     CHARM13 {__version__}",
+        "  author      David Lombardo",
         f"  python      {sys.version.split()[0]} ({platform.system()} {platform.machine()})",
         f"  executable  {sys.executable}",
     ]

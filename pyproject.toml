@@ -9,7 +9,7 @@ description = "Camouflage factory and detection oracle for encrypted-volume habi
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "coldb" }]
+authors = [{ name = "David Lombardo" }]
 dependencies = []
 
 [project.scripts]

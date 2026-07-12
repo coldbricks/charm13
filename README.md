@@ -247,6 +247,7 @@ Reproduce certificates with the ladder runners and `research/m4` / `research/m5`
 
 **Purdue black** `#000000` / `#0A0A0A` · **old gold** `#CFB991` · Boiler Up.
 
-## License & version
+## Author · license · version
 
-MIT · **v0.3.5**
+**David Lombardo** · MIT · **v0.3.5**  
+Repository: [github.com/coldbricks/charm13](https://github.com/coldbricks/charm13)
