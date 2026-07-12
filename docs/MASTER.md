@@ -3,7 +3,7 @@
 **Status:** binding doctrine for the project  
 **Mark:** CHARM / CHARM13  
 **Code:** `C:\Users\coldb\charm13`  
-**Version this plan assumes:** 0.3.5 (`forge`, `smell`, `bench`, habitats, any-bad blows, T1 budget doctrine, M5 sharp package)
+**Version this plan assumes:** 0.3.7 (`forge`, `smell`, `bench`, habitats, any-bad blows, T1 budget doctrine, M5 sharp package, theorem catalog)
 
 This document is how the work is understood. Not marketing. Not a feature wishlist.
 If a choice conflicts with this file, this file wins until it is deliberately revised.

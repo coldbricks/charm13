@@ -3,26 +3,270 @@
 </p>
 
 <p align="center">
-  <img src="assets/figures/landing_hero.png" alt="CHARM13 overview" width="920"/>
+  <img src="assets/figures/landing_hero.png" alt="CHARM13 — finite-model inspection geometry" width="920"/>
 </p>
 
 <p align="center"><em>
-Camouflage factory and detection oracle for encrypted-volume habitats.<br/>
-Construct a cover. Smell it. Refuse if blown. Measure the limits of that oracle.
+Finite-model mathematics of budgeted adaptive inspection.<br/>
+Detection-backed habitat construction for encrypted-volume cover stories.<br/>
+Exact envelopes. Machine certificates. Explicit non-claims.
 </em></p>
 
 ---
 
-## Abstract
+## Objects
 
-Encrypted volumes solve confidentiality of **bytes**. They do not solve the problem of **narrative**. A multi-gigabyte high-entropy blob named like a lab product, dropped beside toy decoys, does not fail cryptanalysis—it fails *plausibility*. CHARM13 treats that failure mode as an engineering object: habitats are constructed, measured by a detection oracle, and **refused** when the cover is blown.
+Let \(W\) be finite. Fix distributions \(P,Q\) and signed mass \(\mu=P-Q\). A **query** is a total map \(q:W\to Y_q\). An **adaptive** budget-\(B\) policy is a decision tree of depth \(\le B\); a **nonadaptive** policy fixes \(\le B\) queries before any observation. Write \(D_B^{\mathrm{ad}}\) and \(D_B^{\mathrm{na}}\) for optimal transcript total variation. Active support size:
 
-The system is deliberately layered. Layer 0 (cipher) is borrowed—VeraCrypt or an equivalent volume tool. CHARM13 owns cover construction (templates, identities, decoys, size bands, checksums), ecological constraints (which specialist formats belong in which habitat), and the refuse loop. The product promise is not “undetectable encryption.” The product promise is a **detection-backed camouflage workflow** with honest threat-model tiers and an explicit refusal path.
+\[
+r=\bigl|\{w:\mu(w)\ne 0\}\bigr|.
+\]
 
-Alongside the tool sits a finite-model research program on **budgeted adaptive inspection**. A short inspection is not necessarily a fixed checklist. An adaptive policy may choose the next observation from the transcript so far. On explicit synthetic habitat families, the gap between adaptive and nonadaptive distinguishing power can be driven arbitrarily close to its theoretical maximum at fixed look-budget. That fact is packaged as doctrine for operators: clean static smell is necessary machinery, not a certificate against every curious adaptive look of similar length.
+Unless marked otherwise, queries are **OPEN** (globally addressable, unit cost, non-destructive).
+
+Canonical statement catalog: [`research/THEOREMS.md`](research/THEOREMS.md) · proofs: [`research/m5/SEED_THEOREMS.md`](research/m5/SEED_THEOREMS.md) · ladder: [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md).
+
+---
+
+## Crown theorems (proved in the frozen OPEN model)
+
+### Flattening
+
+If \(r\le B+1\), then
+
+\[
+D_B^{\mathrm{ad}}(P,Q)=D_B^{\mathrm{na}}(P,Q).
+\]
+
+A budget-two adaptivity gap therefore requires at least **four** active worlds.
+
+### Root-arity and sharp law
+
+If every query has active arity at most \(K\), then at budget two
+
+\[
+D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
+\qquad
+D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le 1-\frac1K.
+\]
+
+Both bounds are **exactly sharp**: there exists a finite construction with \(D_2^{\mathrm{ad}}=1\) and \(D_2^{\mathrm{na}}=1/K\). Hence the exact worst-case additive gap is
+
+\[
+\boxed{G_2(K)=1-\dfrac{1}{K}.}
+\]
+
+Binary case \(K=2\): additive gap at most \(1/2\), attained by the four-world **butterfly**, which is unique up to natural symmetries among support-minimal binary extremizers.
+
+**Novelty of the sharp seed package is unresolved.** The abstract fact that adaptivity can dominate nonadaptive experiments is classical (sequential testing, costly feature acquisition, classification trees). Residual value: support flattening, exact root-arity envelope, equality classification of the butterfly, first stability statement, habitat closed forms, and product scars.
+
+<p align="center">
+  <img src="assets/figures/equation_wall.png" alt="Identity wall" width="920"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/formalism_board.png" alt="Signed-measure formalism" width="720"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/theorem_board.png" alt="Flattening and sharp budget-two law" width="720"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/address_construction.png" alt="Address matching construction" width="720"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/butterfly_board.png" alt="Four-world butterfly extremizer" width="720"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/formula_sheet.png" alt="Closed-form board" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/adaptivity_gap_B2.png" alt="Budget-2 adaptivity envelope" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_gap_growth.gif" alt="Gap growth" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_gap_to_one.gif" alt="G2 approaches 1" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_dual_envelope.gif" alt="Dual envelopes" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_gap_surface_3d.gif" alt="3D Gap_B(k) surface" width="720"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_g2_support_3d.gif" alt="3D G2(K,r) envelope sketch" width="720"/>
+</p>
+
+---
+
+## Formal apparatus
+
+\[
+\mu:=P-Q,\quad
+\sum_{w\in W}\mu(w)=0,\quad
+S_\mu=\{w:\mu(w)\ne0\},\quad
+r=|S_\mu|.
+\]
+
+\[
+V_\mu(\Pi)=\frac12\sum_{C\in\Pi}|\mu(C)|
+=\mathrm{TV}(\mathrm{Law}_P T,\mathrm{Law}_Q T).
+\]
+
+Bayes bridge (weighted classification trees):
+
+\[
+M(w,0)=\tfrac12 P(w),\;
+M(w,1)=\tfrac12 Q(w),\qquad
+V_\mu(\Pi)=1-2R(\Pi),
+\]
+
+\[
+D_B^{\mathrm{ad}}=1-2R_B^{\mathrm{tree}},\qquad
+D_B^{\mathrm{na}}=1-2R_B^{\mathrm{static}}.
+\]
+
+Root-arity proof core: \(V(\pi)=\sum_{i=1}^k v_i\) and \(D_2^{\mathrm{na}}\ge\max_i v_i\), hence
+
+\[
+D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},\qquad
+D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le\Bigl(1-\frac1K\Bigr)D_2^{\mathrm{ad}}\le 1-\frac1K.
+\]
+
+Matching address family \(W_K=\{(i,x):i\le K,\;x\in\{0,1\}^K\}\):
+
+\[
+P(i,x)=\frac{\mathbf{1}_{x_i=0}}{K\,2^{K-1}},\quad
+Q(i,x)=\frac{\mathbf{1}_{x_i=1}}{K\,2^{K-1}},\quad
+g(i,x)=i,\; b_j(i,x)=x_j.
+\]
+
+Gain-sensitive support bound and open curve:
+
+\[
+D_2^{\mathrm{na}}\ge V_0+\max_i g_i,\qquad
+m\le\min\Bigl\{K,\Big\lfloor\tfrac r2\Big\rfloor\Bigr\},
+\]
+
+\[
+G_2(K,r)=\sup\bigl\{D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}:\mathrm{arity}\le K,\;|S_\mu|\le r\bigr\}.
+\]
+
+Known anchors: \(G_2(K,r)=0\) for \(r\le 3\); \(G_2(2,4)=1/2\); \(G_2(K,\infty)=1-1/K\). Exact intermediate surface mostly open.
+
+<p align="center">
+  <img src="assets/figures/stability_board.png" alt="Stability and G2(K,r)" width="720"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/support_curve.png" alt="Support-constrained envelope sketch" width="860"/>
+</p>
+
+Full write-up: [`research/THEOREMS.md`](research/THEOREMS.md) · analytic proofs: [`research/m5/SEED_THEOREMS.md`](research/m5/SEED_THEOREMS.md).
+
+---
+
+## Habitat geometry (application families)
+
+Filesystem-shaped query models—not replacements for \(G_2(K)\).
+
+**\(k\)-pair (which-then-bit).** Uniform random branch; payload bit differs under the two hypotheses; off-branch bits return \(\mathtt{na}\). Adaptive with budget two achieves TV \(=1\); best nonadaptive suite of budget two achieves \(2/k\). Gap \(1-2/k\to 1\). Myopic “strongest local check first” never opens with the branch query; ratio \(k/2\to\infty\).
+
+**All fixed budgets.** On the same family, for every \(B\ge 2\):
+
+\[
+D_B^{\mathrm{ad}}=1,\qquad D_B^{\mathrm{na}}=\frac{\min(B,k)}{k},\qquad \mathrm{Gap}_B(k)\to 1\ (k\to\infty).
+\]
+
+A fixed-size checklist cannot uniformly bound adaptive risk across branching factors.
+
+<p align="center">
+  <img src="assets/figures/gap_all_B.png" alt="Gap for multiple budgets" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/habitat_forms.png" alt="Habitat closed forms" width="720"/>
+</p>
+
+**Parity payloads.** Local bit marginals matched; global parity differs per branch. Perfect adaptive separation costs \(B^\star_{\mathrm{ad}}=1+m\); perfect nonadaptive separation costs \(B^\star_{\mathrm{na}}=k\cdot m\). Ratio unbounded in \(k\):
+
+\[
+\frac{B^\star_{\mathrm{na}}}{B^\star_{\mathrm{ad}}}=\frac{km}{m+1}\to\infty.
+\]
+
+<p align="center">
+  <img src="assets/figures/anim_budget_race.gif" alt="Adaptive vs nonadaptive budget race" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_parity_ratio_3d.gif" alt="3D parity budget ratio surface" width="720"/>
+</p>
+
+**Capacity zero.** Under adaptive inspection with \(B\ge 2\) on the \(k\)-pair family, indistinguishability capacity for any \(\varepsilon<1\) is **zero**. Large branching helps checklists; it does not help against which-then-bit.
+
+<p align="center">
+  <img src="assets/figures/anim_capacity_zero.gif" alt="Capacity zero under adaptive inspection" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_greedy_blowup.gif" alt="Myopic greedy blowup" width="860"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/greedy_ratio.png" alt="Myopic greedy unbounded ratio" width="860"/>
+</p>
+
+| Family | Role | Gap / separation |
+|--------|------|------------------|
+| Address construction (arity \(K\)) | **Extremal law** | \(G_2(K)=1-1/K\) |
+| \(k\)-pair | Habitat + greedy scar | \(1-2/k\) at \(B=2\) |
+| Parity (\(m\)-bit) | Budget race | \(B^\star_{\mathrm{ad}}=1+m\) vs \(B^\star_{\mathrm{na}}=km\) |
+
+---
+
+## Machine certificates
+
+```powershell
+pip install -e .
+cd research\m5\EXPERIMENTS
+python test_m5_exact.py    # G_2(K)=1-1/K, butterfly, support
+python test_m5.py          # k-pair closed forms + greedy
+cd ..\..\ladder
+python run_ladder.py
+python run_ladder_high.py
+cd ..\m4\EXPERIMENTS
+python test_certificates.py
+```
+
+Expected: all green; sharp table \(K=2..7\) gives \(\mathrm{ad}=1\), \(\mathrm{na}=1/K\); \(k\)-pair \(k=2..12\) gives \(\mathrm{na}=2/k\).
+
+Figures:
+
+```powershell
+python assets/render_figures.py
+python assets/render_animations.py
+```
+
+---
+
+## Product scar (implementation of the doctrine)
+
+Encrypted volumes solve confidentiality of **bytes**. They do not solve **narrative**. CHARM13 constructs habitat cover trees, measures them with a detection oracle, and **refuses** when the cover is blown. Layer 0 (cipher) is borrowed—VeraCrypt or equivalent. CHARM13 owns cover construction, ecological constraints, and the refuse loop.
+
+The research consequence for operators is cold: **static smell is nonadaptive**. Clean static reports are necessary machinery, not a certificate against every adaptive look of similar length.
 
 ```text
-pip install -e .
 charm doctor
 charm bench
 charm templates
@@ -37,89 +281,7 @@ charm explain gate_before_local
   <img src="assets/figures/anim_loop.gif" alt="FORGE → SMELL → REFUSE" width="720"/>
 </p>
 
----
-
-## Design thesis
-
-Three commitments structure the project.
-
-**1. Naturalness is habitat-relative.**  
-A cover is blown if it is unnatural *for the habitat it claims*—not if it fails an encyclopedia of every file type on Earth. Genomics packs were an early calibration fixture because they fail loudly when faked; they are not the product identity. Habitats include media caches, steam depots, VM disks, photo libraries, SQL handoffs, docker layers, mail stores, ISO mirrors, incomplete downloads, optional WGS lab packs, and untyped bulk.
-
-**2. Detection is first-class.**  
-Forge without smell is cosplay. Smell without refuse is advisory theater. The default path is: construct, measure, exit non-zero when blown unless the operator explicitly overrides with `--i-know`.
-
-**3. Claims are tiered and finite.**  
-T0–T1 are the product-facing inspection regimes. T2 depends on borrowed crypto. T3 waits on CELLAR. T4 is never claimed. Research results are finite-model statements with assumptions named; they are not laboratory warranties.
-
----
-
-## The mathematical spine (animated)
-
-**Sharp finite law (budget 2, OPEN queries, active arity ≤ K):**
-
-\[
-G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K.
-\]
-
-Binary case: gap at most **1/2**, attained by the M4 four-world butterfly (support-minimal and gap-maximal). Proof package: [`research/m5/`](research/m5/). Novelty of the sharp law is **unresolved** pending primary-source collision; do not read this as a claim of invention.
-
-**Habitat application (k-pair family)**—uniform random branch, payload bit differs under the two hypotheses, off-branch bits return `na`—an adaptive policy with budget two (observe branch identity, then the bit on that branch) achieves total-variation advantage **1**. The best nonadaptive suite of budget two achieves **2/k**. The gap is **1 − 2/k**, which tends to **1** as branching grows. Myopic “pick the locally strongest single check first” never opens with the branch query and suffers approximation ratio **k/2**. (This \(2/k\) is a habitat closed form, not the sharp universal \(1/K\).)
-
-<p align="center">
-  <img src="assets/figures/anim_gap_growth.gif" alt="Adaptive vs nonadaptive advantage as k grows" width="860"/>
-</p>
-
-<p align="center">
-  <img src="assets/figures/anim_gap_to_one.gif" alt="Gap approaching one" width="860"/>
-</p>
-
-On the k-pair family the same envelope extends to every fixed budget B ≥ 2: nonadaptive advantage is min(B,k)/k while adaptive advantage saturates at 1 once B ≥ 2. A fixed-size checklist therefore cannot uniformly bound adaptive risk across all branching factors.
-
-<p align="center">
-  <img src="assets/figures/gap_all_B.png" alt="Gap for multiple budgets" width="860"/>
-</p>
-
-For **parity-style payloads** (local bit marginals matched; global parity differs per branch), adaptive perfect separation costs **1+m** looks (select branch, then read m bits). Nonadaptive perfect separation requires instrumenting every branch fully: budget **k·m**. The ratio grows without bound in k.
-
-<p align="center">
-  <img src="assets/figures/anim_budget_race.gif" alt="Adaptive vs nonadaptive budget race" width="860"/>
-</p>
-
-Under adaptive inspection with B ≥ 2 on the k-pair family, indistinguishability capacity for any ε &lt; 1 is **zero**: no branching factor reduces adaptive advantage below one. Large k helps checklists; it does not help against that adaptive policy class.
-
-<p align="center">
-  <img src="assets/figures/anim_capacity_zero.gif" alt="Capacity zero under adaptive inspection" width="860"/>
-</p>
-
-<p align="center">
-  <img src="assets/figures/formula_sheet.png" alt="Closed-form board" width="860"/>
-</p>
-
-<p align="center">
-  <img src="assets/figures/theorem_board.png" alt="Flattening and sharp budget-two law" width="720"/>
-</p>
-
-Static charts and SVG sources live in [`assets/figures/`](assets/figures/). Regenerate:
-
-```powershell
-python assets/render_figures.py
-python assets/render_animations.py
-```
-
-Research index: [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md) (missions M4–M18, exact rational certificates).
-
-```powershell
-cd research\ladder
-python run_ladder.py
-python run_ladder_high.py
-```
-
-**Novelty packaging.** The abstract phenomenon that adaptivity can dominate nonadaptive experiments is classical (sequential hypothesis testing, costly feature acquisition). The M5 sharp seed package (\(G_2(K)=1-1/K\), flattening, butterfly uniqueness) is **proved in the frozen model; literature novelty unresolved**. Residual repository contribution includes exact closed forms on filesystem-shaped query models, reproducible certificates, assumption hygiene (including path-prefix legality), and **product scars**—doctrine that changes how the tool describes itself.
-
----
-
-## Score semantics (binding)
+### Score semantics (binding)
 
 <p align="center">
   <img src="assets/figures/score_dual_gate.png" alt="Dual refuse gate" width="860"/>
@@ -133,17 +295,11 @@ refused     = (∃ finding with severity bad)  ∨  (blown_score ≥ 0.6)
 | Fact | Implication |
 |------|-------------|
 | Weights are ordinal | Not calibrated likelihoods or posteriors |
-| Product is a monoid | Commutative severity aggregation, not P(generated) |
+| Product is a monoid | Commutative severity aggregation, not \(\mathbb{P}(\text{generated})\) |
 | Dual gate | One bad finding alone scores 0.55 and still refuses |
 | Clean report | Necessary for refuse automation—not a full adaptive T1 bound |
 
-Operator doctrine: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md) · field positioning: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md) · dissemination: [`docs/WHERE_TO_SHARE.md`](docs/WHERE_TO_SHARE.md)
-
-```text
-charm explain score_semantics
-charm explain adaptive_t1
-charm explain gate_before_local
-```
+Doctrine: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md) · naturalness: [`docs/NATURAL.md`](docs/NATURAL.md) · master: [`docs/MASTER.md`](docs/MASTER.md)
 
 ---
 
@@ -175,8 +331,7 @@ charm explain gate_before_local
 | `wgs_lab` | Optional sequencing pack habitat |
 | `generic` | Untyped bulk |
 
-Naturalness law and ecology rules: [`docs/NATURAL.md`](docs/NATURAL.md).  
-Payloads use **opaque** extensions when the volume is not a genuine public format. Specialist names are checked for magic and habitat membership. Famous public sample IDs are forbidden as decoration. Published checksums must match bytes.
+Naturalness is **habitat-relative**. Opaque extensions for non-genuine formats. Specialist names require magic and membership. Famous public sample IDs forbidden as decoration. Published checksums must match bytes.
 
 ---
 
@@ -192,7 +347,34 @@ Payloads use **opaque** extensions when the volume is not a genuine public forma
 | `charm templates` | List habitats |
 | `charm which-vc` | Locate VeraCrypt |
 
-Forge refuses blown covers by default. `--i-know` is an informed override. `--write-seed` is off by default (operator receipt is T1-visible). Size ceilings require `--unsafe-size` when deliberately exceeded.
+Forge refuses blown covers by default. `--i-know` is an informed override. `--write-seed` is off by default. Size ceilings require `--unsafe-size` when deliberately exceeded.
+
+---
+
+## Research ladder (M4–M18)
+
+| Band | Content |
+|------|---------|
+| M4 | Finite adaptive gap certificates, score hygiene, witnesses |
+| M5 | Flattening, root-arity, \(G_2(K)=1-1/K\), butterfly uniqueness, \(k\)-pair |
+| M6–M9 | All-\(B\) envelopes, greedy failure, checklist incompleteness, capacity zero |
+| M10–M13 | Closed forms vs DP, doctrine pack, parity budgets, unbounded separation |
+| M14–M18 | Nesting, score–LR reversals, query complexity, randomized NA, mega-pack |
+
+Reproduce: ladder runners + M4/M5 test suites. Static and animated figures are first-class artifacts of the certificates, not decoration.
+
+**Open frontier.** Support-constrained curve \(G_2(K,r)\); equality for \(K>2\); sharp \(G_B(K)\) for \(B\ge 3\); guarded compilation; Lean formalization of the seed package; completed primary-source collision.
+
+---
+
+## Explicit non-goals
+
+- Inventing or “improving” ciphers  
+- Probability-of-generation marketing for `blown_score`  
+- Operational guidance for concealing material from forensic inspection  
+- Exhaustive file-type encyclopedias  
+- T4 claims under any packaging  
+- Literature-novelty press language for the sharp seed package  
 
 ---
 
@@ -211,35 +393,7 @@ charm
 └── catalog    explain surface
 ```
 
-Binding doctrine: [`docs/MASTER.md`](docs/MASTER.md) · process: [`docs/SKUNKWORKS.md`](docs/SKUNKWORKS.md) · security notes: [`SECURITY.md`](SECURITY.md)
-
----
-
-## Research program (M4–M18)
-
-The ladder under `research/` develops, in increasing strength:
-
-- exact adaptive-versus-nonadaptive gap certificates  
-- size-minimality under unguarded depth-two policies  
-- unbounded gap envelopes for every fixed B ≥ 2  
-- myopic greedy failure with unbounded ratio  
-- checklist incompleteness theorems  
-- adaptive capacity-zero statements on the k-pair family  
-- parity payload budget separation B*_ad = 1+m vs B*_na = k·m  
-- query-complexity form (nonadaptive Ω(k) vs adaptive O(1) for constant advantage)  
-- product doctrine mapping math → smell/docs  
-
-Reproduce certificates with the ladder runners and `research/m4` / `research/m5` test suites. Static and animated figures are first-class artifacts of that program, not decoration.
-
----
-
-## Explicit non-goals
-
-- Inventing or “improving” ciphers  
-- Probability-of-generation marketing for `blown_score`  
-- Operational guidance for concealing material from forensic inspection  
-- Exhaustive file-type encyclopedias  
-- T4 claims under any packaging  
+Process: [`docs/SKUNKWORKS.md`](docs/SKUNKWORKS.md) · security: [`SECURITY.md`](SECURITY.md) · field notes: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md)
 
 ---
 
@@ -249,5 +403,5 @@ Reproduce certificates with the ladder runners and `research/m4` / `research/m5`
 
 ## Author · license · version
 
-**David Lombardo** · MIT · **v0.3.5**  
+**David Lombardo** · MIT · **v0.3.7**  
 Repository: [github.com/coldbricks/charm13](https://github.com/coldbricks/charm13)

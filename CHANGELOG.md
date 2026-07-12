@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3.7
+
+### Research surface
+
+- Canonical theorem catalog: `research/THEOREMS.md` (notation, crown laws, habitat forms, open problems, certificates)
+- Math-first README: formal apparatus, matching construction, stability / \(G_2(K,r)\), dense identity boards
+- Additional black academic boards: formalism, address construction, butterfly uniqueness, stability, habitat forms, equation wall, support-curve sketch
+- High-framerate GIFs (≈30–34 fps trails); selective 3D orbit surfaces: \(\mathrm{Gap}_B(k)\), \(G_2(K,r)\) envelope sketch, parity budget-ratio
+- Novelty posture held: sharp seed package proved-in-model, literature novelty unresolved
+
+## 0.3.6
+
+### Research packaging
+
+- Theorem-forward research index and ladder compression
+
 ## 0.3.5
 
 ### Attribution

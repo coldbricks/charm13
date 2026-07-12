@@ -1,4 +1,8 @@
-"""Animated GIFs for CHARM13 — pure black academic style."""
+"""Animated GIFs for CHARM13 — pure black academic style.
+
+High-framerate 2D trails + a few 3D orbiting surfaces (not everything).
+  python assets/render_animations.py
+"""
 
 from __future__ import annotations
 
@@ -7,6 +11,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib.patches import FancyBboxPatch
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
+from matplotlib import cm
+from matplotlib.colors import LinearSegmentedColormap
 import numpy as np
 
 VOID = "#000000"
@@ -22,6 +29,13 @@ OUT = Path(__file__).resolve().parent / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
 
 plt.rcParams.update({"font.family": "serif", "mathtext.fontset": "cm"})
+
+# Monochrome + gold ramp for 3D surfaces
+_CMAP = LinearSegmentedColormap.from_list(
+    "charm_void",
+    [VOID, "#1a1a1a", DIM, MUTED, GOLD_DEEP, GOLD, WHITE],
+    N=256,
+)
 
 
 def _style(ax, title, xlabel, ylabel):
@@ -57,14 +71,44 @@ def _legend(ax, **kw):
     return leg
 
 
+def _save_gif(ani, path: Path, fps: int = 30) -> None:
+    ani.save(path, writer=animation.PillowWriter(fps=fps))
+    print("wrote", path, f"@ {fps}fps")
+
+
+def _style_3d(ax, title: str) -> None:
+    ax.set_facecolor(VOID)
+    ax.xaxis.pane.fill = False
+    ax.yaxis.pane.fill = False
+    ax.zaxis.pane.fill = False
+    ax.xaxis.pane.set_edgecolor(DIM)
+    ax.yaxis.pane.set_edgecolor(DIM)
+    ax.zaxis.pane.set_edgecolor(DIM)
+    ax.tick_params(colors=MUTED, labelsize=7, pad=1)
+    ax.xaxis.label.set_color(MUTED)
+    ax.yaxis.label.set_color(MUTED)
+    ax.zaxis.label.set_color(MUTED)
+    ax.title.set_color(WHITE)
+    ax.set_title(title, fontsize=12, pad=10, fontfamily="serif")
+    try:
+        ax.set_box_aspect((1.15, 1.0, 0.72))
+    except Exception:
+        pass
+
+
+# ---------------------------------------------------------------------------
+# 2D — high frame rate
+# ---------------------------------------------------------------------------
+
+
 def anim_gap_growth() -> None:
-    k_full = np.linspace(2, 48, 90)
-    fig, ax = plt.subplots(figsize=(9.0, 4.8), dpi=130)
+    k_full = np.linspace(2, 48, 160)
+    fig, ax = plt.subplots(figsize=(9.2, 5.0), dpi=140)
     fig.patch.set_facecolor(VOID)
 
-    (line_ad,) = ax.plot([], [], color=WHITE, lw=2.2, label=r"adaptive $D=1$")
-    (line_na,) = ax.plot([], [], color=GOLD, lw=2.0, label=r"sharp nonadaptive $D=1/K$")
-    (line_hab,) = ax.plot([], [], color=MUTED, lw=1.4, linestyle=(0, (3, 2.5)), label=r"k-pair $D=2/k$")
+    (line_ad,) = ax.plot([], [], color=WHITE, lw=2.3, label=r"adaptive $D=1$")
+    (line_na,) = ax.plot([], [], color=GOLD, lw=2.1, label=r"sharp nonadaptive $D=1/K$")
+    (line_hab,) = ax.plot([], [], color=MUTED, lw=1.5, linestyle=(0, (3, 2.5)), label=r"k-pair $D=2/k$")
     fill = None
 
     def init():
@@ -86,29 +130,27 @@ def anim_gap_growth() -> None:
         line_hab.set_data(k, d_hab)
         if fill is not None:
             fill.remove()
-        fill = ax.fill_between(k, d_na, d_ad, color=WHITE, alpha=0.07, zorder=1)
+        fill = ax.fill_between(k, d_na, d_ad, color=WHITE, alpha=0.08, zorder=1)
         return line_ad, line_na, line_hab, fill
 
     ani = animation.FuncAnimation(
-        fig, update, frames=len(k_full) - 1, init_func=init, blit=False, interval=35
+        fig, update, frames=len(k_full) - 1, init_func=init, blit=False, interval=1000 / 32
     )
-    path = OUT / "anim_gap_growth.gif"
-    ani.save(path, writer=animation.PillowWriter(fps=24))
+    _save_gif(ani, OUT / "anim_gap_growth.gif", fps=32)
     plt.close(fig)
-    print("wrote", path)
 
 
 def anim_gap_approaches_one() -> None:
-    k = np.linspace(2, 60, 110)
+    k = np.linspace(2, 64, 180)
     gap = 1.0 - 1.0 / k
-    fig, ax = plt.subplots(figsize=(9.0, 4.8), dpi=130)
+    fig, ax = plt.subplots(figsize=(9.2, 5.0), dpi=140)
     fig.patch.set_facecolor(VOID)
-    _style(ax, r"$G_2(K)=1-1/K$  →  1", r"query arity  $K$", r"$G_2$")
-    ax.set_xlim(2, 60)
+    _style(ax, r"$G_2(K)=1-1/K$  $\rightarrow$  1", r"query arity  $K$", r"$G_2$")
+    ax.set_xlim(2, 64)
     ax.set_ylim(0, 1.08)
     ax.axhline(1, color=DIM, lw=0.8, linestyle=":")
-    ax.plot(k, gap, color=DIM, lw=1.1, alpha=0.9)
-    (trail,) = ax.plot([], [], color=WHITE, lw=2.3)
+    ax.plot(k, gap, color=DIM, lw=1.0, alpha=0.85)
+    (trail,) = ax.plot([], [], color=WHITE, lw=2.4)
     (dot,) = ax.plot([], [], "o", color=GOLD, ms=8, markeredgecolor=VOID, markeredgewidth=0.9)
     txt = ax.text(
         0.97,
@@ -127,126 +169,182 @@ def anim_gap_approaches_one() -> None:
         nonlocal fill
         if fill is not None:
             fill.remove()
-        fill = ax.fill_between(k[: i + 1], 0, gap[: i + 1], color=WHITE, alpha=0.06, zorder=1)
+        fill = ax.fill_between(k[: i + 1], 0, gap[: i + 1], color=WHITE, alpha=0.07, zorder=1)
         trail.set_data(k[: i + 1], gap[: i + 1])
         trail.set_zorder(6)
         dot.set_data([k[i]], [gap[i]])
-        txt.set_text(f"K = {k[i]:.0f}   G₂ = {gap[i]:.3f}")
+        txt.set_text(f"K = {k[i]:.0f}   G₂ = {gap[i]:.4f}")
         return trail, dot, txt, fill
 
-    ani = animation.FuncAnimation(fig, update, frames=len(k), interval=30, blit=False)
-    path = OUT / "anim_gap_to_one.gif"
-    ani.save(path, writer=animation.PillowWriter(fps=26))
+    ani = animation.FuncAnimation(fig, update, frames=len(k), interval=1000 / 34, blit=False)
+    _save_gif(ani, OUT / "anim_gap_to_one.gif", fps=34)
     plt.close(fig)
-    print("wrote", path)
 
 
 def anim_budget_race() -> None:
-    ks = np.arange(1, 18)
+    # Smooth continuous race, not discrete steps
+    ks = np.linspace(1, 20, 120)
     m = 2
-    b_ad = 1 + m
+    b_ad = np.full_like(ks, 1 + m)
     b_na = ks * m
-    fig, ax = plt.subplots(figsize=(9.0, 4.8), dpi=130)
+    fig, ax = plt.subplots(figsize=(9.2, 5.0), dpi=140)
     fig.patch.set_facecolor(VOID)
-    _style(ax, "Budget race: adaptive vs nonadaptive (parity m=2)", r"branches  $k$", r"$B^\star$ for TV $=1$")
-    ax.set_xlim(0.5, 17.5)
-    ax.set_ylim(0, max(b_na) + 4)
-    (ln_ad,) = ax.plot(
-        [],
-        [],
-        color=GOLD,
-        lw=2.0,
-        marker="o",
-        ms=4.5,
-        markerfacecolor=VOID,
-        markeredgecolor=GOLD,
-        markeredgewidth=1.0,
-        label=r"adaptive $B^\star=1+m$",
-    )
-    (ln_na,) = ax.plot(
-        [],
-        [],
-        color=WHITE,
-        lw=2.1,
-        marker="s",
-        ms=4,
-        markerfacecolor=VOID,
-        markeredgecolor=WHITE,
-        markeredgewidth=0.9,
-        label=r"nonadaptive $B^\star=k\cdot m$",
-    )
+    _style(ax, r"Budget race  ·  parity $m=2$", r"branches  $k$", r"$B^\star$ for TV $=1$")
+    ax.set_xlim(0.8, 20.2)
+    ax.set_ylim(0, float(b_na.max()) + 4)
+    (ln_ad,) = ax.plot([], [], color=GOLD, lw=2.2, label=r"adaptive $B^\star=1+m$")
+    (ln_na,) = ax.plot([], [], color=WHITE, lw=2.2, label=r"nonadaptive $B^\star=k\cdot m$")
     fill = None
     _legend(ax, loc="upper left")
+    call = ax.text(
+        0.97,
+        0.22,
+        "",
+        transform=ax.transAxes,
+        ha="right",
+        color=WHITE,
+        fontsize=9.5,
+        fontfamily="serif",
+        bbox=dict(boxstyle="square,pad=0.32", facecolor=VOID, edgecolor=SOFT, linewidth=0.9),
+    )
 
     def update(i):
         nonlocal fill
-        x = ks[: i + 1].astype(float)
-        y_ad = np.full_like(x, float(b_ad))
-        y_na = b_na[: i + 1].astype(float)
+        x = ks[: i + 1]
+        y_ad = b_ad[: i + 1]
+        y_na = b_na[: i + 1]
         ln_ad.set_data(x, y_ad)
         ln_na.set_data(x, y_na)
         if fill is not None:
             fill.remove()
-        fill = ax.fill_between(x, y_ad, y_na, color=WHITE, alpha=0.06, zorder=1)
-        return ln_ad, ln_na, fill
+        fill = ax.fill_between(x, y_ad, y_na, color=WHITE, alpha=0.07, zorder=1)
+        ratio = y_na[-1] / y_ad[-1]
+        call.set_text(rf"$k={x[-1]:.1f}$  ·  ratio $={ratio:.1f}$")
+        return ln_ad, ln_na, fill, call
 
-    ani = animation.FuncAnimation(fig, update, frames=len(ks), interval=110, blit=False)
-    path = OUT / "anim_budget_race.gif"
-    ani.save(path, writer=animation.PillowWriter(fps=9))
+    ani = animation.FuncAnimation(fig, update, frames=len(ks), interval=1000 / 30, blit=False)
+    _save_gif(ani, OUT / "anim_budget_race.gif", fps=30)
     plt.close(fig)
-    print("wrote", path)
 
 
 def anim_capacity() -> None:
-    k_vals = [2, 4, 8, 16, 32]
-    d_na = [2 / k for k in k_vals]
-    fig, ax = plt.subplots(figsize=(9.0, 4.8), dpi=130)
+    # Morph bars smoothly via height interpolation
+    k_vals = np.array([2, 4, 8, 16, 32, 48], dtype=float)
+    d_na_final = 2.0 / k_vals
+    n_frames = 90
+    fig, ax = plt.subplots(figsize=(9.2, 5.0), dpi=140)
     fig.patch.set_facecolor(VOID)
     x = np.arange(len(k_vals))
-    w = 0.32
+    w = 0.34
 
     def update(frame):
         ax.clear()
-        _style(ax, r"At $B=2$: adaptive stuck at 1, checklist risk falls", r"$k$", r"$D_2$")
+        _style(ax, r"Capacity zero under adaptive $B=2$", r"branching  $k$", r"$D_2$")
         ax.set_ylim(0, 1.25)
         ax.axhline(1.0, color=DIM, lw=0.8, linestyle=":")
-        n = min(frame + 1, len(k_vals))
-        ax.bar(
-            x[:n] - w / 2,
-            [1] * n,
-            w,
-            facecolor=VOID,
-            edgecolor=WHITE,
-            linewidth=1.2,
-            label=r"adaptive $D=1$",
-        )
-        ax.bar(
-            x[:n] + w / 2,
-            d_na[:n],
-            w,
-            facecolor=VOID,
-            edgecolor=GOLD,
-            linewidth=1.2,
-            label=r"nonadaptive $D=2/k$",
-        )
-        ax.bar(x[:n] + w / 2, d_na[:n], w, color=GOLD, alpha=0.22, zorder=0)
-        ax.set_xticks(x, [str(k) for k in k_vals])
+        t = frame / (n_frames - 1)
+        # ease-out
+        t = 1 - (1 - t) ** 2
+        d_ad = np.ones_like(k_vals) * t + (1 - t) * 0.15
+        d_na = d_na_final * t + (1 - t) * 0.9
+        ax.bar(x - w / 2, d_ad, w, facecolor=VOID, edgecolor=WHITE, linewidth=1.25, label=r"adaptive $D=1$")
+        ax.bar(x + w / 2, d_na, w, facecolor=GOLD, alpha=0.28, edgecolor=GOLD, linewidth=1.2, label=r"nonadaptive $D=2/k$")
+        ax.set_xticks(x, [str(int(k)) for k in k_vals])
         _legend(ax, loc="upper right")
         return []
 
-    ani = animation.FuncAnimation(fig, update, frames=len(k_vals) + 2, interval=420, blit=False)
-    path = OUT / "anim_capacity_zero.gif"
-    ani.save(path, writer=animation.PillowWriter(fps=2))
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
+    _save_gif(ani, OUT / "anim_capacity_zero.gif", fps=30)
     plt.close(fig)
-    print("wrote", path)
+
+
+def anim_greedy_blowup() -> None:
+    k = np.linspace(3, 52, 160)
+    ratio = k / 2.0
+    fig, ax = plt.subplots(figsize=(9.2, 5.0), dpi=140)
+    fig.patch.set_facecolor(VOID)
+    _style(ax, r"Myopic greedy ratio $\to\infty$", r"branching  $k$", r"OPT / greedy $=k/2$")
+    ax.set_xlim(3, 52)
+    ax.set_ylim(0, float(ratio.max()) * 1.05)
+    for r in (2, 5, 10, 15, 20):
+        ax.axhline(r, color=RULE, lw=0.65, zorder=2)
+    (trail,) = ax.plot([], [], color=WHITE, lw=2.4)
+    (dot,) = ax.plot([], [], "o", color=GOLD, ms=7.5, markeredgecolor=VOID, markeredgewidth=0.8)
+    txt = ax.text(
+        0.97,
+        0.12,
+        "",
+        transform=ax.transAxes,
+        ha="right",
+        color=WHITE,
+        fontsize=10,
+        fontfamily="serif",
+        bbox=dict(boxstyle="square,pad=0.35", facecolor=VOID, edgecolor=SOFT, linewidth=0.9),
+    )
+    fill = None
+
+    def update(i):
+        nonlocal fill
+        if fill is not None:
+            fill.remove()
+        fill = ax.fill_between(k[: i + 1], 0, ratio[: i + 1], color=WHITE, alpha=0.07, zorder=1)
+        trail.set_data(k[: i + 1], ratio[: i + 1])
+        trail.set_zorder(6)
+        dot.set_data([k[i]], [ratio[i]])
+        txt.set_text(f"k = {k[i]:.0f}   ratio = {ratio[i]:.2f}")
+        return trail, dot, txt, fill
+
+    ani = animation.FuncAnimation(fig, update, frames=len(k), interval=1000 / 34, blit=False)
+    _save_gif(ani, OUT / "anim_greedy_blowup.gif", fps=34)
+    plt.close(fig)
+
+
+def anim_dual_envelope() -> None:
+    K = np.linspace(2, 52, 160)
+    fig, ax = plt.subplots(figsize=(9.2, 5.0), dpi=140)
+    fig.patch.set_facecolor(VOID)
+    (ln_sharp,) = ax.plot([], [], color=WHITE, lw=2.3, label=r"sharp $G_2=1-1/K$")
+    (ln_hab,) = ax.plot([], [], color=GOLD, lw=2.1, label=r"habitat $1-2/k$")
+    fill_s = None
+    fill_h = None
+
+    def init():
+        _style(ax, r"Two envelopes at $B=2$", r"arity / branching", r"additive gap")
+        ax.set_xlim(2, 52)
+        ax.set_ylim(-0.02, 1.12)
+        ax.axhline(1, color=DIM, lw=0.8, linestyle=":")
+        _legend(ax, loc="center right")
+        return ln_sharp, ln_hab
+
+    def update(frame):
+        nonlocal fill_s, fill_h
+        x = K[: frame + 2]
+        g_s = 1.0 - 1.0 / x
+        g_h = np.maximum(1.0 - 2.0 / x, 0.0)
+        ln_sharp.set_data(x, g_s)
+        ln_hab.set_data(x, g_h)
+        if fill_s is not None:
+            fill_s.remove()
+        if fill_h is not None:
+            fill_h.remove()
+        fill_s = ax.fill_between(x, 0, g_s, color=WHITE, alpha=0.05, zorder=1)
+        fill_h = ax.fill_between(x, 0, g_h, color=GOLD, alpha=0.10, zorder=2)
+        return ln_sharp, ln_hab, fill_s, fill_h
+
+    ani = animation.FuncAnimation(
+        fig, update, frames=len(K) - 1, init_func=init, blit=False, interval=1000 / 32
+    )
+    _save_gif(ani, OUT / "anim_dual_envelope.gif", fps=32)
+    plt.close(fig)
 
 
 def anim_loop_pulse() -> None:
-    fig, ax = plt.subplots(figsize=(9.0, 3.3), dpi=130)
+    fig, ax = plt.subplots(figsize=(9.2, 3.4), dpi=140)
     fig.patch.set_facecolor(VOID)
     nodes = [(0.15, 0.52), (0.5, 0.52), (0.85, 0.52)]
     labels = ["FORGE", "SMELL", "REFUSE"]
     subs = ["construct", "oracle", "dual gate"]
+    n_frames = 48  # smooth pulse cycle
 
     def update(frame):
         ax.clear()
@@ -255,7 +353,7 @@ def anim_loop_pulse() -> None:
         ax.axis("off")
         ax.set_facecolor(VOID)
         ax.set_title("CHARM13 loop", color=WHITE, fontsize=12.5, fontfamily="serif")
-        active = frame % 3
+        phase = (frame / n_frames) * 3.0
         ax.plot([0.15, 0.85], [0.16, 0.16], color=DIM, lw=1.1)
         ax.annotate(
             "",
@@ -265,9 +363,11 @@ def anim_loop_pulse() -> None:
         )
         ax.text(0.5, 0.06, "blown → rework", ha="center", color=MUTED, fontsize=8.5, fontfamily="serif", style="italic")
         for i, ((x, y), lab, sub) in enumerate(zip(nodes, labels, subs)):
-            is_on = i == active
-            edge = WHITE if is_on else DIM
-            lw = 1.6 if is_on else 1.0
+            # soft highlight near phase
+            dist = min(abs(phase - i), abs(phase - i - 3), abs(phase - i + 3))
+            glow = max(0.0, 1.0 - dist * 1.4)
+            edge = WHITE if glow > 0.55 else DIM
+            lw = 1.0 + 0.9 * glow
             ax.add_patch(
                 FancyBboxPatch(
                     (x - 0.115, y - 0.18),
@@ -284,11 +384,11 @@ def anim_loop_pulse() -> None:
                 y + 0.06,
                 lab,
                 ha="center",
-                color=WHITE if is_on else SOFT,
+                color=WHITE if glow > 0.4 else SOFT,
                 fontsize=11,
                 fontfamily="serif",
             )
-            ax.text(x, y - 0.08, sub, ha="center", color=MUTED if not is_on else SOFT, fontsize=8, fontfamily="serif")
+            ax.text(x, y - 0.08, sub, ha="center", color=SOFT if glow > 0.4 else MUTED, fontsize=8, fontfamily="serif")
         for x0, x1 in ((0.27, 0.38), (0.62, 0.73)):
             ax.annotate(
                 "",
@@ -298,19 +398,152 @@ def anim_loop_pulse() -> None:
             )
         return []
 
-    ani = animation.FuncAnimation(fig, update, frames=12, interval=380, blit=False)
-    path = OUT / "anim_loop.gif"
-    ani.save(path, writer=animation.PillowWriter(fps=3))
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 24, blit=False)
+    _save_gif(ani, OUT / "anim_loop.gif", fps=24)
     plt.close(fig)
-    print("wrote", path)
+
+
+# ---------------------------------------------------------------------------
+# 3D — selective (the ones that earn the dimension)
+# ---------------------------------------------------------------------------
+
+
+def anim_gap_surface_3d() -> None:
+    """Orbiting surface: Gap_B(k) = 1 - min(B,k)/k over (B, k)."""
+    B = np.linspace(2, 16, 48)
+    k = np.linspace(2, 48, 56)
+    BB, KK = np.meshgrid(B, k)
+    ZZ = 1.0 - np.minimum(BB, KK) / KK
+
+    fig = plt.figure(figsize=(9.4, 6.4), dpi=130)
+    fig.patch.set_facecolor(VOID)
+    ax = fig.add_subplot(111, projection="3d")
+    _style_3d(ax, r"$\mathrm{Gap}_B(k)=1-\min(B,k)/k$")
+    ax.set_xlabel(r"$B$", fontfamily="serif", labelpad=6)
+    ax.set_ylabel(r"$k$", fontfamily="serif", labelpad=6)
+    ax.set_zlabel(r"Gap", fontfamily="serif", labelpad=4)
+    ax.set_zlim(0, 1.05)
+
+    surf = ax.plot_surface(
+        BB,
+        KK,
+        ZZ,
+        cmap=_CMAP,
+        linewidth=0,
+        antialiased=True,
+        rstride=1,
+        cstride=1,
+        alpha=0.95,
+        shade=True,
+    )
+    # ridge line at B=2
+    k_line = np.linspace(2, 48, 80)
+    ax.plot(np.full_like(k_line, 2.0), k_line, 1.0 - 2.0 / k_line, color=GOLD, lw=2.0, zorder=10)
+
+    n_frames = 120
+    elev0, azim0 = 22, -55
+
+    def update(frame):
+        az = azim0 + frame * (360.0 / n_frames)
+        elev = elev0 + 6.0 * np.sin(2 * np.pi * frame / n_frames)
+        ax.view_init(elev=elev, azim=az)
+        return (surf,)
+
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
+    _save_gif(ani, OUT / "anim_gap_surface_3d.gif", fps=30)
+    plt.close(fig)
+
+
+def anim_g2_surface_3d() -> None:
+    """Orbiting surface sketch of support/arity envelope upper bound.
+
+    Z = min(1 - 1/K, 1 - 1/max(1, floor(r/2))) with Z=0 for r<=3.
+    """
+    K = np.linspace(2, 16, 40)
+    r = np.linspace(2, 28, 48)
+    KK, RR = np.meshgrid(K, r)
+    mcap = np.minimum(KK, np.floor(RR / 2.0))
+    mcap = np.maximum(mcap, 1.0)
+    ZZ = np.minimum(1.0 - 1.0 / KK, 1.0 - 1.0 / mcap)
+    ZZ = np.where(RR <= 3, 0.0, ZZ)
+
+    fig = plt.figure(figsize=(9.4, 6.4), dpi=130)
+    fig.patch.set_facecolor(VOID)
+    ax = fig.add_subplot(111, projection="3d")
+    _style_3d(ax, r"Envelope sketch for $G_2(K,r)$  (partial; exact curve open)")
+    ax.set_xlabel(r"$K$", fontfamily="serif", labelpad=6)
+    ax.set_ylabel(r"$r$", fontfamily="serif", labelpad=6)
+    ax.set_zlabel(r"ub", fontfamily="serif", labelpad=4)
+    ax.set_zlim(0, 1.05)
+
+    surf = ax.plot_surface(
+        KK, RR, ZZ, cmap=_CMAP, linewidth=0, antialiased=True, rstride=1, cstride=1, alpha=0.95, shade=True
+    )
+    # butterfly point
+    ax.scatter([2], [4], [0.5], color=GOLD, s=48, depthshade=False, zorder=20)
+
+    n_frames = 120
+    elev0, azim0 = 24, -48
+
+    def update(frame):
+        az = azim0 + frame * (360.0 / n_frames)
+        elev = elev0 + 5.5 * np.sin(2 * np.pi * frame / n_frames)
+        ax.view_init(elev=elev, azim=az)
+        return (surf,)
+
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
+    _save_gif(ani, OUT / "anim_g2_support_3d.gif", fps=30)
+    plt.close(fig)
+
+
+def anim_parity_ratio_3d() -> None:
+    """Surface of B*_na / B*_ad = (k m)/(m+1) over (k, m) — climbs hard."""
+    k = np.linspace(1, 24, 44)
+    m = np.linspace(1, 12, 36)
+    KK, MM = np.meshgrid(k, m)
+    ZZ = (KK * MM) / (MM + 1.0)
+    # log for visual drama while keeping math honest via label
+    ZZ_log = np.log10(ZZ)
+
+    fig = plt.figure(figsize=(9.4, 6.4), dpi=130)
+    fig.patch.set_facecolor(VOID)
+    ax = fig.add_subplot(111, projection="3d")
+    _style_3d(ax, r"$\log_{10}(B^\star_{\mathrm{na}}/B^\star_{\mathrm{ad}})=\log_{10}(km/(m+1))$")
+    ax.set_xlabel(r"$k$", fontfamily="serif", labelpad=6)
+    ax.set_ylabel(r"$m$", fontfamily="serif", labelpad=6)
+    ax.set_zlabel(r"$\log_{10}$ ratio", fontfamily="serif", labelpad=4)
+
+    surf = ax.plot_surface(
+        KK, MM, ZZ_log, cmap=_CMAP, linewidth=0, antialiased=True, rstride=1, cstride=1, alpha=0.95, shade=True
+    )
+
+    n_frames = 110
+    elev0, azim0 = 26, -60
+
+    def update(frame):
+        az = azim0 + frame * (360.0 / n_frames)
+        elev = elev0 + 5.0 * np.sin(2 * np.pi * frame / n_frames)
+        ax.view_init(elev=elev, azim=az)
+        return (surf,)
+
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
+    _save_gif(ani, OUT / "anim_parity_ratio_3d.gif", fps=30)
+    plt.close(fig)
 
 
 def main() -> None:
+    # 2D high-fps
     anim_gap_growth()
     anim_gap_approaches_one()
     anim_budget_race()
     anim_capacity()
+    anim_greedy_blowup()
+    anim_dual_envelope()
     anim_loop_pulse()
+    # 3D selective
+    anim_gap_surface_3d()
+    anim_g2_surface_3d()
+    anim_parity_ratio_3d()
     print(f"done → {OUT}")
 
 

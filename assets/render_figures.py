@@ -357,24 +357,36 @@ def _eq(ax, y, text: str, size: float = 13.5, boxed: bool = False):
 
 
 def fig_formula_sheet() -> None:
-    """Black academic formula board — paper-slide energy."""
-    fig, ax = _paper_page(10.5)
+    """Black academic formula board — denser theorem sheet."""
+    fig, ax = _paper_page(12.2)
 
-    _body(ax, 0.5, 0.97, "CHARM13  ·  closed forms", size=15, color=WHITE, ha="center", weight="bold")
-    _body(ax, 0.5, 0.935, "finite-model ladder  ·  proved in the frozen OPEN model", size=9.5, color=MUTED, ha="center", style="italic")
-    ax.plot([0.0, 1.0], [0.91, 0.91], color=DIM, lw=0.8, transform=ax.transAxes, clip_on=False)
+    _body(ax, 0.5, 0.985, "CHARM13  ·  finite-model closed forms", size=14.5, color=WHITE, ha="center", weight="bold")
+    _body(
+        ax,
+        0.5,
+        0.955,
+        "proved in the frozen OPEN model  ·  novelty unresolved for the sharp seed package",
+        size=9.0,
+        color=MUTED,
+        ha="center",
+        style="italic",
+    )
+    ax.plot([0.0, 1.0], [0.935, 0.935], color=DIM, lw=0.8, transform=ax.transAxes, clip_on=False)
 
     blocks = [
-        (0.84, r"$G_2(K)=1-1/K$", "sharp budget-2 adaptivity gap under active arity at most K"),
-        (0.68, r"$D_2^{ad}=1,\ \ D_2^{na}=1/K$", "matching address-function construction"),
-        (0.52, r"$r \leq B+1 \Rightarrow D_B^{ad}=D_B^{na}$", "flattening: small active support kills the OPEN gap"),
+        (0.88, r"$G_2(K)=1-1/K$", "exact worst-case additive gap at budget two, active arity ≤ K"),
+        (0.75, r"$D_2^{ad}\leq K\,D_2^{na}$", "root-arity bound; matching construction attains equality case"),
+        (0.62, r"$D_2^{ad}=1,\ \ D_2^{na}=1/K$", "address family: gate then coordinate bit"),
+        (0.49, r"$r \leq B+1 \Rightarrow D_B^{ad}=D_B^{na}$", "flattening: small active support kills OPEN adaptivity"),
         (0.36, r"$D_B^{na}=\min(B,k)/k$", "k-pair habitat closed form (not the sharp envelope)"),
-        (0.20, r"$B^*_{ad}=1+m,\ \ B^*_{na}=k\cdot m$", "parity perfect-separation budgets"),
-        (0.04, "refused = (any bad)  or  (S >= 0.6)", "product dual gate — S is a severity monoid, not a probability"),
+        (0.23, r"$B^*_{ad}=1+m,\ \ B^*_{na}=k\cdot m$", "parity perfect-separation budgets; ratio unbounded in k"),
+        (0.10, r"$\mathrm{Gap}_B(k)\to 1\ (k\to\infty)$", "every fixed look-budget B ≥ 2 fails uniformly as branching grows"),
+        (-0.03, "refused = (any bad) ∨ (S ≥ 0.6)", "product dual gate — S is a severity monoid, not a probability"),
     ]
     for y, eq, cap in blocks:
-        _eq(ax, y + 0.04, eq, size=14.5, boxed=(eq.startswith(r"$G_2")))
-        _body(ax, 0.5, y - 0.01, cap, size=9.5, color=MUTED, ha="center", style="italic")
+        boxed = eq.startswith(r"$G_2")
+        _eq(ax, y + 0.035, eq, size=13.2 if not boxed else 14.5, boxed=boxed)
+        _body(ax, 0.5, y - 0.008, cap, size=8.8, color=MUTED, ha="center", style="italic")
 
     save(fig, "formula_sheet")
 
@@ -503,65 +515,86 @@ def fig_loop_diagram() -> None:
 
 def fig_theorem_board() -> None:
     """Key M5 law page — pure black academic prose + boxed crown formula."""
-    fig, ax = _paper_page(12.0)
+    fig, ax = _paper_page(13.0)
 
     ax.text(
         0.0,
-        0.985,
-        "Flattening and the sharp budget-two law",
+        0.99,
+        "Theorem.  Flattening and the sharp budget-two law",
         transform=ax.transAxes,
         ha="left",
         va="top",
         color=WHITE,
-        fontsize=14.5,
+        fontsize=13.5,
         fontfamily="serif",
     )
-    ax.plot([0, 1], [0.955, 0.955], color=DIM, lw=0.8, transform=ax.transAxes)
+    ax.text(
+        0.0,
+        0.965,
+        "OPEN model  ·  finite W  ·  unit-cost deterministic queries  ·  total-variation objective",
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+        color=MUTED,
+        fontsize=8.5,
+        fontfamily="serif",
+        fontstyle="italic",
+    )
+    ax.plot([0, 1], [0.948, 0.948], color=DIM, lw=0.8, transform=ax.transAxes)
 
     # (y, text, kind)  kind in {body, eq, box}
     prose = [
-        (0.93, "Let r be the number of worlds with nonzero signed mass,", "body"),
+        (0.925, "Let r be the number of worlds with nonzero signed mass,", "body"),
         (0.885, r"$r = |\{w : P(w) \neq Q(w)\}|.$", "eq"),
-        (0.84, "For globally addressable unit-cost queries, if", "body"),
-        (0.795, r"$r \leq B+1,$", "eq"),
-        (0.76, "then", "body"),
-        (0.715, r"$D_B^{ad} = D_B^{na}.$", "eq"),
+        (0.845, "For globally addressable unit-cost queries, if", "body"),
+        (0.805, r"$r \leq B+1,$", "eq"),
+        (0.775, "then", "body"),
+        (0.735, r"$D_B^{ad} = D_B^{na}.$", "eq"),
         (
-            0.66,
-            "Take any adaptive policy tree, discard branches carrying no signed mass, and contract\n"
-            "nodes with only one active child. A reduced tree on r active worlds has at most r-1\n"
-            "internal query occurrences. Ask those queries nonadaptively: the joint partition refines\n"
-            "the adaptive leaf partition on active worlds. Refinement can only increase total variation.",
+            0.685,
+            "Reduce any adaptive tree to active worlds; contract unary nodes. A reduced tree on r\n"
+            "active worlds has at most r−1 internal query occurrences. Ask those labels nonadaptively:\n"
+            "the joint partition refines adaptive leaves on S_μ. Refinement cannot decrease TV.",
             "body",
         ),
         (
-            0.545,
-            "Hence a budget-two adaptivity gap needs at least four active worlds. The M4 witness is\n"
+            0.585,
+            "Hence a budget-two adaptivity gap needs at least four active worlds. The M4 butterfly is\n"
             "support-minimal in the OPEN model.",
             "body",
         ),
         (
-            0.475,
+            0.525,
             "Now suppose every query has at most K nonempty active outcomes. For every budget-two\n"
-            "adaptive policy,",
+            "adaptive policy with root cells C_1,…,C_k and branch values v_i,",
             "body",
         ),
-        (0.41, r"$D_2^{ad} \leq K\, D_2^{na}.$", "eq"),
+        (0.455, r"$D_2^{ad} \leq K\, D_2^{na},\qquad D_2^{na}\geq\max_i v_i\geq V/k.$", "eq"),
         (
-            0.355,
-            "Split adaptive value into root-branch contributions V = v1 + ... + vk. Each fixed pair\n"
-            "(root, continuation on branch i) preserves vi, so Dna >= max vi >= V/k.",
+            0.405,
+            "Each fixed pair (root, continuation on branch i) preserves v_i and contributes only\n"
+            "nonnegative refinement elsewhere. Optimizing over deterministic policies (which suffice):",
             "body",
         ),
-        (0.285, "Consequently", "body"),
-        (0.24, r"$D_2^{ad} - D_2^{na} \leq 1 - 1/K.$", "eq"),
+        (0.335, r"$D_2^{ad} - D_2^{na} \leq 1 - 1/K.$", "eq"),
         (
-            0.175,
-            "The bound is exactly sharp: there is a construction with Dad = 1 and Dna = 1/K.\n"
-            "The exact worst-case budget-two additive gap is",
+            0.285,
+            "The bound is exactly sharp: an address construction yields D_ad = 1 and D_na = 1/K.\n"
+            "Therefore the exact worst-case budget-two additive gap under arity at most K is",
             "body",
         ),
-        (0.08, r"$G_2(K) = 1 - 1/K.$", "box"),
+        (0.195, r"$G_2(K) = 1 - 1/K.$", "box"),
+        (
+            0.12,
+            "Binary case K=2: gap ≤ 1/2, attained by the four-world butterfly — unique up to symmetry\n"
+            "among support-minimal binary extremizers. Literature novelty of the seed package unresolved.",
+            "body",
+        ),
+        (
+            0.045,
+            "Open: G_2(K,r) · equality for K>2 · sharp G_B(K) for B≥3 · guarded compilation · Lean.",
+            "body",
+        ),
     ]
 
     for y, text, kind in prose:
@@ -574,15 +607,15 @@ def fig_theorem_board() -> None:
                 ha="center",
                 va="center",
                 color=WHITE,
-                fontsize=13.5,
+                fontsize=12.5,
                 fontfamily="serif",
             )
         elif kind == "box":
             ax.add_patch(
                 FancyBboxPatch(
-                    (0.26, y - 0.035),
-                    0.48,
-                    0.065,
+                    (0.24, y - 0.032),
+                    0.52,
+                    0.058,
                     boxstyle="square,pad=0.0",
                     facecolor=VOID,
                     edgecolor=WHITE,
@@ -610,16 +643,16 @@ def fig_theorem_board() -> None:
                 ha="left",
                 va="top",
                 color=SOFT,
-                fontsize=10.0,
+                fontsize=9.4,
                 fontfamily="serif",
-                linespacing=1.55,
+                linespacing=1.5,
             )
 
     save(fig, "theorem_board")
 
 
 def fig_wtf_hero() -> None:
-    """Landing hero: black paper + clean G2 curve."""
+    """Landing hero: cold paper surface + G2 curve."""
     fig = plt.figure(figsize=(12.5, 7.0), dpi=220)
     fig.patch.set_facecolor(VOID)
 
@@ -630,43 +663,52 @@ def fig_wtf_hero() -> None:
     ax_l.axis("off")
     ax_l.set_facecolor(VOID)
 
-    ax_l.text(0.0, 0.94, "CHARM13", color=WHITE, fontsize=34, fontfamily="serif")
-    ax_l.text(0.0, 0.85, "wait — what is this", color=MUTED, fontsize=15, fontstyle="italic", fontfamily="serif")
+    ax_l.text(0.0, 0.94, "CHARM13", color=WHITE, fontsize=32, fontfamily="serif")
+    ax_l.text(
+        0.0,
+        0.86,
+        "budgeted adaptive inspection  ·  finite models",
+        color=MUTED,
+        fontsize=12.5,
+        fontstyle="italic",
+        fontfamily="serif",
+    )
 
     ax_l.text(
         0.0,
-        0.70,
-        "A camouflage factory for encrypted volumes that builds\n"
-        "on-disk cover stories — then runs a detector allowed to\n"
-        "refuse its own lies.\n\n"
-        "Finite-model math: a curious adaptive inspector can beat\n"
-        "a fixed checklist of the same look-budget — arbitrarily hard.",
+        0.72,
+        "Exact envelopes for adaptive versus nonadaptive\n"
+        "total variation under a look budget.\n\n"
+        "Flattening · root-arity · sharp gap G₂(K)=1−1/K\n"
+        "support-minimal binary extremizer · capacity zero\n"
+        "on habitat-shaped query families.\n\n"
+        "Machine certificates. Explicit non-claims.",
         color=SOFT,
-        fontsize=10.8,
+        fontsize=10.6,
         linespacing=1.55,
         fontfamily="serif",
         verticalalignment="top",
     )
 
-    ax_l.plot([0.0, 0.92], [0.40, 0.40], color=DIM, lw=0.9)
+    ax_l.plot([0.0, 0.92], [0.38, 0.38], color=DIM, lw=0.9)
 
     bullets = [
-        ("01", "Not a new cipher — story is the product"),
-        ("02", "Score is a severity monoid, not P(fake)"),
-        ("03", "Static smell ≠ adaptive T1 (gap can hit 1)"),
-        ("04", "Refuse if blown — self-falsification"),
-        ("05", "T4: no claim. Detection framing only"),
+        ("01", r"$r \leq B+1 \Rightarrow D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}$  (OPEN)"),
+        ("02", r"$G_2(K)=1-1/K$ exact  ·  matching construction"),
+        ("03", "butterfly: support-minimal & gap-maximal (K=2)"),
+        ("04", "static smell =/= adaptive T1  ·  monoid score"),
+        ("05", "T4 unclaimed  ·  novelty unresolved for seed package"),
     ]
-    y = 0.34
+    y = 0.32
     for num, text in bullets:
-        ax_l.text(0.0, y, num, color=GOLD, fontsize=9.5, fontfamily="monospace", va="center")
-        ax_l.text(0.09, y, text, color=SOFT, fontsize=10.2, fontfamily="serif", va="center")
-        y -= 0.052
+        ax_l.text(0.0, y, num, color=GOLD, fontsize=9.0, fontfamily="monospace", va="center")
+        ax_l.text(0.09, y, text, color=SOFT, fontsize=9.8, fontfamily="serif", va="center")
+        y -= 0.048
 
     ax_l.text(
         0.0,
         0.02,
-        "Boiler Up  ·  Purdue black & old gold  ·  measure twice, cut once",
+        "Purdue black & old gold  ·  detection framing only",
         color=MUTED,
         fontsize=8.5,
         fontfamily="serif",
@@ -686,18 +728,27 @@ def fig_wtf_hero() -> None:
     ax_r.plot(K, gap, color=WHITE, linewidth=2.2, zorder=5)
     ax_r.axhline(1.0, color=DIM, alpha=1.0, lw=0.8, linestyle=":", zorder=2)
     ax_r.scatter([2], [0.5], s=40, color=GOLD, edgecolors=VOID, linewidths=0.6, zorder=8)
+    ax_r.annotate(
+        r"$K{=}2$: $1/2$",
+        xy=(2, 0.5),
+        xytext=(9, 0.28),
+        fontsize=8.5,
+        color=SOFT,
+        fontfamily="serif",
+        arrowprops=dict(arrowstyle="->", color=MUTED, lw=0.8),
+    )
 
     ax_r.set_xlim(2, 48)
     ax_r.set_ylim(0, 1.08)
-    ax_r.set_xlabel(r"query arity  $K$", color=MUTED, fontsize=9.5, fontfamily="serif")
-    ax_r.set_ylabel(r"$G_2(K)$", color=MUTED, fontsize=9.5, fontfamily="serif")
+    ax_r.set_xlabel(r"active query arity  $K$", color=MUTED, fontsize=9.5, fontfamily="serif")
+    ax_r.set_ylabel(r"$G_2(K)=\sup(D_2^{ad}-D_2^{na})$", color=MUTED, fontsize=9.0, fontfamily="serif")
     ax_r.tick_params(colors=MUTED, labelsize=8)
     ax_r.set_title(r"$G_2(K)=1-1/K\ \rightarrow\ 1$", color=WHITE, fontsize=12, pad=10, fontfamily="serif")
     ax_r.grid(True, color=RULE, linewidth=0.6)
     ax_r.set_axisbelow(True)
     ax_r.annotate(
-        "checklist loses\nas habitats branch",
-        xy=(32, 0.93),
+        "worst-case additive gap\nat budget two",
+        xy=(30, 0.90),
         fontsize=8.5,
         color=WHITE,
         ha="center",
@@ -711,6 +762,283 @@ def fig_wtf_hero() -> None:
     plt.close(fig)
 
 
+def fig_formalism_board() -> None:
+    """Signed-measure / policy apparatus — densest notation board."""
+    fig, ax = _paper_page(13.2)
+    _body(ax, 0.5, 0.99, "I.  Signed measures, partitions, and budgeted policies", size=13.5, color=WHITE, ha="center", weight="bold")
+    _body(ax, 0.5, 0.965, "finite model  ·  total-variation objective  ·  OPEN unit-cost queries", size=8.8, color=MUTED, ha="center", style="italic")
+    ax.plot([0, 1], [0.948, 0.948], color=DIM, lw=0.8, transform=ax.transAxes, clip_on=False)
+
+    lines = [
+        (0.92, r"$\mu := P - Q,\ \ \sum_{w\in W}\mu(w)=0,\ \ S_\mu=\{w:\mu(w)\neq 0\},\ \ r=|S_\mu|$", 11.5),
+        (0.86, r"$V_\mu(\Pi)=\frac{1}{2}\sum_{C\in\Pi}|\mu(C)|=\mathrm{TV}(\mathrm{Law}_P T,\mathrm{Law}_Q T)$", 12.0),
+        (0.80, r"$q:W\to Y_q$  finite alphabet  ·  policy $\pi$ = decision tree of depth $\leq B$", 10.5),
+        (0.74, r"$D_B^{\mathrm{ad}}(P,Q)=\sup_{\pi\in\mathrm{Ad}_B} V_\mu(\Pi_\pi),\ \ D_B^{\mathrm{na}}=\sup_{\sigma\in\mathrm{Na}_B} V_\mu(\Pi_\sigma)$", 11.0),
+        (0.67, r"Bayes bridge:  $M(w,0)=\frac{1}{2}P(w),\ \ M(w,1)=\frac{1}{2}Q(w)$", 11.0),
+        (0.61, r"$V_\mu(\Pi)=1-2R(\Pi),\ \ R(\Pi)=\sum_C\min\{M(C,0),M(C,1)\}$", 11.5),
+        (0.54, r"$\Rightarrow\ D_B^{\mathrm{ad}}=1-2R_B^{\mathrm{tree}},\ \ D_B^{\mathrm{na}}=1-2R_B^{\mathrm{static}}$", 11.5),
+        (0.47, r"Refinement: $\Pi'\supset\Pi \Rightarrow V_\mu(\Pi')\geq V_\mu(\Pi)$  ·  randomization does not help (L1 convexity)", 9.8),
+        (0.40, r"Flattening:  $r\leq B+1 \Rightarrow D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}$  (active tree: $I\leq L-1\leq r-1$)", 11.0),
+        (0.33, r"Root arity: $V(\pi)=\sum_{i=1}^k v_i,\ \ D_2^{\mathrm{na}}\geq\max_i v_i \Rightarrow D_2^{\mathrm{ad}}\leq K\,D_2^{\mathrm{na}}$", 10.8),
+        (0.25, r"$D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\leq(1-\frac{1}{K})D_2^{\mathrm{ad}}\leq 1-\frac{1}{K}$", 12.0),
+        (0.16, r"$G_2(K)=\sup(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}})=1-\frac{1}{K}$  (sharp)", 13.0),
+        (0.08, "Literature novelty unresolved  ·  abstract adaptivity gap classical  ·  residual: envelopes + equality class", 8.6),
+    ]
+    for y, text, size in lines:
+        if "G_2" in text and "sup" in text:
+            ax.add_patch(
+                FancyBboxPatch(
+                    (0.06, y - 0.03),
+                    0.88,
+                    0.055,
+                    boxstyle="square,pad=0",
+                    facecolor=VOID,
+                    edgecolor=WHITE,
+                    linewidth=1.1,
+                    transform=ax.transAxes,
+                )
+            )
+        ax.text(0.5, y, text, transform=ax.transAxes, ha="center", va="center", color=WHITE if size >= 11 else SOFT, fontsize=size, fontfamily="serif")
+
+    save(fig, "formalism_board")
+
+
+def fig_address_construction() -> None:
+    """Matching construction for G_2(K) — full definition board."""
+    fig, ax = _paper_page(12.5)
+    _body(ax, 0.5, 0.985, "II.  Matching construction  ·  address family", size=13.5, color=WHITE, ha="center", weight="bold")
+    _body(ax, 0.5, 0.955, r"for every $K\geq 2$:  $D_2^{\mathrm{ad}}=1$,  $D_2^{\mathrm{na}}=1/K$", size=10, color=MUTED, ha="center", style="italic")
+    ax.plot([0, 1], [0.935, 0.935], color=DIM, lw=0.8, transform=ax.transAxes, clip_on=False)
+
+    eqs = [
+        (0.88, r"$W_K=\{(i,x): i\in\{1,\ldots,K\},\ x\in\{0,1\}^K\}$"),
+        (0.78, r"$P(i,x)=\frac{1}{K\,2^{K-1}}\,1_{x_i=0},\quad Q(i,x)=\frac{1}{K\,2^{K-1}}\,1_{x_i=1}$"),
+        (0.68, r"$g(i,x)=i,\quad b_j(i,x)=x_j\quad(j=1,\ldots,K)$"),
+        (0.58, r"Adaptive: ask $g$; if $g=i$ ask $b_i$.  Supports of transcript laws disjoint $\Rightarrow D_2^{\mathrm{ad}}=1$."),
+        (0.48, r"Nonadaptive pairs: $(g,b_j)$ or $(b_j,b_l)$ each give $\mathrm{TV}=1/K$."),
+        (0.38, r"Signed law for $(b_j,b_l)$: $\mu_{jl}(0,0)=\frac{1}{K},\ \mu_{jl}(1,1)=-\frac{1}{K},\ \mu_{jl}(0,1)=\mu_{jl}(1,0)=0$"),
+        (0.28, r"Hence $D_2^{\mathrm{na}}=1/K$  and  $G_2(K)=1-1/K$ is attained."),
+        (0.16, r"$K=2$: binary queries, four active worlds, gap $=1/2$  (butterfly geometry)."),
+        (0.06, "Proof package: research/m5/SEED_THEOREMS.md  ·  certificates: m5_exact.py", 9.0),
+    ]
+    for item in eqs:
+        y, text = item[0], item[1]
+        size = item[2] if len(item) > 2 else 11.0
+        color = MUTED if size < 10 else WHITE
+        ax.text(0.5, y, text, transform=ax.transAxes, ha="center", va="center", color=color, fontsize=size, fontfamily="serif")
+
+    save(fig, "address_construction")
+
+
+def fig_butterfly_board() -> None:
+    """Four-world uniqueness table."""
+    fig, ax = _paper_page(11.5)
+    _body(ax, 0.5, 0.98, "III.  Support-minimal binary extremizer", size=13.5, color=WHITE, ha="center", weight="bold")
+    _body(ax, 0.5, 0.95, r"unique up to symmetry when $r=4$, binary OPEN queries, $D_2^{\mathrm{ad}}=1$, $D_2^{\mathrm{na}}\leq 1/2$", size=9, color=MUTED, ha="center", style="italic")
+    ax.plot([0, 1], [0.93, 0.93], color=DIM, lw=0.8, transform=ax.transAxes, clip_on=False)
+
+    # table header
+    headers = ["world", "P", "Q", "g", "l", "r"]
+    rows = [
+        ["A", "1/2", "0", "0", "0", "0"],
+        ["B", "0", "1/2", "0", "1", "0"],
+        ["C", "1/2", "0", "1", "0", "1"],
+        ["D", "0", "1/2", "1", "0", "0"],
+    ]
+    xs = [0.08, 0.28, 0.42, 0.56, 0.70, 0.84]
+    y0 = 0.86
+    for x, h in zip(xs, headers):
+        ax.text(x, y0, h, transform=ax.transAxes, ha="center", color=GOLD, fontsize=11, fontfamily="serif")
+    ax.plot([0.05, 0.95], [0.83, 0.83], color=DIM, lw=0.7, transform=ax.transAxes, clip_on=False)
+    for i, row in enumerate(rows):
+        y = 0.76 - i * 0.08
+        for x, cell in zip(xs, row):
+            ax.text(x, y, cell, transform=ax.transAxes, ha="center", color=WHITE, fontsize=12, fontfamily="serif")
+
+    notes = [
+        (0.40, r"Root $g$ splits $\{A,B\}$ vs $\{C,D\}$; continuations $l,r$ separate within-branch atoms."),
+        (0.32, r"Balance forces $p=q=\frac{1}{2}$ on each root branch (else some fixed pair exceeds $1/2$)."),
+        (0.24, r"Off-branch constants of $l,r$ must cross-collide; same-sign collision $\Rightarrow D^{\mathrm{na}}=1$."),
+        (0.16, r"Symmetries: world relabel, $P\leftrightarrow Q$, branch swap, output complements, query rename."),
+        (0.06, "Thm 7.1 · research/m5/SEED_THEOREMS.md  ·  simultaneously support-minimal and gap-maximal", 9.0),
+    ]
+    for item in notes:
+        y, text = item[0], item[1]
+        size = item[2] if len(item) > 2 else 10.0
+        ax.text(0.5, y, text, transform=ax.transAxes, ha="center", va="center", color=SOFT if size >= 10 else MUTED, fontsize=size, fontfamily="serif")
+
+    save(fig, "butterfly_board")
+
+
+def fig_stability_board() -> None:
+    """First stability / gain-sensitive support bound."""
+    fig, ax = _paper_page(11.0)
+    _body(ax, 0.5, 0.975, "IV.  Stability and gain-sensitive support", size=13.5, color=WHITE, ha="center", weight="bold")
+    _body(ax, 0.5, 0.945, "near-extremal policies are forced to balance and localize", size=9.2, color=MUTED, ha="center", style="italic")
+    ax.plot([0, 1], [0.925, 0.925], color=DIM, lw=0.8, transform=ax.transAxes, clip_on=False)
+
+    block = [
+        (0.87, r"Binary root, depth two: $V=v_0+v_1$,  $N=D_2^{\mathrm{na}}$.  Assume $N\leq V/2+\varepsilon$."),
+        (0.78, r"Then $|v_0-v_1|\leq 2\varepsilon$  and off-branch leakage $e_{1-b}^{(b)}\leq 2\varepsilon$."),
+        (0.68, r"Gain form: $b_i=\frac{1}{2}|\mu(C_i)|$,  $g_i=v_i-b_i\geq 0$,  $m=\#\{i:g_i>0\}$."),
+        (0.58, r"$D_2^{\mathrm{na}}\geq V_0+\max_i g_i \geq V_0+\frac{D_2(\pi)-V_0}{m},\quad V_0=\sum_i b_i$"),
+        (0.48, r"Each positive-gain cell holds both signs $\Rightarrow m\leq\min\{K,\lfloor r/2\rfloor\}$."),
+        (0.36, r"Open extremal curve:"),
+        (0.28, r"$G_2(K,r)=\sup\{D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}:\ \mathrm{arity}\leq K,\ |S_\mu|\leq r\}$"),
+        (0.18, r"Known: $G_2(K,r)=0$ for $r\leq 3$;  $G_2(2,4)=1/2$;  $G_2(K,\infty)=1-1/K$."),
+        (0.08, "Full metric stability and matching constructions for every $(K,r)$: open.", 9.2),
+    ]
+    for item in block:
+        y, text = item[0], item[1]
+        size = item[2] if len(item) > 2 else 11.0
+        if "G_2(K,r)" in text:
+            ax.add_patch(
+                FancyBboxPatch(
+                    (0.05, y - 0.03),
+                    0.90,
+                    0.055,
+                    boxstyle="square,pad=0",
+                    facecolor=VOID,
+                    edgecolor=SOFT,
+                    linewidth=1.0,
+                    transform=ax.transAxes,
+                )
+            )
+        ax.text(0.5, y, text, transform=ax.transAxes, ha="center", va="center", color=WHITE, fontsize=size, fontfamily="serif")
+
+    save(fig, "stability_board")
+
+
+def fig_habitat_closed_forms() -> None:
+    """Dense closed-form wall for k-pair and parity."""
+    fig, ax = _paper_page(12.0)
+    _body(ax, 0.5, 0.98, "V.  Habitat closed forms  (application geometry)", size=13.2, color=WHITE, ha="center", weight="bold")
+    _body(ax, 0.5, 0.95, r"not the sharp universal envelope — filesystem-shaped query structure", size=9, color=MUTED, ha="center", style="italic")
+    ax.plot([0, 1], [0.93, 0.93], color=DIM, lw=0.8, transform=ax.transAxes, clip_on=False)
+
+    wall = [
+        (0.88, r"$k$-pair: $J\sim\mathrm{Unif}\{1..k\}$; $H_0$ vs $H_1$ differ on bit$_J$; off-branch $\to\mathrm{na}$"),
+        (0.80, r"$D_B^{\mathrm{ad}}=1_{B\geq 2}+\frac{1}{k}1_{B=1},\quad D_B^{\mathrm{na}}=\frac{\min(B,k)}{k}$"),
+        (0.71, r"$\mathrm{Gap}_B(k)=1-\frac{\min(B,k)}{k}\to 1$ as $k\to\infty$  ($\forall B\geq 2$)"),
+        (0.62, r"Myopic local-first: ratio $\mathrm{OPT}/\mathrm{greedy}=k/2\to\infty$"),
+        (0.53, r"Capacity: $\forall\varepsilon<1$, no $k$ with $D_2^{\mathrm{ad}}(k)\leq\varepsilon$  (adaptive capacity 0)"),
+        (0.43, r"Parity $m$-bit: local marginals match; branch parity differs"),
+        (0.34, r"$B^*_{\mathrm{ad}}=1+m,\quad B^*_{\mathrm{na}}=k\cdot m,\quad \frac{B^*_{\mathrm{na}}}{B^*_{\mathrm{ad}}}=\frac{km}{m+1}\to\infty$"),
+        (0.24, r"Query complexity (const TV): nonadaptive $\Omega(k)$ vs adaptive $O(1)$"),
+        (0.14, r"Nesting: $k$-pair $\equiv$ parity at $m=1$"),
+        (0.05, "Product scar: static smell is nonadaptive; gate-before-local is doctrine, not vibes.", 9.0),
+    ]
+    for item in wall:
+        y, text = item[0], item[1]
+        size = item[2] if len(item) > 2 else 11.0
+        ax.text(0.5, y, text, transform=ax.transAxes, ha="center", va="center", color=WHITE if size >= 10 else MUTED, fontsize=size, fontfamily="serif")
+
+    save(fig, "habitat_forms")
+
+
+def fig_support_curve() -> None:
+    """Known points / envelope sketch for G_2(K,r)."""
+    fig, ax = _fig(10.6, 6.0)
+    style_axes(ax, r"Support-constrained gap envelope (partial)", r"active support size  $r$", r"upper bound on $G_2$")
+
+    r = np.arange(2, 33)
+    # flattening: r <= 3 => 0 at B=2
+    flat = np.where(r <= 3, 0.0, np.nan)
+    # trivial: gap <= 1
+    # root-arity independent of r: G <= 1-1/K for each K
+    for K, c, ls in [(2, WHITE, "-"), (3, GOLD, "-"), (4, SOFT, "--"), (8, MUTED, ":")]:
+        ub = np.where(r <= 3, 0.0, 1.0 - 1.0 / K)
+        # gain bound m <= floor(r/2) softens slightly for small r vs large K
+        mcap = np.minimum(K, np.floor(r / 2.0))
+        # crude envelope from gain averaging: gap <= 1 - 1/m when ad=1 possible
+        soft = np.where(r <= 3, 0.0, 1.0 - 1.0 / np.maximum(mcap, 1))
+        env = np.minimum(ub, soft)
+        ax.plot(r, env, color=c, lw=2.0 if K <= 3 else 1.5, linestyle=ls, label=rf"$K={K}$ envelope sketch", zorder=5)
+
+    ax.scatter([4], [0.5], s=70, color=GOLD, edgecolors=VOID, linewidths=0.8, zorder=10)
+    ax.annotate(
+        r"butterfly $(K{=}2,r{=}4)$" + "\n" + r"$G=1/2$ exact",
+        xy=(4, 0.5),
+        xytext=(10, 0.22),
+        fontsize=9,
+        color=SOFT,
+        fontfamily="serif",
+        arrowprops=dict(arrowstyle="->", color=MUTED, lw=0.9),
+    )
+    ax.axhline(0, color=DIM, lw=0.7)
+    ax.set_xlim(2, 32)
+    ax.set_ylim(-0.05, 1.08)
+    legend(ax, loc="lower right")
+    callout(ax, 18, 0.72, "exact G₂(K,r) open\nfor most (K,r)")
+    fig.tight_layout()
+    save(fig, "support_curve")
+
+
+def fig_deep_equation_wall() -> None:
+    """Single intimidating multi-column wall of identities."""
+    fig = plt.figure(figsize=(12.5, 8.2), dpi=220)
+    fig.patch.set_facecolor(VOID)
+    ax = fig.add_axes([0.04, 0.04, 0.92, 0.92])
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+    ax.set_facecolor(VOID)
+
+    ax.text(0.5, 0.97, "CHARM13  ·  identity wall", ha="center", color=WHITE, fontsize=16, fontfamily="serif", transform=ax.transAxes)
+    ax.text(0.5, 0.935, "finite OPEN model  ·  all displayed identities proved or certified in-repo", ha="center", color=MUTED, fontsize=9, fontstyle="italic", fontfamily="serif", transform=ax.transAxes)
+    ax.plot([0.02, 0.98], [0.91, 0.91], color=DIM, lw=0.8, transform=ax.transAxes)
+
+    left = [
+        r"$\mu=P-Q$",
+        r"$V_\mu(\Pi)=\frac{1}{2}\sum|\mu(C)|$",
+        r"$D=1-2R$",
+        r"$r\leq B+1\Rightarrow D^{ad}=D^{na}$",
+        r"$D_2^{ad}\leq K\,D_2^{na}$",
+        r"$G_2(K)=1-1/K$",
+        r"$G_2(2)=\frac{1}{2}$",
+    ]
+    mid = [
+        r"$D_B^{ad}\in\{0,1/k,1\}$",
+        r"$D_B^{na}=\min(B,k)/k$",
+        r"$\mathrm{Gap}_B\to 1$",
+        r"$\mathrm{OPT}/\mathrm{greedy}=k/2$",
+        r"$B^*_{ad}=1+m$",
+        r"$B^*_{na}=km$",
+        r"$\mathrm{Cap}_{ad}(\varepsilon<1)=0$",
+    ]
+    right = [
+        r"$S=1-\prod(1-w_i)$",
+        r"refuse $=(\exists\mathrm{bad})\vee(S\geq 0.6)$",
+        r"$w_{\mathrm{bad}}=0.55$",
+        r"$w_{\mathrm{warn}}=0.25$",
+        r"$w_{\mathrm{info}}=0.05$",
+        r"smell $\in\mathrm{Na}$",
+        r"T4: unclaimed",
+    ]
+    cols = [(0.17, left, "core"), (0.50, mid, "habitat"), (0.83, right, "oracle")]
+    for x, col, title in cols:
+        ax.text(x, 0.875, title, ha="center", color=GOLD, fontsize=11, fontfamily="serif", transform=ax.transAxes)
+        y = 0.80
+        for eq in col:
+            ax.text(x, y, eq, ha="center", color=WHITE, fontsize=12.5, fontfamily="serif", transform=ax.transAxes)
+            y -= 0.095
+
+    ax.plot([0.02, 0.98], [0.10, 0.10], color=DIM, lw=0.8, transform=ax.transAxes)
+    ax.text(
+        0.5,
+        0.05,
+        r"catalog: research/THEOREMS.md   ·   proofs: m5/SEED_THEOREMS.md   ·   certificates: m5_exact + ladder",
+        ha="center",
+        color=MUTED,
+        fontsize=8.5,
+        fontfamily="serif",
+        transform=ax.transAxes,
+    )
+    fig.savefig(OUT / "equation_wall.png", dpi=220, facecolor=VOID, bbox_inches="tight", pad_inches=0.16)
+    fig.savefig(OUT / "equation_wall.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.16)
+    plt.close(fig)
+
+
 def main() -> None:
     fig_wtf_hero()
     fig_adaptivity_gap()
@@ -718,10 +1046,17 @@ def main() -> None:
     fig_budget_separation()
     fig_capacity_zero()
     fig_greedy_ratio()
+    fig_support_curve()
     fig_score_dual_gate()
     fig_formula_sheet()
     fig_loop_diagram()
     fig_theorem_board()
+    fig_formalism_board()
+    fig_address_construction()
+    fig_butterfly_board()
+    fig_stability_board()
+    fig_habitat_closed_forms()
+    fig_deep_equation_wall()
     print(f"wrote figures → {OUT}")
     for p in sorted(OUT.glob("*.png")):
         print(" ", p.name)

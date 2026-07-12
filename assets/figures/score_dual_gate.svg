@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-07-12T14:13:08.379002</dc:date>
+    <dc:date>2026-07-12T17:27:13.991510</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -35,7 +35,7 @@ L 260.3304 347.585806
 L 260.3304 193.378065 
 L 49.3416 193.378065 
 z
-" clip-path="url(#p1c3ae8f714)" style="stroke: #d0d0d0; stroke-linejoin: miter"/>
+" clip-path="url(#p584837bcc7)" style="stroke: #d0d0d0; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 266.7456 347.585806 
@@ -43,7 +43,7 @@ L 477.7344 347.585806
 L 477.7344 193.378065 
 L 266.7456 193.378065 
 z
-" clip-path="url(#p1c3ae8f714)" style="stroke: #d0d0d0; stroke-linejoin: miter"/>
+" clip-path="url(#p584837bcc7)" style="stroke: #d0d0d0; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 484.1496 347.585806 
@@ -51,12 +51,12 @@ L 695.1384 347.585806
 L 695.1384 193.378065 
 L 484.1496 193.378065 
 z
-" clip-path="url(#p1c3ae8f714)" style="stroke: #d0d0d0; stroke-linejoin: miter"/>
+" clip-path="url(#p584837bcc7)" style="stroke: #d0d0d0; stroke-linejoin: miter"/>
    </g>
    <g id="line2d_1">
     <path d="M 101.376 47.136774 
 L 643.104 47.136774 
-" clip-path="url(#p1c3ae8f714)" style="fill: none; stroke: #3a3a3a; stroke-width: 0.8; stroke-linecap: square"/>
+" clip-path="url(#p584837bcc7)" style="fill: none; stroke: #3a3a3a; stroke-width: 0.8; stroke-linecap: square"/>
    </g>
    <g id="text_1">
     <!-- Refuse dual gate — what the score actually is -->
@@ -1855,7 +1855,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p1c3ae8f714">
+  <clipPath id="p584837bcc7">
    <rect x="15.84" y="15.84" width="712.8" height="352.8"/>
   </clipPath>
  </defs>
