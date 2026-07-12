@@ -9,15 +9,15 @@
 ## Score and refuse (v0.3.3)
 
 $$
-w(\mathrm{bad})=\frac{11}{20},\;
-w(\mathrm{warn})=\frac{1}{4},\;
+w(\mathrm{bad})=\frac{11}{20},\\;
+w(\mathrm{warn})=\frac{1}{4},\\;
 w(\mathrm{info})=\frac{1}{20},
 $$
 
 $$
 S(F)=1-\prod_{f\in F}\bigl(1-w(\mathrm{sev}(f))\bigr),
 \qquad
-R(F)=\mathbf{1}[\exists\,\mathrm{bad}]\lor\mathbf{1}[S(F)\ge 3/5].
+R(F)=\mathbf{1}[\exists\\,\mathrm{bad}]\lor\mathbf{1}[S(F)\ge 3/5].
 $$
 
 ---
@@ -47,7 +47,7 @@ Check: `7/16 = 0.4375 < 0.55 = 11/20`.
 Masses:
 
 $$
-P=(1/6,\;2/3,\;1/6),\qquad Q=(2/3,\;1/6,\;1/6).
+P=(1/6,\\;2/3,\\;1/6),\qquad Q=(2/3,\\;1/6,\\;1/6).
 $$
 
 $$

@@ -35,7 +35,7 @@ $D_B^{\mathrm{ad}}$ and $D_B^{\mathrm{na}}$ optimize transcript total variation 
 Active signed support:
 
 $$
-S_\mu = \{w : \mu(w)\ne 0\}, \qquad r = |S_\mu|.
+S_\mu = \\{w : \mu(w)\ne 0\\}, \qquad r = |S_\mu|.
 $$
 
 ## Models kept separate
@@ -56,7 +56,7 @@ The declared objective is **transcript total variation**. Substitutions of KL, m
 
 ## Two families in this docket
 
-1. **Sharp arity construction** (extremal geometry): worlds $(i,x)$ with $x\in\{0,1\}^K$; gate $g(i,x)=i$; bits $b_j(i,x)=x_j$. Yields $D_2^{\mathrm{ad}}=1$, $D_2^{\mathrm{na}}=1/K$.
+1. **Sharp arity construction** (extremal geometry): worlds $(i,x)$ with $x\in\\{0,1\\}^K$; gate $g(i,x)=i$; bits $b_j(i,x)=x_j$. Yields $D_2^{\mathrm{ad}}=1$, $D_2^{\mathrm{na}}=1/K$.
 2. **k-pair / which-then-bit habitat** (CHARM-shaped application): worlds $w_{i,b}$; `which` returns $i$; `bit_j` returns $b$ if $i=j$ else `na`. Yields $D_2^{\mathrm{ad}}=1$, $D_2^{\mathrm{na}}=2/k$, plus myopic greedy failure.
 
 Both are correct. Only (1) saturates the universal root-arity bound $G_2(K)=1-1/K$.

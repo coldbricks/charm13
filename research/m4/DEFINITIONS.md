@@ -303,12 +303,12 @@ $$
 
 $$
 C_H(B,\varepsilon,K)
-  := \sup\Bigl\{
-       s :\ \exists\,\theta\ 
+  := \sup\Bigl\\{
+       s :\ \exists\\,\theta\ 
        D_B(P_H, Q_{H,\theta,s}) \le \varepsilon,\ 
        \mathbb{E}[\mathrm{overhead}(\theta,s)] \le K,\ 
        \mathrm{Hard}(H,\theta,s)
-     \Bigr\}.
+     \Bigr\\}.
 $$
 
 `Hard` includes ecology constraints, specialist policy, size-band ceilings unless unsafe flags, no GIAB tokens, checksum consistency when checksums are published.

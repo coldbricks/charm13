@@ -38,7 +38,7 @@ Write `D_B^ad(P,Q)` and `D_B^na(P,Q)` for the optimal adaptive and nonadaptive t
 The active signed support is
 
 $$
-S_\mu=\{w\in W:\mu(w)\ne0\},
+S_\mu=\\{w\in W:\mu(w)\ne0\\},
 \qquad r=|S_\mu|.
 $$
 
@@ -98,16 +98,16 @@ Allowing internal randomization does not increase `D_B^ad` or `D_B^na` in this f
 Sample all policy randomness at time zero. Each random seed `u` selects a deterministic policy `pi_u`. Let `rho` be the seed law and let `P_u,Q_u` be the corresponding transcript laws. The randomized transcript laws are the common mixtures
 
 $$
-\bar P=\int P_u\,d\rho(u),
+\bar P=\int P_u\\,d\rho(u),
 \qquad
-\bar Q=\int Q_u\,d\rho(u).
+\bar Q=\int Q_u\\,d\rho(u).
 $$
 
 Convexity of the `L1` norm yields
 
 $$
 \operatorname{TV}(\bar P,\bar Q)
-\le\int\operatorname{TV}(P_u,Q_u)\,d\rho(u)
+\le\int\operatorname{TV}(P_u,Q_u)\\,d\rho(u)
 \le\sup_u\operatorname{TV}(P_u,Q_u).
 $$
 
@@ -152,14 +152,14 @@ where `R_B^static` is the minimum weighted error after acquiring a fixed set of 
 The Bayes error contributed by cell `C` is
 
 $$
-\min\{M(C,0),M(C,1)\}
- =\frac12\min\{P(C),Q(C)\}.
+\min\\{M(C,0),M(C,1)\\}
+ =\frac12\min\\{P(C),Q(C)\\}.
 $$
 
 Hence
 
 $$
-R(\Pi)=\frac12\sum_{C\in\Pi}\min\{P(C),Q(C)\}.
+R(\Pi)=\frac12\sum_{C\in\Pi}\min\\{P(C),Q(C)\\}.
 $$
 
 Using
@@ -171,7 +171,7 @@ $$
 and `sum_C(P(C)+Q(C))=2`, we obtain
 
 $$
-\sum_C\min\{P(C),Q(C)\}
+\sum_C\min\\{P(C),Q(C)\\}
  =1-\frac12\sum_C|P(C)-Q(C)|
  =1-V_\mu(\Pi).
 $$
@@ -317,7 +317,7 @@ $$
 Let
 
 $$
-W_K=\{(i,x):i\in\{1,\ldots,K\},\ x\in\{0,1\}^K\}.
+W_K=\\{(i,x):i\in\\{1,\ldots,K\\},\ x\in\\{0,1\\}^K\\}.
 $$
 
 Define
@@ -325,7 +325,7 @@ Define
 $$
 P(i,x)=
 \begin{cases}
-\frac{1}{K2^{K-1}},&x_i=0,\\
+\frac{1}{K2^{K-1}},&x_i=0,\\\
 0,&x_i=1,
 \end{cases}
 $$
@@ -335,7 +335,7 @@ and
 $$
 Q(i,x)=
 \begin{cases}
-0,&x_i=0,\\
+0,&x_i=0,\\\
 \frac{1}{K2^{K-1}},&x_i=1.
 \end{cases}
 $$
@@ -421,7 +421,7 @@ where `V_0=sum_i b_i`.
 Every gain-bearing branch contains at least one positive and one negative active atom. Consequently,
 
 $$
-m\le\min\left\{K,\left\lfloor\frac r2\right\rfloor\right\}.
+m\le\min\left\\{K,\left\lfloor\frac r2\right\rfloor\right\\}.
 $$
 
 #### Proof
@@ -436,7 +436,7 @@ Determine the exact support-constrained curve
 
 $$
 G_2(K,r)
- =\sup\{D_2^{ad}-D_2^{na}:\text{arity}\le K,\ |S_\mu|\le r\}.
+ =\sup\\{D_2^{ad}-D_2^{na}:\text{arity}\le K,\ |S_\mu|\le r\\}.
 $$
 
 The proposition gives a sharp-looking upper envelope, but matching constructions for every `(K,r)` are not established here.

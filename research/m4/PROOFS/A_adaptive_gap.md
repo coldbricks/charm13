@@ -143,7 +143,7 @@ For any two measures on a finite set, refining a partition cannot decrease total
 $$
 \mathrm{TV}(\mathrm{Law}_P(T_{\pi}),\mathrm{Law}_Q(T_{\pi}))
   \le
-\mathrm{TV}(\mathrm{Law}_P(T_{\{q_1,q_2\}}),\mathrm{Law}_Q(T_{\{q_1,q_2\}}))
+\mathrm{TV}(\mathrm{Law}_P(T_{\\{q_1,q_2\\}}),\mathrm{Law}_Q(T_{\\{q_1,q_2\\}}))
   \le D_2^{\mathrm{na}}(P,Q).
 $$
 

@@ -18,12 +18,12 @@ Finite-model theory of **budgeted adaptive inspection** on habitat-shaped query 
 ## Crown statements (one screen)
 
 $$
-r\le B+1 \;\Rightarrow\; D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}
+r\le B+1 \\;\Rightarrow\\; D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}
 \qquad\text{(OPEN flattening)}
 $$
 
 $$
-D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
+D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},
 \qquad
 G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K
 $$

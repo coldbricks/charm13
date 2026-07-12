@@ -2,7 +2,7 @@
 
 **Status.** Statements below are proved inside the frozen finite models named in each section. Literature novelty for the M5 sharp seed package is **unresolved**. Adaptive-versus-nonadaptive superiority in the abstract is classical. Residual repository value is exact envelopes, equality classification, certificates, assumption hygiene, and product scars.
 
-**Notation.** Finite world set $W$. Distributions $P,Q$ on $W$. Signed measure $\mu=P-Q$ with $\sum_w\mu(w)=0$. Active support $S_\mu=\{w:\mu(w)\ne0\}$, $r=|S_\mu|$. A query is a total map $q:W\to Y_q$ of finite alphabet. Unless marked otherwise, queries are **OPEN**: globally addressable, non-destructive, unit cost. Adaptive budget-$B$ policies are deterministic decision trees of depth $\le B$. Nonadaptive budget-$B$ policies fix $\le B$ queries before any observation. Objectives:
+**Notation.** Finite world set $W$. Distributions $P,Q$ on $W$. Signed measure $\mu=P-Q$ with $\sum_w\mu(w)=0$. Active support $S_\mu=\\{w:\mu(w)\ne0\\}$, $r=|S_\mu|$. A query is a total map $q:W\to Y_q$ of finite alphabet. Unless marked otherwise, queries are **OPEN**: globally addressable, non-destructive, unit cost. Adaptive budget-$B$ policies are deterministic decision trees of depth $\le B$. Nonadaptive budget-$B$ policies fix $\le B$ queries before any observation. Objectives:
 
 $$
 D_B^{\mathrm{ad}}(P,Q)=\sup_{\pi\in\mathrm{Ad}_B}\mathrm{TV}(\mathrm{Law}_P T_\pi,\mathrm{Law}_Q T_\pi),
@@ -26,7 +26,7 @@ $$
 If $\Pi'$ refines $\Pi$, then $V_\mu(\Pi')\ge V_\mu(\Pi)$.
 
 ### A.3 Deterministic policies suffice
-Internal randomization does not increase $D_B^{\mathrm{ad}}$ or $D_B^{\mathrm{na}}$ in this finite model (convexity of $\|\cdot\|_1$).
+Internal randomization does not increase $D_B^{\mathrm{ad}}$ or $D_B^{\mathrm{na}}$ in this finite model (convexity of $\\|\cdot\\|_1$).
 
 ### A.4 Bayes-error bridge
 With $M(w,0)=\tfrac12 P(w)$, $M(w,1)=\tfrac12 Q(w)$,
@@ -60,9 +60,9 @@ Let a depth-two adaptive policy open with a query whose active outcome cells are
 $$
 D_2^{\mathrm{na}}(P,Q)\ge v_i,
 $$
-hence $V(\pi)\le k\,D_2^{\mathrm{na}}$. If every available query has active arity $\le K$,
+hence $V(\pi)\le k\\,D_2^{\mathrm{na}}$. If every available query has active arity $\le K$,
 $$
-D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}}.
+D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}}.
 $$
 
 ### C.2 Additive corollary
@@ -78,9 +78,9 @@ D_2^{\mathrm{ad}}=1,\qquad D_2^{\mathrm{na}}=\frac1K.
 $$
 Therefore
 $$
-\boxed{G_2(K)\,:=\,\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)\,=\,1-\frac1K.}
+\boxed{G_2(K)\\,:=\\,\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)\\,=\\,1-\frac1K.}
 $$
-**Matching construction (address family).** Worlds $(i,x)$ with $i\in\{1,\ldots,K\}$, $x\in\{0,1\}^K$; gate $g(i,x)=i$; bits $b_j(i,x)=x_j$; $P$ and $Q$ mutually singular on the coordinate $x_i$. Adaptive: ask $g$ then $b_i$. Nonadaptive: any fixed pair yields TV $=1/K$.
+**Matching construction (address family).** Worlds $(i,x)$ with $i\in\\{1,\ldots,K\\}$, $x\in\\{0,1\\}^K$; gate $g(i,x)=i$; bits $b_j(i,x)=x_j$; $P$ and $Q$ mutually singular on the coordinate $x_i$. Adaptive: ask $g$ then $b_i$. Nonadaptive: any fixed pair yields TV $=1/K$.
 
 ### C.4 Binary extremizer uniqueness
 Under four active worlds, binary OPEN queries, adaptive value $1$, and every fixed pair $\le 1/2$, the three-query core is unique up to natural symmetries and coincides with the **M4 butterfly**. Thus that witness is simultaneously **support-minimal** and **gap-maximal** among binary OPEN queries at budget two.
@@ -97,7 +97,7 @@ Near factor-two equality forces branch balance and locality of continuation valu
 These are **closed-form models of filesystem-shaped query structure**, not replacements for the sharp $G_2(K)$ law.
 
 ### D.1 $k$-pair family (which-then-bit)
-Uniform random branch $J\in\{1,\ldots,k\}$. Under $H_0$ vs $H_1$, the payload bit on branch $J$ differs; off-branch bits return $\mathtt{na}$.
+Uniform random branch $J\in\\{1,\ldots,k\\}$. Under $H_0$ vs $H_1$, the payload bit on branch $J$ differs; off-branch bits return $\mathtt{na}$.
 
 | Budget | $D_B^{\mathrm{ad}}$ | $D_B^{\mathrm{na}}$ |
 |--------|------------------------|------------------------|
@@ -140,7 +140,7 @@ $S=1-\prod_i(1-w_{\mathrm{sev}(i)})$ with ordinal weights is a commutative monoi
 
 ### E.2 Dual refuse gate
 $$
-\mathrm{refused}=(\exists\,\mathrm{bad})\ \lor\ (S\ge 0.6).
+\mathrm{refused}=(\exists\\,\mathrm{bad})\ \lor\ (S\ge 0.6).
 $$
 One bad finding alone scores $0.55$ and still refuses.
 

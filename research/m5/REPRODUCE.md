@@ -13,7 +13,7 @@ python m5_exact.py
 Expected:
 
 - M4 adaptive $1$, nonadaptive $1/2$
-- For each $K\in\{2,\ldots,7\}$: adaptive $1$, nonadaptive $1/K$
+- For each $K\in\\{2,\ldots,7\\}$: adaptive $1$, nonadaptive $1/K$
 - Four raw four-world extremal cores (symmetry class of the butterfly)
 - Small-support sanity sweep checks $>0$ instances with no adaptivity gap at $B=2$
 

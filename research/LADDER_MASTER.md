@@ -30,7 +30,7 @@ r\le B+1\Rightarrow D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}
 $$
 
 $$
-D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
+D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},
 \qquad
 G_2(K)=1-\frac1K
 \quad\text{(matching construction $D_{\mathrm{ad}}=1$, $D_{\mathrm{na}}=1/K$)}

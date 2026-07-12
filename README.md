@@ -38,7 +38,7 @@ Math is the stress analysis. The CLI is the construction sequence. Threat tiers 
 Let $W$ be finite. Fix distributions $P,Q$ and signed mass $\mu=P-Q$. A **query** is a total map $q:W\to Y_q$. An **adaptive** budget-$B$ policy is a decision tree of depth $\le B$; a **nonadaptive** policy fixes $\le B$ queries before any observation. Write $D_B^{\mathrm{ad}}$ and $D_B^{\mathrm{na}}$ for optimal transcript total variation. Active support size:
 
 $$
-r=\bigl|\{w:\mu(w)\ne 0\}\bigr|.
+r=\bigl|\\{w:\mu(w)\ne 0\\}\bigr|.
 $$
 
 Unless marked otherwise, queries are **OPEN** (globally addressable, unit cost, non-destructive).
@@ -64,7 +64,7 @@ A budget-two adaptivity gap therefore requires at least **four** active worlds.
 If every query has active arity at most $K$, then at budget two
 
 $$
-D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
+D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},
 \qquad
 D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le 1-\frac1K.
 $$
@@ -134,7 +134,7 @@ Binary case $K=2$: additive gap at most $1/2$, attained by the four-world **butt
 $$
 \mu:=P-Q,\quad
 \sum_{w\in W}\mu(w)=0,\quad
-S_\mu=\{w:\mu(w)\ne0\},\quad
+S_\mu=\\{w:\mu(w)\ne0\\},\quad
 r=|S_\mu|.
 $$
 
@@ -146,7 +146,7 @@ $$
 Bayes bridge (weighted classification trees):
 
 $$
-M(w,0)=\tfrac12 P(w),\;
+M(w,0)=\tfrac12 P(w),\\;
 M(w,1)=\tfrac12 Q(w),\qquad
 V_\mu(\Pi)=1-2R(\Pi),
 $$
@@ -159,27 +159,27 @@ $$
 Root-arity proof core: $V(\pi)=\sum_{i=1}^k v_i$ and $D_2^{\mathrm{na}}\ge\max_i v_i$, hence
 
 $$
-D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},\qquad
+D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},\qquad
 D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le\Bigl(1-\frac1K\Bigr)D_2^{\mathrm{ad}}\le 1-\frac1K.
 $$
 
-Matching address family $W_K=\{(i,x):i\le K,\;x\in\{0,1\}^K\}$:
+Matching address family $W_K=\\{(i,x):i\le K,\\;x\in\\{0,1\\}^K\\}$:
 
 $$
-P(i,x)=\frac{\mathbf{1}_{x_i=0}}{K\,2^{K-1}},\quad
-Q(i,x)=\frac{\mathbf{1}_{x_i=1}}{K\,2^{K-1}},\quad
-g(i,x)=i,\; b_j(i,x)=x_j.
+P(i,x)=\frac{\mathbf{1}_{x_i=0}}{K\\,2^{K-1}},\quad
+Q(i,x)=\frac{\mathbf{1}_{x_i=1}}{K\\,2^{K-1}},\quad
+g(i,x)=i,\\; b_j(i,x)=x_j.
 $$
 
 Gain-sensitive support bound and open curve:
 
 $$
 D_2^{\mathrm{na}}\ge V_0+\max_i g_i,\qquad
-m\le\min\Bigl\{K,\Big\lfloor\tfrac r2\Big\rfloor\Bigr\},
+m\le\min\Bigl\\{K,\Big\lfloor\tfrac r2\Big\rfloor\Bigr\\},
 $$
 
 $$
-G_2(K,r)=\sup\bigl\{D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}:\mathrm{arity}\le K,\;|S_\mu|\le r\bigr\}.
+G_2(K,r)=\sup\bigl\\{D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}:\mathrm{arity}\le K,\\;|S_\mu|\le r\bigr\\}.
 $$
 
 Known anchors: $G_2(K,r)=0$ for $r\le 3$; $G_2(2,4)=1/2$; $G_2(K,\infty)=1-1/K$. Exact intermediate surface mostly open.

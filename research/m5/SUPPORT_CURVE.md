@@ -6,10 +6,10 @@
 
 $$
 G_2(K,r)
-=\sup\bigl\{
+=\sup\bigl\\{
   D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}
   :\ \text{active arity}\le K,\ |S_\mu|\le r
-\bigr\}.
+\bigr\\}.
 $$
 
 ## Known envelope (Proposition 6.1)
@@ -17,7 +17,7 @@ $$
 A gain-bearing root branch must contain both signs, so at most
 
 $$
-m\le\min\Bigl\{K,\Bigl\lfloor\frac r2\Bigr\rfloor\Bigr\}
+m\le\min\Bigl\\{K,\Bigl\lfloor\frac r2\Bigr\rfloor\Bigr\\}
 $$
 
 branches can gain. Combined with the root-arity argument this constrains how much of the adaptive value can sit above the static optimum, but a complete matching construction for every $(K,r)$ is **not** claimed.

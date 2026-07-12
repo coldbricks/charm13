@@ -191,8 +191,8 @@ Observer is assumed to **know** the mathematical objects `(P, Q, 𝒬, c, B)` in
 
 $$
 D_B(P,Q)
-  := \sup_{\pi:\; \mathrm{cost}(\pi)\le B}
-     \mathrm{TV}\bigl(\mathrm{Law}_P(T_\pi),\; \mathrm{Law}_Q(T_\pi)\bigr)
+  := \sup_{\pi:\\; \mathrm{cost}(\pi)\le B}
+     \mathrm{TV}\bigl(\mathrm{Law}_P(T_\pi),\\; \mathrm{Law}_Q(T_\pi)\bigr)
 $$
 
 with total variation $\mathrm{TV}(\mu,\nu)=\tfrac12\sum |μ−ν|$.
@@ -209,10 +209,10 @@ Nonadaptive variant $D_B^{\mathrm{na}}$: sup over fixed query sets of total cost
 
 $$
 C_H(B,\varepsilon,K)
-  := \sup\bigl\{ s : \exists\,θ \text{ with }
+  := \sup\bigl\\{ s : \exists\\,θ \text{ with }
         D_B(P_H, Q_{H,θ,s}) \le \varepsilon,
         \mathbb{E}[\mathrm{overhead}(θ,s)] \le K,
-        \text{hard constraints}(H)\bigr\}
+        \text{hard constraints}(H)\bigr\\}
 $$
 
 Hard constraints include: specialist extension policy, size-band ceilings unless unsafe, no GIAB tokens, checksum consistency when published.

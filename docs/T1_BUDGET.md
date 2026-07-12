@@ -48,7 +48,7 @@ Two finite-model layers matter:
 Under globally addressable unit-cost queries of active arity at most $K$,
 
 $$
-D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
+D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},
 \qquad
 G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K.
 $$

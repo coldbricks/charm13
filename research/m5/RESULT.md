@@ -21,7 +21,7 @@ Analytic seed package independently re-derived and machine-certified on finite i
 | M5-L0 | Deterministic policies suffice for finite TV | PROVED — known baseline |
 | M5-L1 | Exact weighted classification-tree reduction $D=1-2R$ | PROVED — prior-art bridge |
 | M5-T1 | $r\le B+1$ ⇒ $D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}$ (flattening) | PROVED — novelty unresolved |
-| M5-T2 | Root-arity: $D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}}$ | PROVED — novelty unresolved |
+| M5-T2 | Root-arity: $D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}}$ | PROVED — novelty unresolved |
 | M5-T3 | Sharp law $G_2(K)=1-1/K$ with matching construction | PROVED — novelty unresolved |
 | M5-T4 | Four-active-world binary extremizer = M4 butterfly (unique up to symmetry) | PROVED — novelty unresolved |
 | M5-T5 | Near factor-two equality forces branch balance and locality | PROVED — baseline stability |
@@ -32,7 +32,7 @@ Analytic seed package independently re-derived and machine-certified on finite i
 > Under globally addressable unit-cost queries of active arity at most $K$, at budget two:
 >
 > $$
-> D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
+> D_2^{\mathrm{ad}}\le K\\,D_2^{\mathrm{na}},
 > \qquad
 > D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le 1-\frac1K,
 > 
