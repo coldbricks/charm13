@@ -9,8 +9,27 @@
 <p align="center"><em>
 Finite-model mathematics of budgeted adaptive inspection.<br/>
 Detection-backed habitat construction for encrypted-volume cover stories.<br/>
-Exact envelopes. Machine certificates. Explicit non-claims.
+Design basis · load path · capacity limits · as-built verification.
 </em></p>
+
+---
+
+## Design basis
+
+CHARM13 is built the way a large structure is designed: **name the loads, draw the load path, size members for controlling cases, detail the connections, and refuse to sign what fails the check.**
+
+| Element | In this system |
+|---------|----------------|
+| **Foundation** | L0 cipher (borrowed — VeraCrypt or equivalent). Capacity for confidentiality of bytes is external. |
+| **Superstructure** | L2–L4 cover: habitat trees, ecology, size bands, identities, checksums. |
+| **Load path** | `forge` → construct → `smell` → dual refuse. Continuity matters: forge must not emit what smell would blow, unless the operator overrides with `--i-know`. |
+| **Service loads** | T0–T1: glancing and short technical inspection. Designed for. |
+| **Ultimate / unclaimed** | T4 laboratory process. Explicitly off the sealed drawings. |
+| **Member capacity** | Finite-model envelopes \(G_2(K)\), habitat closed forms — exact, not vibe. |
+| **Connection detailing** | Dual refuse gate; severity monoid (not a posterior); gate-before-local doctrine. |
+| **As-built checks** | `charm bench`, machine certificates, known-bad fixtures must fail. |
+
+Math is the stress analysis. The CLI is the construction sequence. Threat tiers are the load cases. Non-claims are the unstamped sheets.
 
 ---
 
@@ -260,11 +279,11 @@ python assets/render_animations.py
 
 ---
 
-## Product scar (implementation of the doctrine)
+## Construction sequence (product scar)
 
-Encrypted volumes solve confidentiality of **bytes**. They do not solve **narrative**. CHARM13 constructs habitat cover trees, measures them with a detection oracle, and **refuses** when the cover is blown. Layer 0 (cipher) is borrowed—VeraCrypt or equivalent. CHARM13 owns cover construction, ecological constraints, and the refuse loop.
+Encrypted volumes solve confidentiality of **bytes**. They do not solve **narrative**. CHARM13 constructs habitat cover trees, measures them with a detection oracle, and **refuses** when the cover is blown. L0 is the foundation (borrowed). CHARM13 owns the superstructure and the refuse joint.
 
-The research consequence for operators is cold: **static smell is nonadaptive**. Clean static reports are necessary machinery, not a certificate against every adaptive look of similar length.
+**Static smell is a nonadaptive inspection checklist** — service-level quality control, not a full adaptive demand envelope. Clean reports are necessary detailing, not an ultimate-capacity certificate against every adaptive look of similar length.
 
 ```text
 charm doctor
@@ -303,15 +322,15 @@ Doctrine: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md) · naturalness: [`docs/NATURA
 
 ---
 
-## Threat model
+## Load cases (threat model)
 
-| Tier | Adversary | CHARM13 claim |
-|------|-----------|----------------|
-| **T0** | Glancing human | Strong on implemented tells |
-| **T1** | Curious technical peer, short session | Improves cost of casual tells; static smell is nonadaptive; see T1_BUDGET |
-| **T2** | Offline stolen disk | Crypto holds if L0 holds; cover may affect prioritization only |
-| **T3** | Compelled password | Not a product claim until CELLAR |
-| **T4** | Laboratory process + time | **No claim. Ever.** |
+| Case | Adversary | Design stance |
+|------|-----------|---------------|
+| **T0** | Glancing human | Service — strong on implemented tells |
+| **T1** | Curious technical peer, short session | Service — raise cost of casual tells; smell is nonadaptive; see T1_BUDGET |
+| **T2** | Offline stolen disk | Foundation governs if L0 holds; cover may shift prioritization only |
+| **T3** | Compelled password | Not stamped until CELLAR is detailed |
+| **T4** | Laboratory process + time | **Unclaimed. No stamp. Ever.** |
 
 ---
 
@@ -378,19 +397,19 @@ Reproduce: ladder runners + M4/M5 test suites. Static and animated figures are f
 
 ---
 
-## Architecture (abbreviated)
+## System sections (abbreviated)
 
 ```text
 charm
-├── forge      constructor + refuse gate
-├── smell      findings + severity monoid + dual gate
-├── props      habitat decoy trees
+├── forge      construction sequence + refuse joint
+├── smell      as-built inspection + severity monoid + dual gate
+├── props      habitat members (decoy trees)
 ├── caliper    size bands / opaque payload policy
 ├── ecology    specialist families + habitat membership
 ├── forgery    seeded identity fields
-├── kernel     VeraCrypt create (L0)
-├── bench      fixtures
-└── catalog    explain surface
+├── kernel     foundation L0 (VeraCrypt create)
+├── bench      known-bad load tests
+└── catalog    detail catalog (explain surface)
 ```
 
 Process: [`docs/SKUNKWORKS.md`](docs/SKUNKWORKS.md) · security: [`SECURITY.md`](SECURITY.md) · field notes: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md)

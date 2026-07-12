@@ -667,9 +667,9 @@ def fig_wtf_hero() -> None:
     ax_l.text(
         0.0,
         0.86,
-        "budgeted adaptive inspection  ·  finite models",
+        "design basis  ·  budgeted inspection  ·  finite models",
         color=MUTED,
-        fontsize=12.5,
+        fontsize=12.0,
         fontstyle="italic",
         fontfamily="serif",
     )
@@ -677,12 +677,12 @@ def fig_wtf_hero() -> None:
     ax_l.text(
         0.0,
         0.72,
-        "Exact envelopes for adaptive versus nonadaptive\n"
+        "Capacity envelopes for adaptive versus nonadaptive\n"
         "total variation under a look budget.\n\n"
         "Flattening · root-arity · sharp gap G₂(K)=1−1/K\n"
         "support-minimal binary extremizer · capacity zero\n"
         "on habitat-shaped query families.\n\n"
-        "Machine certificates. Explicit non-claims.",
+        "Load path: forge → smell → refuse.  T4 unstamped.",
         color=SOFT,
         fontsize=10.6,
         linespacing=1.55,
@@ -694,9 +694,9 @@ def fig_wtf_hero() -> None:
 
     bullets = [
         ("01", r"$r \leq B+1 \Rightarrow D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}$  (OPEN)"),
-        ("02", r"$G_2(K)=1-1/K$ exact  ·  matching construction"),
+        ("02", r"$G_2(K)=1-1/K$  capacity  ·  matching construction"),
         ("03", "butterfly: support-minimal & gap-maximal (K=2)"),
-        ("04", "static smell =/= adaptive T1  ·  monoid score"),
+        ("04", "service QC ≠ adaptive demand  ·  monoid score"),
         ("05", "T4 unclaimed  ·  novelty unresolved for seed package"),
     ]
     y = 0.32
@@ -708,7 +708,7 @@ def fig_wtf_hero() -> None:
     ax_l.text(
         0.0,
         0.02,
-        "Purdue black & old gold  ·  detection framing only",
+        "Purdue black & old gold  ·  name the loads, stamp the limits",
         color=MUTED,
         fontsize=8.5,
         fontfamily="serif",

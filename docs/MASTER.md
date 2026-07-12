@@ -16,6 +16,8 @@ If a choice conflicts with this file, this file wins until it is deliberately re
 
 Encryption already randomizes bits. CHARM13 randomizes the *story those bits tell on disk* so the first hypothesis is not “vault.”
 
+**How the system is built (design stance):** treat the stack like a large structure. L0 is the foundation (cipher capacity, borrowed). L2–L4 are the superstructure (cover members, ecology, size bands). `forge → smell → refuse` is the load path: construction sequence with a hard joint that will not ship a member that fails inspection unless the operator stamps an override. Threat tiers are load cases — service (T0–T1) designed for; T4 unstamped. Math supplies capacity envelopes; bench supplies as-built verification.
+
 **Naturalness law:** blown if the tree does not look natural for the *habitat* it claims. Genomics was a calibration accident (fails loudly when faked), not the product’s center of mass. See `docs/NATURAL.md`. File-type space is huge; we enforce *claimed type ⇒ checkable nature* and *claimed habitat ⇒ no foreign specialists*, not an encyclopedia of every extension.
 
 We do not claim a new cipher. We claim a better answer to:
@@ -45,22 +47,24 @@ If we ship a **detection-backed camouflage system** with deniability hooks and n
 
 ## 2. Layers (never confuse them)
 
-| Layer | Name | Job | Solved? |
-|-------|------|-----|---------|
-| L0 | Cipher | Confidentiality of bytes | Borrow (VeraCrypt / later own format) |
-| L1 | CELLAR | Password games, hidden volume, multi-surrender | Partial (manual VC today; automate later) |
-| L2 | PROPS / FORGERY | Narrative tree, IDs, times, checksums | v0.1 started |
-| L3 | CALIPER / PEEL | Size bands, extensions, outer skin | v0.1 partial |
-| L4 | MIRROR | Smell / blown_score / refuse bad covers | v0.1 smell started |
-| L5 | NEST | Placement in a host filesystem story | Not built |
-| L6 | OPSEC surface | How the *tool itself* looks and is documented | Doctrine only |
+Vertical stack — foundation through superstructure. Do not mix member roles.
 
-**Most tools stop at L0.**  
+| Layer | Name | Structural role | Job | Solved? |
+|-------|------|-----------------|-----|---------|
+| L0 | Cipher | Foundation | Confidentiality of bytes | Borrow (VeraCrypt / later own format) |
+| L1 | CELLAR | Special joint | Password games, hidden volume, multi-surrender | Partial (manual VC today; automate later) |
+| L2 | PROPS / FORGERY | Primary members | Narrative tree, IDs, times, checksums | v0.1 started |
+| L3 | CALIPER / PEEL | Envelope / skin | Size bands, extensions, outer skin | v0.1 partial |
+| L4 | MIRROR | Inspection + refuse joint | Smell / blown_score / refuse bad covers | v0.1 smell started |
+| L5 | NEST | Site placement | Placement in a host filesystem story | Not built |
+| L6 | OPSEC surface | Spec surface | How the *tool itself* looks and is documented | Doctrine only |
+
+**Most tools stop at the foundation (L0).**  
 VeraCrypt hidden volume is L0+L1.  
-MP4 stego is a narrow L3 trick.  
+MP4 stego is a narrow L3 skin trick.  
 **CHARM13 owns L2–L4 as first-class science**, with L1 as a first-class product goal, L0 as dependency.
 
-“Encrypt the encryption” = **L2–L4 + honest L1**, not double-AES.
+“Encrypt the encryption” = **L2–L4 + honest L1**, not double-AES. Continuous load path beats stacked slogans.
 
 ---
 

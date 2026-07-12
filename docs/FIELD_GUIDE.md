@@ -2,18 +2,18 @@
 
 ## Positioning
 
-CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees.
+CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees. Read it like a design package for a large structure: design basis, load path, capacity, connections, as-built checks — not a feature list.
 
-It does not introduce a new cipher. Confidentiality of bytes is delegated to an established volume-encryption layer (e.g. VeraCrypt). The product surface is cover naturalness, detection, and refuse-on-blown behavior.
+It does not introduce a new cipher. Confidentiality of bytes is the **foundation** (external L0, e.g. VeraCrypt). CHARM13 owns the **superstructure**: cover naturalness, detection, refuse-on-blown.
 
 ## Two layers people conflate
 
 | Layer | Role | Owner |
 |-------|------|--------|
-| Cryptographic ciphertext | Secrecy of content | External L0 (VeraCrypt, etc.) |
-| Cover / habitat story | On-disk narrative and structure | CHARM13 forge + smell |
+| Cryptographic ciphertext | Foundation — secrecy of content | External L0 (VeraCrypt, etc.) |
+| Cover / habitat story | Superstructure — on-disk narrative | CHARM13 forge + smell |
 
-Most tools stop at ciphertext. CHARM13 treats the **story adjacent to ciphertext** as first-class: construct, measure, refuse.
+Most tools stop at the foundation. CHARM13 draws a continuous load path: **construct → measure → refuse**.
 
 ## Research neighborhood
 
@@ -27,9 +27,9 @@ Results are stated for **explicit finite synthetic families** (k-branch which-th
 
 ## Product oracle vs adaptive T1
 
-`charm smell` is a **deterministic nonadaptive checklist**: fixed rules, full walk, severity monoid, dual refuse gate.
+`charm smell` is **service-level QC**: a deterministic nonadaptive checklist (fixed rules, full walk, severity monoid, dual refuse gate).
 
-A human T1 inspector may be **adaptive**: the next observation depends on prior answers. On the synthetic families in `research/`, adaptive advantage at fixed budget can strictly dominate any nonadaptive suite of the same cost, with gap approaching one as branching grows. Clean smell remains necessary refuse machinery; it is not advertised as a complete adaptive risk certificate.
+A human T1 inspector may be **adaptive**: the next observation depends on prior answers. On the synthetic families in `research/`, adaptive advantage at fixed budget can strictly dominate any nonadaptive suite of the same cost, with gap approaching one as branching grows. Clean smell is necessary connection detailing; it is not the ultimate-capacity envelope for every adaptive demand of similar length.
 
 ## Score semantics
 

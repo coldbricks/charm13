@@ -1,6 +1,6 @@
 # T1 observer model — budgeted inspection
 
-**Status:** product doctrine (v0.3.5)  
+**Status:** product doctrine (v0.3.7)  
 **Audience:** operators and reviewers  
 **Math source:** `research/` ladder M4–M18, especially M5 seed package (finite models; not a warranty on real disks)
 
@@ -8,9 +8,10 @@
 
 ## 1. What `charm smell` is
 
-`charm smell` is a **deterministic, nonadaptive** checklist: it walks the tree,
-applies fixed local and habitat rules, aggregates severities, and refuses under
-a dual gate. It is an engineering oracle, not a full model of a curious human.
+`charm smell` is **as-built service inspection**: a deterministic, nonadaptive
+checklist that walks the tree, applies fixed local and habitat rules, aggregates
+severities, and refuses under a dual gate. It is quality control on the cover
+member — not a full model of an adaptive inspector’s demand envelope.
 
 | Property | Smell today |
 |----------|-------------|

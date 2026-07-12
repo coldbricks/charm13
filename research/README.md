@@ -1,6 +1,6 @@
 # Research — CHARM13
 
-Finite-model theory of **budgeted adaptive inspection** on habitat-shaped query systems, with exact rational certificates and product doctrine scars. Detection / claim-validity framing only. No concealment-from-inspection operations guidance. No T4 claims. No literature-novelty press for the sharp seed package.
+Finite-model theory of **budgeted adaptive inspection** on habitat-shaped query systems: exact capacity envelopes, equality classification, and product scars that change how the tool is detailed. Think stress analysis for inspection budgets — demand vs capacity under named load cases — not theater. Detection / claim-validity framing only. No concealment-from-inspection operations guidance. No T4 claims. No literature-novelty press for the sharp seed package.
 
 ## Start here
 

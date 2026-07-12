@@ -71,7 +71,8 @@ def _legend(ax, **kw):
     return leg
 
 
-def _save_gif(ani, path: Path, fps: int = 30) -> None:
+def _save_gif(ani, path: Path, fps: int = 14) -> None:
+    """Default ~14 fps — readable for math trails; override per anim if needed."""
     ani.save(path, writer=animation.PillowWriter(fps=fps))
     print("wrote", path, f"@ {fps}fps")
 
@@ -134,9 +135,9 @@ def anim_gap_growth() -> None:
         return line_ad, line_na, line_hab, fill
 
     ani = animation.FuncAnimation(
-        fig, update, frames=len(k_full) - 1, init_func=init, blit=False, interval=1000 / 32
+        fig, update, frames=len(k_full) - 1, init_func=init, blit=False, interval=1000 / 14
     )
-    _save_gif(ani, OUT / "anim_gap_growth.gif", fps=32)
+    _save_gif(ani, OUT / "anim_gap_growth.gif", fps=14)
     plt.close(fig)
 
 
@@ -176,8 +177,8 @@ def anim_gap_approaches_one() -> None:
         txt.set_text(f"K = {k[i]:.0f}   G₂ = {gap[i]:.4f}")
         return trail, dot, txt, fill
 
-    ani = animation.FuncAnimation(fig, update, frames=len(k), interval=1000 / 34, blit=False)
-    _save_gif(ani, OUT / "anim_gap_to_one.gif", fps=34)
+    ani = animation.FuncAnimation(fig, update, frames=len(k), interval=1000 / 14, blit=False)
+    _save_gif(ani, OUT / "anim_gap_to_one.gif", fps=14)
     plt.close(fig)
 
 
@@ -222,8 +223,8 @@ def anim_budget_race() -> None:
         call.set_text(rf"$k={x[-1]:.1f}$  ·  ratio $={ratio:.1f}$")
         return ln_ad, ln_na, fill, call
 
-    ani = animation.FuncAnimation(fig, update, frames=len(ks), interval=1000 / 30, blit=False)
-    _save_gif(ani, OUT / "anim_budget_race.gif", fps=30)
+    ani = animation.FuncAnimation(fig, update, frames=len(ks), interval=1000 / 14, blit=False)
+    _save_gif(ani, OUT / "anim_budget_race.gif", fps=14)
     plt.close(fig)
 
 
@@ -253,8 +254,8 @@ def anim_capacity() -> None:
         _legend(ax, loc="upper right")
         return []
 
-    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
-    _save_gif(ani, OUT / "anim_capacity_zero.gif", fps=30)
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 12, blit=False)
+    _save_gif(ani, OUT / "anim_capacity_zero.gif", fps=12)
     plt.close(fig)
 
 
@@ -294,8 +295,8 @@ def anim_greedy_blowup() -> None:
         txt.set_text(f"k = {k[i]:.0f}   ratio = {ratio[i]:.2f}")
         return trail, dot, txt, fill
 
-    ani = animation.FuncAnimation(fig, update, frames=len(k), interval=1000 / 34, blit=False)
-    _save_gif(ani, OUT / "anim_greedy_blowup.gif", fps=34)
+    ani = animation.FuncAnimation(fig, update, frames=len(k), interval=1000 / 14, blit=False)
+    _save_gif(ani, OUT / "anim_greedy_blowup.gif", fps=14)
     plt.close(fig)
 
 
@@ -332,9 +333,9 @@ def anim_dual_envelope() -> None:
         return ln_sharp, ln_hab, fill_s, fill_h
 
     ani = animation.FuncAnimation(
-        fig, update, frames=len(K) - 1, init_func=init, blit=False, interval=1000 / 32
+        fig, update, frames=len(K) - 1, init_func=init, blit=False, interval=1000 / 14
     )
-    _save_gif(ani, OUT / "anim_dual_envelope.gif", fps=32)
+    _save_gif(ani, OUT / "anim_dual_envelope.gif", fps=14)
     plt.close(fig)
 
 
@@ -398,8 +399,8 @@ def anim_loop_pulse() -> None:
             )
         return []
 
-    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 24, blit=False)
-    _save_gif(ani, OUT / "anim_loop.gif", fps=24)
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 10, blit=False)
+    _save_gif(ani, OUT / "anim_loop.gif", fps=10)
     plt.close(fig)
 
 
@@ -449,8 +450,8 @@ def anim_gap_surface_3d() -> None:
         ax.view_init(elev=elev, azim=az)
         return (surf,)
 
-    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
-    _save_gif(ani, OUT / "anim_gap_surface_3d.gif", fps=30)
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 12, blit=False)
+    _save_gif(ani, OUT / "anim_gap_surface_3d.gif", fps=12)
     plt.close(fig)
 
 
@@ -491,8 +492,8 @@ def anim_g2_surface_3d() -> None:
         ax.view_init(elev=elev, azim=az)
         return (surf,)
 
-    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
-    _save_gif(ani, OUT / "anim_g2_support_3d.gif", fps=30)
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 12, blit=False)
+    _save_gif(ani, OUT / "anim_g2_support_3d.gif", fps=12)
     plt.close(fig)
 
 
@@ -526,8 +527,8 @@ def anim_parity_ratio_3d() -> None:
         ax.view_init(elev=elev, azim=az)
         return (surf,)
 
-    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 30, blit=False)
-    _save_gif(ani, OUT / "anim_parity_ratio_3d.gif", fps=30)
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 12, blit=False)
+    _save_gif(ani, OUT / "anim_parity_ratio_3d.gif", fps=12)
     plt.close(fig)
 
 
