@@ -6,9 +6,9 @@
 
 ---
 
-## 1. What `charm smell` is
+## 1. What the inspection command is
 
-`charm smell` is **as-built service inspection**: a deterministic, nonadaptive
+`charm smell` runs **as-built service inspection**: a deterministic, nonadaptive
 checklist that walks the tree, applies fixed local and habitat rules, aggregates
 severities, and refuses under a dual gate. It is quality control on the cover
 member — not a full model of an adaptive inspector’s demand envelope.
@@ -78,9 +78,9 @@ On explicit infinite families (k-branch “which-then-bit” and m-bit parity):
 arity-$K$ queries is $1/K$, not $2/k$.
 
 **Product reading (careful):**  
-A cover that is **clean under the static smell suite** is not thereby proven
+A cover that is **clean under the static inspection suite** is not thereby proven
 safe against every **adaptive** short inspection with the same number of
-looks. Smell remains necessary refuse machinery; it is not a complete T1
+looks. The checklist remains necessary refuse machinery; it is not a complete T1
 risk certificate.
 
 **Not claimed:** real filesystem distributions equal these families; T3/T4;
@@ -96,7 +96,7 @@ cryptographic novelty; literature novelty of the sharp law.
    magic alone (“gate before local”).  
 5. Global relations (checksum *sets*, co-occurrence, parity-style invariants)
    matter; local OK does not imply global OK (M4-C, M12).  
-6. Do not interpret clean smell as “adaptive T1 risk below ε.”  
+6. Do not interpret a clean inspection report as “adaptive T1 risk below ε.”  
 7. Forge: default refuse on blown; `--i-know` is informed override only.
 
 ## 5. Reproducing the mathematics

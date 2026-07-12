@@ -51,7 +51,7 @@ $$
 As $K\\\to\\\infty$, the gap tends to $1$: the serpent lengthens and the mouth
 approaches the tip of the tail. The figure `ouroboros_gap` plots that approach.
 
-Separately, the product loop `forge → smell → refuse` is a practical cycle, not
+Separately, the product loop `forge → inspect → refuse` is a practical cycle, not
 a mathematical ouroboros; do not conflate the two.
 
 ---

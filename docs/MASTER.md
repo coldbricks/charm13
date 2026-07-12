@@ -16,7 +16,7 @@ If a choice conflicts with this file, this file wins until it is deliberately re
 
 Encryption already randomizes bits. CHARM13 randomizes the *story those bits tell on disk* so the first hypothesis is not “vault.”
 
-**How the system is built (design stance):** treat the stack like a large structure. L0 is the foundation (cipher capacity, borrowed). L2–L4 are the superstructure (cover members, ecology, size bands). `forge → smell → refuse` is the load path: construction sequence with a hard joint that will not ship a member that fails inspection unless the operator stamps an override. Threat tiers are load cases — service (T0–T1) designed for; T4 unstamped. Math supplies capacity envelopes; bench supplies as-built verification.
+**How the system is built:** L0 is cipher capacity (borrowed). L2–L4 are cover members, ecology, size bands, detection, and refuse. `forge → inspect → refuse` is the working loop: construction with a hard joint that will not ship a tree that fails inspection unless the operator stamps an override (`--i-know`). Threat tiers name the load cases — service (T0–T1) designed for; T4 unstamped. Math supplies capacity envelopes; bench supplies as-built verification. The CLI inspection command remains `charm smell`.
 
 **Naturalness law:** blown if the tree does not look natural for the *habitat* it claims. Genomics was a calibration accident (fails loudly when faked), not the product’s center of mass. See `docs/NATURAL.md`. File-type space is huge; we enforce *claimed type ⇒ checkable nature* and *claimed habitat ⇒ no foreign specialists*, not an encyclopedia of every extension.
 
@@ -35,7 +35,7 @@ Not: beat AES. Not: beat Signal. Not: “military grade” adjectives.
 **Best means:**
 
 1. **Clearest threat model** in the category (honest T0–T4).  
-2. **Strongest cover science** — invariants, smell calculus, counterexamples, not vibes.  
+2. **Strongest cover science** — invariants, detection calculus, counterexamples, not vibes.  
 3. **Tightest loop** from “this cover is blown” → automated detection → forge refuses or repairs.  
 4. **Least embarrassing public surface** — docs and UX that a skeptical cryptographer does not dismiss as theater or LLM sludge.  
 5. **Operational usefulness** on real machines (Windows + Linux), real VeraCrypt (or successor), real sizes, real mistakes people make.
@@ -55,7 +55,7 @@ Vertical stack — foundation through superstructure. Do not mix member roles.
 | L1 | CELLAR | Special joint | Password games, hidden volume, multi-surrender | Partial (manual VC today; automate later) |
 | L2 | PROPS / FORGERY | Primary members | Narrative tree, IDs, times, checksums | v0.1 started |
 | L3 | CALIPER / PEEL | Envelope / skin | Size bands, extensions, outer skin | v0.1 partial |
-| L4 | MIRROR | Inspection + refuse joint | Smell / blown_score / refuse bad covers | v0.1 smell started |
+| L4 | MIRROR | Inspection + refuse joint | Detection / blown_score / refuse bad covers | v0.1 inspection started |
 | L5 | NEST | Site placement | Placement in a host filesystem story | Not built |
 | L6 | OPSEC surface | Spec surface | How the *tool itself* looks and is documented | Doctrine only |
 
@@ -73,7 +73,7 @@ MP4 stego is a narrow L3 skin trick.
 | Tier | Adversary | Goal of CHARM13 | Claim |
 |------|-----------|-----------------|-------|
 | T0 | Shoulder, roommate, thief glancing | Not interesting | Strong |
-| T1 | Curious tech, ~10 min, `file`, sizes, tree | Raise cost / fail casual tells | Strong if smell is sharp |
+| T1 | Curious tech, ~10 min, `file`, sizes, tree | Raise cost / fail casual tells | Strong if inspection is sharp |
 | T2 | Stolen disk, offline | Crypto holds; cover reduces prioritization | Crypto-dependent |
 | T3 | Compelled password | Outer story password only | Only with CELLAR done right |
 | T4 | Lab + legal process + time | — | **No claim. Ever.** |
@@ -92,7 +92,7 @@ Work like the session is proving lemmas, not filling tickets.
 - **Cover story** — claimed identity of a path tree + payload (template + forgery fields).  
 - **Payload** — the large file that is or will be the volume.  
 - **Smell** — observable that raises P(vault | observation).  
-- **Blown** — smell set crosses threshold under a stated oracle.  
+- **Blown** — finding set crosses threshold under a stated oracle.  
 - **Narrative consistency** — decoys, sizes, mtimes, checksums, names cohere.  
 - **Size band** — allowed payload size range for a template.  
 - **Detection oracle** — procedure an adversary runs (human checklist or tool).  
@@ -107,7 +107,7 @@ Work like the session is proving lemmas, not filling tickets.
 5. One novel contribution per serious session (not just flags).  
 6. Discard cute.  
 7. Public text is dry operator English.  
-8. Prove by the smallest test or `smell` rule.  
+8. Prove by the smallest test or inspection rule.  
 9. End with: argued / open / next lemma.
 
 ### 4.3 What counts as a “holy fuck” result
@@ -132,7 +132,7 @@ Forge output **must** satisfy (or warn/refuse):
 2. No specialist extension (`.cram`, `.bam`, …) without a stated policy:  
    - either valid magic (hard), or  
    - non-specialist extension, or  
-   - explicit `--lie-extension` with smell=bad.  
+   - explicit `--lie-extension` with severity bad.  
 3. No well-known reference corpus IDs in paths (GIAB, etc.).  
 4. Checksums in cover files match the decoy files that exist (byte-stable).  
 5. mtime window coherent with README “created/revised” story.  
@@ -140,7 +140,7 @@ Forge output **must** satisfy (or warn/refuse):
 7. No cluster of sub-512B “toy” siblings next to multi-GB payload without incomplete-download template.  
 8. Seed recorded for cover reproducibility (not the volume password).
 
-`charm smell` is the predicate.  
+`charm smell` is the inspection predicate.  
 `charm forge` is the constructor that should not emit known-blown trees.
 
 ---
@@ -177,12 +177,12 @@ refuse   = (∃ bad)  ∨  (blown_score ≥ 0.6)
 
 **T1 / adaptive inspection (research-backed doctrine):**
 
-- `charm smell` is a **nonadaptive** checklist.
+- Inspection (`charm smell`) is a **nonadaptive** checklist.
 - Finite-model research (`research/LADDER_MASTER.md`, M4–M18) shows adaptive
   short policies can strictly dominate fixed checklists of equal budget on
   explicit branch/parity habitat families; camouflage “capacity” under adaptive
   B≥2 can be zero for ε<1 on those families.
-- Product rule: clean smell is **necessary refuse machinery**, not a complete
+- Product rule: a clean inspection report is **necessary refuse machinery**, not a complete
   adaptive T1 risk certificate. No T4 claim. No new cipher.
 
 Calibration fixtures:
@@ -202,7 +202,7 @@ Default: `forge` exits non-zero if predicted blown (any bad or score ≥ 0.6) un
 charm
 ├── cli          user entry
 ├── forge        constructor
-├── smell        detection predicate + blown_score
+├── smell        detection predicate + blown_score (CLI: charm smell)
 ├── forgery      RNG identity fields
 ├── props        decoy trees (templates)
 ├── caliper      size bands / extensions
@@ -219,7 +219,7 @@ Templates live as data (YAML later); v0.1 code is fine if structure stays swappa
 | Command | Purpose |
 |---------|---------|
 | `charm forge` | Build cover + optional volume |
-| `charm smell` | Report findings + score |
+| `charm smell` | Inspect: report findings + score |
 | `charm templates` | List covers |
 | `charm which-vc` | Locate VeraCrypt |
 | `charm mount` | Later: mount helper |
@@ -235,15 +235,15 @@ Templates live as data (YAML later); v0.1 code is fine if structure stays swappa
 
 - Name CHARM13, doctrine, anti-slop rules  
 - Package layout, MIT, dry README  
-- `forge` / `smell` / templates  
+- `forge` / inspect (`smell`) / templates  
 - VeraCrypt detection  
 - Placeholder + tree-only modes  
 
 ### Phase 1 — Smell becomes law (done in 0.2.0)
 
-1. `blown_score` + exit codes (smell 2 if blown)  
+1. `blown_score` + exit codes (inspect exit 2 if blown)  
 2. Synthetic tests (fake CRAM+GIAB fixture in tests)  
-3. `forge` post-smell; refuse if score ≥ 0.6 unless `--i-know`  
+3. `forge` post-inspect; refuse if score ≥ 0.6 unless `--i-know`  
 4. wgs_lab opaque `.pack.dat/.bin/.img` — no fake `.cram`/`.bam`  
 5. Real md5/sha256 of written files  
 6. Unit tests for score, forge, invariants  
@@ -317,7 +317,7 @@ Do not help hide evidence of violent crime; refuse that use case in docs by sile
 | Asset | Role |
 |-------|------|
 | VeraCrypt | L0 engine today |
-| Manual “CRAM” container + Nebula tree | Prototype of L2–L3; calibration target for smell |
+| Manual “CRAM” container + Nebula tree | Prototype of L2–L3; calibration target for inspection |
 | Real WGS CRAM/VCF (NG1KGP8JUJ) | Separate project; not CHARM payload by default |
 | CHARM13 repo | The tool |
 

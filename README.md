@@ -21,7 +21,7 @@ It does not introduce a new cipher. Byte confidentiality is **L0** (borrowed —
 | Layer | Role | Owner |
 |-------|------|--------|
 | Ciphertext | Confidentiality of content | External L0 (VeraCrypt, etc.) |
-| Cover / habitat | On-disk narrative; detection; refuse | CHARM13 forge + smell |
+| Cover / habitat | On-disk narrative; detection; refuse | CHARM13 forge + inspect |
 
 Loop: **construct → measure → refuse**. Override only with informed `--i-know`.
 
@@ -317,7 +317,7 @@ On success: for $K=2,\ldots,7$ one has $\mathrm{ad}=1$ and $\mathrm{na}=1/K$; fo
 
 Encrypted volumes secure the confidentiality of bytes; they do not, by themselves, secure the *narrative* those bytes present on disk. The software layer collected in this repository constructs habitat-shaped cover trees, subjects them to a deterministic detection oracle, and refuses emission when the cover is judged blown. The cipher (Layer 0) is external. Cover construction and the refuse rule are internal.
 
-The design may be read as a load path: construction (`forge`), inspection (`smell`), and a dual refuse gate. Severity aggregation is a monoid on ordinal weights, not a posterior probability of forgery. Laboratory-scale adversaries (T4) are excluded from the sealed claims. Static smell is a nonadaptive checklist: necessary quality control, not a substitute for the adaptive envelopes of §§2–4.
+The design may be read as a load path: construction (`forge`), inspection (`charm smell`), and a dual refuse gate. Severity aggregation is a monoid on ordinal weights, not a posterior probability of forgery. Laboratory-scale adversaries (T4) are excluded from the sealed claims. Static inspection is a nonadaptive checklist: necessary quality control, not a substitute for the adaptive envelopes of §§2–4.
 
 ```text
 charm doctor
@@ -361,7 +361,7 @@ Doctrine: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md) · naturalness: [`docs/NATURA
 | Case | Adversary | Claim |
 |------|-----------|--------|
 | **T0** | Glancing human | Strong on implemented tells |
-| **T1** | Curious technical peer, short session | Improves cost of casual tells; smell is nonadaptive; see `docs/T1_BUDGET.md` |
+| **T1** | Curious technical peer, short session | Improves cost of casual tells; static inspection is nonadaptive; see `docs/T1_BUDGET.md` |
 | **T2** | Offline stolen disk | Crypto holds if L0 holds; cover may affect prioritization only |
 | **T3** | Compelled password | Not claimed until CELLAR is complete |
 | **T4** | Laboratory process and time | **No claim.** |
@@ -393,7 +393,7 @@ Naturalness is **habitat-relative**. Opaque extensions for non-genuine formats. 
 | Command | Purpose |
 |---------|---------|
 | `charm forge` | Build habitat tree + optional volume / placeholder |
-| `charm smell` | Findings, severity score, dual refuse |
+| `charm smell` | Inspect tree: findings, severity score, dual refuse |
 | `charm bench` | Calibration fixtures (known-bad must blow) |
 | `charm explain [code]` | Finding catalog |
 | `charm doctor` | Environment + doctrine pointers |
@@ -436,7 +436,7 @@ Reproduce: ladder runners + M4/M5 test suites. Static and animated figures are f
 ```text
 charm
 ├── forge      construction sequence + refuse joint
-├── smell      as-built inspection + severity monoid + dual gate
+├── smell      as-built detection oracle + severity monoid + dual gate
 ├── props      habitat members (decoy trees)
 ├── caliper    size bands / opaque payload policy
 ├── ecology    specialist families + habitat membership

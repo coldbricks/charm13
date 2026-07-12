@@ -146,8 +146,8 @@ $$
 $$
 One bad finding alone scores $0.55$ and still refuses.
 
-### E.3 Static smell vs adaptive T1
-Smell is a deterministic nonadaptive checklist. Finite models show that clean static smell is **necessary machinery**, not a certificate against every adaptive policy of similar look length.
+### E.3 Static inspection vs adaptive T1
+Product inspection is a deterministic nonadaptive checklist. Finite models show that a clean static report is **necessary machinery**, not a certificate against every adaptive policy of similar look length.
 
 ---
 

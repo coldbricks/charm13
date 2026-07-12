@@ -1,6 +1,6 @@
 # Research notes — CHARM13
 
-Finite-model notes on **budgeted adaptive inspection** for habitat-shaped query systems: exact envelopes, equality classification, rational certificates, and the engineering corollaries used by the tool. Detection and claim-validity framing only. No operational guidance for concealment from inspection. No T4 claims. No assertion of literature novelty for the sharp seed package.
+Finite-model notes on **budgeted adaptive inspection** for habitat-shaped query systems: exact envelopes, equality classification, rational certificates, and the engineering corollaries used by the tool (construct / inspect / refuse). Detection and claim-validity framing only. No operational guidance for concealment from inspection. No T4 claims. No assertion of literature novelty for the sharp seed package.
 
 ## Start here
 

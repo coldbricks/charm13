@@ -148,14 +148,14 @@ CATALOG: dict[str, dict[str, str]] = {
         "sev": "info",
         "tier": "T1",
         "means": (
-            "charm smell is a nonadaptive checklist. Research (research/m5, LADDER_MASTER) "
+            "charm smell runs a nonadaptive inspection checklist. Research (research/m5, LADDER_MASTER) "
             "proves a sharp budget-2 adaptivity envelope G_2(K)=1-1/K under arity-K OPEN "
             "queries, and on synthetic branch/parity habitats adaptive short inspections "
             "can be arbitrarily stronger than fixed checklists of the same look-count."
         ),
         "fix": (
             "Prefer gate/branch coherence before local magic; global relations matter. "
-            "Clean smell is necessary refuse machinery, not a complete adaptive T1 bound."
+            "A clean inspection report is necessary refuse machinery, not a complete adaptive T1 bound."
         ),
     },
     "gate_before_local": {
