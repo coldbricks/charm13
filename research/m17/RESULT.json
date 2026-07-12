@@ -1,0 +1,15 @@
+{
+  "mission": "M17",
+  "title": "Randomized nonadaptive \u2264 deterministic nonadaptive (TV mixtures)",
+  "status": "PROVED",
+  "theorems": [
+    "TV(\u2211\u03b1 \u03bc_i, \u2211\u03b1 \u03bd_i) \u2264 \u2211\u03b1 TV(\u03bc_i,\u03bd_i) \u2264 max_i TV(\u03bc_i,\u03bd_i)",
+    "Hence randomizing the nonadaptive checklist cannot beat best fixed checklist on any family",
+    "On k-pairs: randomized nonadaptive still \u2264 min(B,k)/k"
+  ],
+  "novelty": "KNOWN RESULT (convexity of TV) applied to CHARM checklists",
+  "product_scar": "Shuffling smell rule order / random subsets doesn't beat the best fixed subset of size B",
+  "samples": {
+    "inequality": "TV mixture bound"
+  }
+}

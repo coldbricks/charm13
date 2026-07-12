@@ -1,0 +1,118 @@
+{
+  "mission": "M13",
+  "title": "Unbounded adaptive/nonadaptive budget separation (parity family)",
+  "status": "PROVED",
+  "theorems": [
+    "B_ad^*=1+m, B_na^*=k\u00b7m for perfect TV=1",
+    "B_na^*/B_ad^* = k\u00b7m/(m+1) \u2192 \u221e as k\u2192\u221e (any fixed m\u22651)",
+    "Absolute gap B_na^*\u2212B_ad^* = m(k\u22121)\u22121 \u2192 \u221e"
+  ],
+  "novelty": "KNOWN RESULT, NEW APPLICATION",
+  "product_scar": "Checklist length must scale with branches\u00d7depth; adaptive policy length scales with depth only",
+  "samples": [
+    {
+      "k": 2,
+      "m": 1,
+      "B_ad_star": 2,
+      "B_na_star": 2,
+      "sep": 0,
+      "ratio": "1"
+    },
+    {
+      "k": 3,
+      "m": 3,
+      "B_ad_star": 4,
+      "B_na_star": 9,
+      "sep": 5,
+      "ratio": "9/4"
+    },
+    {
+      "k": 4,
+      "m": 5,
+      "B_ad_star": 6,
+      "B_na_star": 20,
+      "sep": 14,
+      "ratio": "10/3"
+    },
+    {
+      "k": 6,
+      "m": 2,
+      "B_ad_star": 3,
+      "B_na_star": 12,
+      "sep": 9,
+      "ratio": "4"
+    },
+    {
+      "k": 7,
+      "m": 4,
+      "B_ad_star": 5,
+      "B_na_star": 28,
+      "sep": 23,
+      "ratio": "28/5"
+    },
+    {
+      "k": 9,
+      "m": 1,
+      "B_ad_star": 2,
+      "B_na_star": 9,
+      "sep": 7,
+      "ratio": "9/2"
+    },
+    {
+      "k": 10,
+      "m": 3,
+      "B_ad_star": 4,
+      "B_na_star": 30,
+      "sep": 26,
+      "ratio": "15/2"
+    },
+    {
+      "k": 11,
+      "m": 5,
+      "B_ad_star": 6,
+      "B_na_star": 55,
+      "sep": 49,
+      "ratio": "55/6"
+    },
+    {
+      "k": 13,
+      "m": 2,
+      "B_ad_star": 3,
+      "B_na_star": 26,
+      "sep": 23,
+      "ratio": "26/3"
+    },
+    {
+      "k": 14,
+      "m": 4,
+      "B_ad_star": 5,
+      "B_na_star": 56,
+      "sep": 51,
+      "ratio": "56/5"
+    },
+    {
+      "k": 16,
+      "m": 1,
+      "B_ad_star": 2,
+      "B_na_star": 16,
+      "sep": 14,
+      "ratio": "8"
+    },
+    {
+      "k": 17,
+      "m": 3,
+      "B_ad_star": 4,
+      "B_na_star": 51,
+      "sep": 47,
+      "ratio": "51/4"
+    },
+    {
+      "k": 18,
+      "m": 5,
+      "B_ad_star": 6,
+      "B_na_star": 90,
+      "sep": 84,
+      "ratio": "15"
+    }
+  ]
+}

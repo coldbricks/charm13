@@ -1,0 +1,17 @@
+{
+  "mission": "M15",
+  "title": "Severity stack vs adaptive D: order can reverse across habitats",
+  "status": "PROVED (construction)",
+  "theorems": [
+    "There exist habitat parameters where S(findings) ranks opposite to D_B^ad",
+    "S(2 warns)<S(5 warns) but D_2(k=3)=1 > D_1(k=100)=1/100"
+  ],
+  "novelty": "ENGINEERING / hygiene (extends M4-B to ladder parameters)",
+  "product_scar": "Never treat warn-count as adaptive T1 risk; report policy/budgeted advantage language in research notes",
+  "samples": {
+    "S2": "7/16",
+    "S5": "781/1024",
+    "D_ad_k3_B2": "1",
+    "D_ad_k100_B1": "1/100"
+  }
+}

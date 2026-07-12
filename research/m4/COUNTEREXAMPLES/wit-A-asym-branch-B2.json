@@ -1,0 +1,111 @@
+{
+  "id": "wit-A-asym-branch-B2",
+  "kills_or_witnesses": "M4-A",
+  "role": "witness",
+  "statement": "At B=2, D_adaptive=1 and D_nonadaptive=1/2 (gap=1/2) for gate/left/right query geometry.",
+  "P": {
+    "worlds": [
+      "W0",
+      "W1",
+      "W2",
+      "W3"
+    ],
+    "probs": [
+      "1/2",
+      "0",
+      "1/2",
+      "0"
+    ]
+  },
+  "Q": {
+    "worlds": [
+      "W0",
+      "W1",
+      "W2",
+      "W3"
+    ],
+    "probs": [
+      "0",
+      "1/2",
+      "0",
+      "1/2"
+    ]
+  },
+  "tree_encoding": {
+    "note": "Abstract attributed worlds; FS reading: gate=list branch id; left/right=head in branch",
+    "worlds": {
+      "W0": {
+        "gate": 0,
+        "payload": 0
+      },
+      "W1": {
+        "gate": 0,
+        "payload": 1
+      },
+      "W2": {
+        "gate": 1,
+        "payload": 0
+      },
+      "W3": {
+        "gate": 1,
+        "payload": 1
+      }
+    }
+  },
+  "queries": [
+    {
+      "id": "gate",
+      "type": "gate",
+      "obs": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "cost": 1
+    },
+    {
+      "id": "left",
+      "type": "head_left",
+      "obs": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "cost": 1
+    },
+    {
+      "id": "right",
+      "type": "head_right",
+      "obs": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "cost": 1
+    }
+  ],
+  "costs": {
+    "gate": "1",
+    "left": "1",
+    "right": "1"
+  },
+  "budget": 2,
+  "D_adaptive": "1/1",
+  "D_nonadaptive": "1/2",
+  "advantage_gap": "1/2",
+  "optimal_policy": {
+    "first": "gate",
+    "if_0": "left",
+    "if_1": "right",
+    "result": "full separation TV=1"
+  },
+  "claimed_policy": {
+    "nonadaptive_best": "any 2-subset yields TV<=1/2"
+  },
+  "path_free_nonadaptive_D": "1/2",
+  "notes": "Exceeds CHARTER constants (claimed D_ad=1/2, D_na<=1/4); stronger witness D_ad=1, D_na=1/2. MIRROR: classical adaptive experimental design geometry.",
+  "verified_by": "EXPERIMENTS/enum_core.py adaptive_W / nonadaptive_W"
+}

@@ -1,0 +1,97 @@
+{
+  "mission": "M8",
+  "title": "Fixed nonadaptive suite cannot dominate adaptive T1 (uniformly)",
+  "status": "PROVED",
+  "theorems": [
+    "\u2200B\u2200\u03b5\u2208(0,1)\u2203k: D_B^na(P_k,Q_k)\u2264\u03b5 and D_2^ad(P_k,Q_k)=1",
+    "min such k = min_k_nonadaptive_below_eps(B,\u03b5)"
+  ],
+  "novelty": "KNOWN RESULT, NEW APPLICATION (checklist incompleteness theorem for CHARM)",
+  "product_scar": "Passing a fixed-size smell suite is not a uniform T1 risk certificate",
+  "samples": [
+    {
+      "B": 1,
+      "eps": "1/2",
+      "k": 2,
+      "D_na": "1/2",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 1,
+      "eps": "1/10",
+      "k": 10,
+      "D_na": "1/10",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 1,
+      "eps": "1/100",
+      "k": 100,
+      "D_na": "1/100",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 2,
+      "eps": "1/2",
+      "k": 4,
+      "D_na": "1/2",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 2,
+      "eps": "1/10",
+      "k": 20,
+      "D_na": "1/10",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 2,
+      "eps": "1/100",
+      "k": 200,
+      "D_na": "1/100",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 3,
+      "eps": "1/2",
+      "k": 6,
+      "D_na": "1/2",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 3,
+      "eps": "1/10",
+      "k": 30,
+      "D_na": "1/10",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 3,
+      "eps": "1/100",
+      "k": 300,
+      "D_na": "1/100",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 4,
+      "eps": "1/2",
+      "k": 8,
+      "D_na": "1/2",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 4,
+      "eps": "1/10",
+      "k": 40,
+      "D_na": "1/10",
+      "D_ad_B2": "1"
+    },
+    {
+      "B": 4,
+      "eps": "1/100",
+      "k": 400,
+      "D_na": "1/100",
+      "D_ad_B2": "1"
+    }
+  ]
+}

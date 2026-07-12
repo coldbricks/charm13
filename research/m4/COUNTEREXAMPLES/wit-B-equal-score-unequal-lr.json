@@ -1,0 +1,23 @@
+{
+  "id": "wit-B-equal-score-unequal-lr",
+  "kills_or_witnesses": "M4-B",
+  "role": "witness",
+  "statement": "Identical severity multisets (hence equal S) with unequal full-tree LR.",
+  "scores": {
+    "Xa": "1/4",
+    "Xb": "1/4"
+  },
+  "P": [
+    "1/2",
+    "1/2"
+  ],
+  "Q": [
+    "3/4",
+    "1/4"
+  ],
+  "Lambda": [
+    "3/2",
+    "1/2"
+  ],
+  "notes": "Shows S is not a sufficient statistic for Bayes decisions under O_full."
+}

@@ -1,0 +1,138 @@
+{
+  "mission": "M9",
+  "title": "Camouflage capacity zero under adaptive B\u22652 on k-pair family",
+  "status": "PROVED",
+  "theorems": [
+    "For B\u22652 and \u03b5<1: no k has D_B^ad(P_k,Q_k)\u2264\u03b5 (capacity 0)",
+    "For B=1: D=1/k \u21920 so arbitrarily large k meet any \u03b5>0 (capacity \u221e in k)",
+    "Nonadaptive risk D_B^na=min(B,k)/k decreases in k"
+  ],
+  "novelty": "KNOWN RESULT, NEW APPLICATION (capacity zero under strong observer \u2014 honest)",
+  "product_scar": "Against adaptive T1 B\u22652, branching camouflage of this form cannot achieve D\u2264\u03b5<1; do not market large k as adaptive-safe",
+  "samples": {
+    "capacity_table": [
+      {
+        "B": 0,
+        "eps": "1/2",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 0,
+        "eps": "9/10",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 0,
+        "eps": "1",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 1,
+        "eps": "1/2",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 1,
+        "eps": "9/10",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 1,
+        "eps": "1",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 2,
+        "eps": "1/2",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 2,
+        "eps": "9/10",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 2,
+        "eps": "1",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 3,
+        "eps": "1/2",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 3,
+        "eps": "9/10",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 3,
+        "eps": "1",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 4,
+        "eps": "1/2",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 4,
+        "eps": "9/10",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 4,
+        "eps": "1",
+        "C_ad_max_k_or_inf": "\u221e"
+      },
+      {
+        "B": 5,
+        "eps": "1/2",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 5,
+        "eps": "9/10",
+        "C_ad_max_k_or_inf": 0
+      },
+      {
+        "B": 5,
+        "eps": "1",
+        "C_ad_max_k_or_inf": "\u221e"
+      }
+    ],
+    "nonadaptive_risk": [
+      {
+        "k": 4,
+        "B": 2,
+        "D_na": "1/2"
+      },
+      {
+        "k": 4,
+        "B": 5,
+        "D_na": "1"
+      },
+      {
+        "k": 10,
+        "B": 2,
+        "D_na": "1/5"
+      },
+      {
+        "k": 10,
+        "B": 5,
+        "D_na": "1/2"
+      },
+      {
+        "k": 100,
+        "B": 2,
+        "D_na": "1/50"
+      },
+      {
+        "k": 100,
+        "B": 5,
+        "D_na": "1/20"
+      }
+    ]
+  }
+}

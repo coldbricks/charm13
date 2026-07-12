@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "charm13"
+version = "0.3.4"
+description = "Camouflage factory and detection oracle for encrypted-volume habitats"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "coldb" }]
+dependencies = []
+
+[project.scripts]
+charm = "charm.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+charm = ["py.typed"]

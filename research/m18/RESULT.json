@@ -1,0 +1,22 @@
+{
+  "mission": "M18",
+  "title": "Doctrine mega-pack + full closed-form regression",
+  "status": "PROVED (meta) + DOCTRINE READY",
+  "theorems": [
+    "All M5\u2013M17 closed forms mutually consistent on overlap"
+  ],
+  "novelty": "SYNTHESIS",
+  "product_scar": "Ship doctrine list to MASTER/README when owner authorizes product edit",
+  "samples": {
+    "doctrine": [
+      "Static smell \u2261 nonadaptive observer of budget \u2248 #rules fired structure",
+      "Adaptive T1 with 2 looks can achieve D=1 on 1-bit k-pair for every k (capacity 0 for \u03b5<1)",
+      "Parity/global relations: adaptive cost 1+m vs nonadaptive k\u00b7m",
+      "Myopic severity-first ordering is unboundedly suboptimal",
+      "Randomizing checklist order does not beat best fixed checklist (M17)",
+      "Warn-count / blown_score can rank opposite adaptive D (M15)",
+      "M4 gap is floor; ladder is the envelope; k-pair and parity are the models",
+      "No T4; no claim real disks \u2261 these families; detection framing only"
+    ]
+  }
+}

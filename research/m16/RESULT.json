@@ -1,0 +1,38 @@
+{
+  "mission": "M16",
+  "title": "Query complexity: nonadaptive \u03a9(k) vs adaptive O(1) for constant TV",
+  "status": "PROVED",
+  "theorems": [
+    "For 1-bit k-pair: D_ad reaches 1 at B=2 for all k",
+    "D_na \u2265 1/2 requires B \u2265 ceil(k/2)",
+    "Nonadaptive query complexity for constant advantage is \u0398(k); adaptive is O(1)"
+  ],
+  "novelty": "KNOWN RESULT, NEW APPLICATION (query complexity packaging)",
+  "product_scar": "Bench should stress high-k branching habitats; fixed short checklists fail systematically",
+  "samples": [
+    {
+      "k": 4,
+      "B_na_for_TV_half": 2,
+      "B_ad_for_TV_1": 2,
+      "ratio": "1"
+    },
+    {
+      "k": 10,
+      "B_na_for_TV_half": 5,
+      "B_ad_for_TV_1": 2,
+      "ratio": "5/2"
+    },
+    {
+      "k": 50,
+      "B_na_for_TV_half": 25,
+      "B_ad_for_TV_1": 2,
+      "ratio": "25/2"
+    },
+    {
+      "k": 100,
+      "B_na_for_TV_half": 50,
+      "B_ad_for_TV_1": 2,
+      "ratio": "25"
+    }
+  ]
+}

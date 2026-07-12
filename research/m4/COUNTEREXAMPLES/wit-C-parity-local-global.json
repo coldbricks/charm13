@@ -1,0 +1,28 @@
+{
+  "id": "wit-C-parity-local-global",
+  "kills_or_witnesses": "M4-C",
+  "role": "witness",
+  "statement": "P=even parity, Q=odd parity on two bits. Each single-bit law is Bern(1/2) under both P and Q (locals matched). D_1 with parity query = 1; D_1 with only local bit queries = 0.",
+  "P": [
+    "1/2",
+    "0",
+    "0",
+    "1/2"
+  ],
+  "Q": [
+    "0",
+    "1/2",
+    "1/2",
+    "0"
+  ],
+  "local_predicates": [
+    "b1",
+    "b2"
+  ],
+  "global_relation": "b1 XOR b2",
+  "D1_global_only": "1/1",
+  "D1_locals_only": "0/1",
+  "D2_locals_only": "1/1",
+  "notes": "Classical parity / local-vs-global. CHARM translation: checksum line items can each look fine while set-level parity/co-occurrence fails. Novelty residual is product export only.",
+  "verified_by": "EXPERIMENTS/enum_core.py"
+}

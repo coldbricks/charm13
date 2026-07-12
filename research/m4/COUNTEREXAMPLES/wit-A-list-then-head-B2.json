@@ -1,0 +1,79 @@
+{
+  "id": "wit-A-list-then-head-B2",
+  "kills_or_witnesses": "M4-A",
+  "role": "witness",
+  "statement": "Filesystem path-prefix legality: D_ad=1, D_na=1/2 at B=2 when head_* requires list. Path-free nonadaptive achieves D=1 (gap vanishes) \u2014 MIRROR stress model.",
+  "P": {
+    "probs": [
+      "1/2",
+      "0",
+      "1/2",
+      "0"
+    ]
+  },
+  "Q": {
+    "probs": [
+      "0",
+      "1/2",
+      "0",
+      "1/2"
+    ]
+  },
+  "tree_encoding": {
+    "W0": "only child a bit0",
+    "W1": "only child a bit1",
+    "W2": "only child b bit0",
+    "W3": "only child b bit1"
+  },
+  "queries": [
+    {
+      "id": "list",
+      "obs": [
+        "a",
+        "a",
+        "b",
+        "b"
+      ],
+      "cost": 1,
+      "requires": []
+    },
+    {
+      "id": "head_a",
+      "obs": [
+        0,
+        1,
+        "na",
+        "na"
+      ],
+      "cost": 1,
+      "requires": [
+        "list"
+      ]
+    },
+    {
+      "id": "head_b",
+      "obs": [
+        "na",
+        "na",
+        0,
+        1
+      ],
+      "cost": 1,
+      "requires": [
+        "list"
+      ]
+    }
+  ],
+  "budget": 2,
+  "D_adaptive": "1/1",
+  "D_nonadaptive": "1/2",
+  "advantage_gap": "1/2",
+  "D_nonadaptive_path_free": "1/1",
+  "optimal_policy": {
+    "first": "list",
+    "if_a": "head_a",
+    "if_b": "head_b"
+  },
+  "notes": "Primary FS-shaped witness under DEFINITIONS legality model.",
+  "verified_by": "EXPERIMENTS/enum_core.py"
+}

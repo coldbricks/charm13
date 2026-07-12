@@ -1,0 +1,49 @@
+{
+  "id": "template-not-a-result",
+  "kills_or_witnesses": "M4-A",
+  "role": "witness",
+  "P": {
+    "trees": ["T0", "T1"],
+    "probs": ["1/2", "1/2"]
+  },
+  "Q": {
+    "trees": ["T0", "T1"],
+    "probs": ["1/4", "3/4"]
+  },
+  "tree_encoding": {
+    "format": "nodes_parent_attrs",
+    "trees": {
+      "T0": {
+        "nodes": [
+          {"id": "r", "parent": null, "attrs": {"kind": "dir"}},
+          {"id": "a", "parent": "r", "attrs": {"kind": "file", "bit": 0}},
+          {"id": "b", "parent": "r", "attrs": {"kind": "file", "bit": 0}}
+        ]
+      },
+      "T1": {
+        "nodes": [
+          {"id": "r", "parent": null, "attrs": {"kind": "dir"}},
+          {"id": "a", "parent": "r", "attrs": {"kind": "file", "bit": 1}},
+          {"id": "b", "parent": "r", "attrs": {"kind": "file", "bit": 0}}
+        ]
+      }
+    }
+  },
+  "queries": [
+    {"id": "list_r", "type": "list", "node": "r"},
+    {"id": "head_a", "type": "head", "node": "a"},
+    {"id": "head_b", "type": "head", "node": "b"}
+  ],
+  "costs": {
+    "list_r": "1",
+    "head_a": "1",
+    "head_b": "1"
+  },
+  "budget": 2,
+  "D_adaptive": "TBD",
+  "D_nonadaptive": "TBD",
+  "optimal_policy": {},
+  "claimed_policy": {},
+  "advantage_gap": "TBD",
+  "notes": "Template only. Not a verified witness. Replace TBD after enumeration."
+}

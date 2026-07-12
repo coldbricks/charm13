@@ -1,0 +1,11 @@
+{
+  "id": "wit-A-three-pair-B2",
+  "kills_or_witnesses": "M4-A",
+  "role": "witness",
+  "D_adaptive": "1/1",
+  "D_nonadaptive": "2/3",
+  "advantage_gap": "1/3",
+  "budget": 2,
+  "notes": "which-pair then bit_i; nonadaptive cannot cover all pairs in budget 2",
+  "verified_by": "EXPERIMENTS/enum_core.py"
+}

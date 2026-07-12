@@ -1,0 +1,14 @@
+{
+  "mission": "M14",
+  "title": "Nesting: M5 k-pair \u2261 parity family at m=1",
+  "status": "PROVED",
+  "theorems": [
+    "inst_k_parity(k,1) has same D_ad, D_na as inst_k_pairs(k)",
+    "M5\u2013M11 theorems are the m=1 slice of M12\u2013M13"
+  ],
+  "novelty": "SYNTHESIS / consistency",
+  "product_scar": "One theory stack; docs can cite a single family with parameter m",
+  "samples": {
+    "m1_equiv": true
+  }
+}

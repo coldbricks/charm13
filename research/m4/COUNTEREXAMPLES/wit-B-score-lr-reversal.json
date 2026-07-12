@@ -1,0 +1,54 @@
+{
+  "id": "wit-B-score-lr-reversal",
+  "kills_or_witnesses": "M4-B",
+  "role": "witness",
+  "statement": "Trees X0 (two warn findings) and X1 (one bad): S(X0)=7/16 < S(X1)=11/20 but Lambda(X0)=4 > Lambda(X1)=1/4 under explicit equal-support rational P,Q.",
+  "findings": {
+    "X0": [
+      "warn",
+      "warn"
+    ],
+    "X1": [
+      "bad"
+    ],
+    "X2": []
+  },
+  "scores": {
+    "X0": "7/16",
+    "X1": "11/20",
+    "X2": "0/1"
+  },
+  "P": [
+    "1/6",
+    "2/3",
+    "1/6"
+  ],
+  "Q": [
+    "2/3",
+    "1/6",
+    "1/6"
+  ],
+  "Lambda": [
+    "4/1",
+    "1/4",
+    "1/1"
+  ],
+  "refuse": {
+    "X0": false,
+    "X1": true
+  },
+  "latent_defect_cover": {
+    "note": "X0: one defect d_common activates two warn codes; X1: one defect d_lie activates one bad",
+    "Phi": {
+      "d_common": [
+        "warn_a",
+        "warn_b"
+      ],
+      "d_lie": [
+        "bad_magic"
+      ]
+    }
+  },
+  "comparison_oracle": "O_full",
+  "notes": "Kills Bayes-monotone reading of severity-only product score. Novelty of qualitative claim may be low (MIRROR); CHARM-specific constants locked."
+}

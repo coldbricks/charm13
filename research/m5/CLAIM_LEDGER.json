@@ -1,0 +1,24 @@
+{
+  "mission": "M5",
+  "primary": "M5-U",
+  "success_label": "PROVED, FORMALIZATION PARTIAL WITH AN EXPLICIT GAP",
+  "novelty_packaging": "KNOWN RESULT, NEW APPLICATION",
+  "claims": [
+    {
+      "id": "M5-U",
+      "title": "Unbounded adaptivity gap at budget 2 (k-pair family)",
+      "status": "PROVED",
+      "constants": {
+        "D2_adaptive": "1",
+        "D2_nonadaptive": "2/k",
+        "gap": "1-2/k -> 1",
+        "ratio": "k/2 -> infinity",
+        "B_ad_star": 2,
+        "B_na_star": "k",
+        "greedy_ratio": "k/2"
+      },
+      "proof": "PROOFS/UNBOUNDED_ADAPTIVITY_GAP.md",
+      "product_scar": "static smell suite does not bound adaptive T1; myopic local-first arbitrarily bad"
+    }
+  ]
+}
