@@ -1164,7 +1164,7 @@ def fig_cyclic_gate_ouroboros() -> None:
         arrowprops=dict(arrowstyle="-|>", color=GOLD, lw=1.6, mutation_scale=15),
         zorder=8,
     )
-    _scrawl(ax, 1.22 * np.cos(bite), 1.22 * np.sin(bite), "tail→mouth", font=hand2, size=9, color=GOLD, rot=18)
+    _scrawl(ax, 1.22 * np.cos(bite), 1.22 * np.sin(bite), "tail->mouth", font=hand2, size=9, color=GOLD, rot=18)
 
     # Spokes + stations with jitter
     for j in range(K):
@@ -1220,7 +1220,7 @@ def fig_cyclic_gate_ouroboros() -> None:
         (1.15, 0.35, "two stickers\n≠ the whole pie", 7),
         (-1.20, -0.75, "adaptive =\nfollow one spoke", 5),
         (1.05, -0.85, "nonadaptive =\nplant two pins\n& hope", -6),
-        (-0.15, 0.95, "∴  name i", 2),
+        (-0.15, 0.95, "so: name i", 2),
     ]
     for x, y, t, rot in notes:
         _scrawl(ax, x, y, t, font=hand2, size=8.8, color=SOFT, rot=rot, ha="center")
