@@ -1,14 +1,8 @@
-# Local fonts (not redistributed)
+# Fonts directory
 
-Place personal-use typefaces here for **local figure rendering only**.
+Public figures use **CHARM13 house hand** (`../house_hand.py`) — original stroke
+lettering. No third-party font binary is required to render the cyclic gate.
 
-| File | Face | License note |
-|------|------|----------------|
-| `TheMiladiator.ttf` | The Miladiator | Personal use only (Kotak Kuning Studio) |
-| `Sabarian.ttf` | Sabarian | Personal use only (Gassstype) |
-| `Mitshuka_PERSONAL_USE_ONLY.otf` | Mitshuka | Personal use only (Mans Greback) |
-
-These `*.ttf` / `*.otf` paths are **gitignored**. Do not commit or ship them in releases.
-Rendered PNGs/SVGs in `assets/figures/` do not embed the font binaries.
-
-Commercial GitHub/product distribution of work that *uses* these faces may still require a commercial license from the foundries — check each LICENSE_*.txt before any commercial use.
+If you keep personal-use typefaces here for private experiments, they stay
+gitignored (`*.ttf`, `*.otf`). Do not commit or redistribute them. Do not treat
+slightly modified copies of other foundries’ files as project IP.

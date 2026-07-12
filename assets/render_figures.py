@@ -1048,90 +1048,10 @@ def fig_deep_equation_wall() -> None:
     plt.close(fig)
 
 
-def _register_local_fonts() -> dict[str, str]:
-    """Register personal faces from assets/fonts/ if present (gitignored binaries).
-
-    Returns map role -> font family name for matplotlib.
-    """
-    from matplotlib import font_manager
-
-    font_dir = Path(__file__).resolve().parent / "fonts"
-    registry: dict[str, str] = {}
-    candidates = {
-        "brush": ["Sabarian.ttf", "Sabarian.otf"],
-        "tag": ["Mitshuka_PERSONAL_USE_ONLY.otf", "Mitshuka.otf"],
-        "display": ["TheMiladiator.ttf"],
-    }
-    for role, files in candidates.items():
-        for fname in files:
-            path = font_dir / fname
-            if path.is_file():
-                try:
-                    font_manager.fontManager.addfont(str(path))
-                    prop = font_manager.FontProperties(fname=str(path))
-                    registry[role] = prop.get_name()
-                except Exception:
-                    pass
-                break
-    # system fallbacks (always legal to ship figures rendered with these)
-    names = {f.name for f in font_manager.fontManager.ttflist}
-    if "brush" not in registry:
-        registry["brush"] = next((n for n in ("Ink Free", "Segoe Print") if n in names), "DejaVu Sans")
-    if "tag" not in registry:
-        registry["tag"] = next((n for n in ("Segoe Print", "Ink Free") if n in names), registry["brush"])
-    if "display" not in registry:
-        registry["display"] = next((n for n in ("Segoe Script", "Ink Free") if n in names), registry["brush"])
-    return registry
-
-
-def _scrawl(
-    ax,
-    x,
-    y,
-    text: str,
-    *,
-    font: str,
-    size: float,
-    color=SOFT,
-    rot: float = 0.0,
-    alpha: float = 1.0,
-    ha="center",
-    va="center",
-):
-    """Double-pass ink so it feels written, not typeset."""
-    ax.text(
-        x + 0.005,
-        y - 0.004,
-        text,
-        ha=ha,
-        va=va,
-        color=DIM,
-        fontsize=size,
-        fontfamily=font,
-        rotation=rot,
-        alpha=0.5 * alpha,
-        zorder=6,
-    )
-    ax.text(
-        x,
-        y,
-        text,
-        ha=ha,
-        va=va,
-        color=color,
-        fontsize=size,
-        fontfamily=font,
-        rotation=rot,
-        alpha=alpha,
-        zorder=7,
-    )
-
-
 def _snake_head(ax, tip, direction, scale=0.11, color=SOFT, eye=GOLD):
     """Low-poly friendly snake head (inspiration: dual geometric ouroboros plate)."""
     ang = np.arctan2(direction[1], direction[0])
     c, s = np.cos(ang), np.sin(ang)
-    # triangle-ish head in local coords
     local = np.array(
         [
             [scale * 1.15, 0.0],
@@ -1143,167 +1063,151 @@ def _snake_head(ax, tip, direction, scale=0.11, color=SOFT, eye=GOLD):
     R = np.array([[c, -s], [s, c]])
     pts = (local @ R.T) + np.asarray(tip)
     ax.fill(pts[:, 0], pts[:, 1], facecolor=VOID, edgecolor=color, linewidth=1.35, zorder=9)
-    # eye
     eye_local = np.array([scale * 0.25, scale * 0.18])
     ex, ey = eye_local @ R.T + np.asarray(tip)
     ax.add_patch(Circle((ex, ey), scale * 0.12, facecolor=eye, edgecolor=VOID, linewidth=0.4, zorder=10))
 
 
 def fig_cyclic_gate_ouroboros() -> None:
-    """Cyclic gate + dual ouroboros — black/gold plate inspired by user refs.
+    """Cyclic gate + dual ouroboros — even circle, professional plate.
 
-    Geometry from the dual-snake circle-of-fifths plates; scrawl from local personal
-    fonts when present (not redistributed). Pedagogical analogue only.
+    True circles (no scallop). Gold radial K=12 wheel. Dual heads. House-hand
+    lettering (original strokes). Pedagogical analogue only.
     """
-    rng = np.random.default_rng(21)
-    faces = _register_local_fonts()
-    brush, tag, display = faces["brush"], faces["tag"], faces["display"]
+    import sys
 
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from house_hand import draw_text
+
+    rng = np.random.default_rng(7)
     K = 12
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
-    rim_scraps = [
-        "g=i",
-        "b_i",
-        "1/K",
-        "TV=1",
-        "B=2",
-        "OPEN",
-        "ad",
-        "na",
-        "G2",
-        "flat",
-        "spoke",
-        "pair",
-    ]
+    rim_scraps = ["g=i", "b_i", "1/K", "TV=1", "B=2", "OPEN", "ad", "na", "G2", "flat", "spoke", "pair"]
 
-    fig = plt.figure(figsize=(11.0, 11.2), dpi=220)
+    fig = plt.figure(figsize=(10.5, 10.8), dpi=240)
     fig.patch.set_facecolor(VOID)
-    ax = fig.add_axes([0.04, 0.06, 0.92, 0.90])
-    ax.set_xlim(-1.55, 1.55)
-    ax.set_ylim(-1.60, 1.45)
+    ax = fig.add_axes([0.05, 0.07, 0.90, 0.88])
+    ax.set_xlim(-1.42, 1.42)
+    ax.set_ylim(-1.50, 1.38)
     ax.set_aspect("equal")
     ax.axis("off")
     ax.set_facecolor(VOID)
 
-    # Title — display brush, a little crooked
-    _scrawl(ax, 0, 1.32, "cyclic gate", font=display, size=22, color=WHITE, rot=rng.uniform(-2, 2))
-    _scrawl(
+    # Title — steady house hand (minimal tilt)
+    draw_text(ax, 0, 1.26, "cyclic gate", scale=0.14, color=WHITE, rot_deg=0, lw=1.65, rng=rng)
+    draw_text(
         ax,
         0,
-        1.18,
-        "address construction  ·  K-wheel  ·  dual ouroboros",
-        font=tag,
-        size=11,
+        1.12,
+        "address construction  ·  open model",
+        scale=0.05,
         color=MUTED,
-        rot=rng.uniform(-1.2, 1.2),
+        rot_deg=0,
+        lw=1.05,
+        rng=rng,
     )
 
-    # --- dual ouroboros body (two arcs, heads top & bottom) ---
-    R_snake = 1.18
-    th = np.linspace(0, 2 * np.pi, 400)
-    # slight scallop like the faceted plate
-    scallop = 1.0 + 0.035 * np.sin(6 * th)
-    sx = R_snake * scallop * np.cos(th)
-    sy = R_snake * scallop * np.sin(th)
-    ax.plot(sx, sy, color=SOFT, lw=2.4, solid_capstyle="round", zorder=4)
-    # gold braid highlight
+    # --- even circles: ouroboros ring ---
+    R_snake = 1.12
+    th = np.linspace(0, 2 * np.pi, 512)
+    ax.plot(R_snake * np.cos(th), R_snake * np.sin(th), color=SOFT, lw=2.5, solid_capstyle="round", zorder=4)
     ax.plot(
-        (R_snake * 0.97) * scallop * np.cos(th),
-        (R_snake * 0.97) * scallop * np.sin(th),
+        (R_snake - 0.035) * np.cos(th),
+        (R_snake - 0.035) * np.sin(th),
         color=GOLD,
-        lw=1.1,
-        alpha=0.85,
+        lw=1.15,
+        alpha=0.9,
         zorder=5,
     )
-    # heads at top (pi/2) and bottom (-pi/2)
+    # dual heads (top / bottom), tangent-aligned
     for ang, dsign in ((np.pi / 2, 1.0), (-np.pi / 2, -1.0)):
         tip = np.array([R_snake * np.cos(ang), R_snake * np.sin(ang)])
-        # tangent direction for head orientation (clockwise-ish bite)
         tang = np.array([-np.sin(ang), np.cos(ang)]) * dsign
-        _snake_head(ax, tip, tang, scale=0.13, color=SOFT, eye=GOLD)
+        _snake_head(ax, tip, tang, scale=0.12, color=SOFT, eye=GOLD)
 
-    # outer formula band (etched rim energy from refs)
-    R_band = 1.02
+    # rim scraps on a true circle
+    R_band = 1.28
     for j, scrap in enumerate(rim_scraps):
         a = np.pi / 2 - 2 * np.pi * (j + 0.5) / K
-        x, y = R_band * 1.28 * np.cos(a), R_band * 1.28 * np.sin(a)
-        rot = np.degrees(a) - 90
-        _scrawl(ax, x, y, scrap, font=tag, size=8.2, color=MUTED, rot=rot * 0.35 + rng.uniform(-6, 6), alpha=0.92)
+        draw_text(
+            ax,
+            R_band * np.cos(a),
+            R_band * np.sin(a),
+            scrap,
+            scale=0.048,
+            color=MUTED,
+            rot_deg=float(np.degrees(a) - 90),
+            lw=1.0,
+            rng=rng,
+        )
 
-    # --- inner gold radial wheel (K=12) ---
-    R_outer = 0.88
-    R_inner = 0.22
-    # rings
-    ax.add_patch(Circle((0, 0), R_outer, facecolor=VOID, edgecolor=GOLD, linewidth=2.6, zorder=3))
-    ax.add_patch(Circle((0, 0), R_outer * 0.93, facecolor=VOID, edgecolor=GOLD_DEEP, linewidth=1.0, zorder=3))
-    ax.add_patch(Circle((0, 0), R_inner, facecolor=VOID, edgecolor=GOLD, linewidth=1.8, zorder=6))
+    # --- gold radial wheel (concentric true circles) ---
+    R_outer = 0.86
+    R_mid = 0.80
+    R_inner = 0.20
+    ax.add_patch(Circle((0, 0), R_outer, facecolor=VOID, edgecolor=GOLD, linewidth=2.4, zorder=3))
+    ax.add_patch(Circle((0, 0), R_mid, facecolor=VOID, edgecolor=GOLD_DEEP, linewidth=0.9, zorder=3))
+    ax.add_patch(Circle((0, 0), R_inner, facecolor=VOID, edgecolor=GOLD, linewidth=1.7, zorder=6))
 
     for j in range(K):
         a0 = np.pi / 2 - 2 * np.pi * j / K
         a1 = np.pi / 2 - 2 * np.pi * (j + 1) / K
-        # spoke
         ax.plot(
-            [R_inner * 1.05 * np.cos(a0), R_outer * 0.98 * np.cos(a0)],
-            [R_inner * 1.05 * np.sin(a0), R_outer * 0.98 * np.sin(a0)],
+            [R_inner * 1.02 * np.cos(a0), R_outer * 0.99 * np.cos(a0)],
+            [R_inner * 1.02 * np.sin(a0), R_outer * 0.99 * np.sin(a0)],
             color=GOLD,
-            lw=1.35,
-            solid_capstyle="round",
+            lw=1.25,
+            solid_capstyle="butt",
             zorder=4,
         )
-        # fifths label mid-segment
         am = (a0 + a1) / 2
-        rl = 0.58
-        _scrawl(
+        # radial-aligned labels (readable, even spacing)
+        draw_text(
             ax,
-            rl * np.cos(am),
-            rl * np.sin(am),
+            0.55 * np.cos(am),
+            0.55 * np.sin(am),
             fifths[j],
-            font=brush,
-            size=13,
+            scale=0.10,
             color=WHITE,
-            rot=np.degrees(am) - 90,
+            rot_deg=float(np.degrees(am) - 90),
+            lw=1.4,
+            rng=rng,
         )
-        # tiny index
-        _scrawl(
+        draw_text(
             ax,
-            0.78 * np.cos(am),
-            0.78 * np.sin(am),
+            0.72 * np.cos(am),
+            0.72 * np.sin(am),
             str(j + 1),
-            font=tag,
-            size=7,
+            scale=0.042,
             color=GOLD,
-            rot=0,
-            alpha=0.85,
+            rot_deg=0,
+            lw=0.95,
+            rng=rng,
         )
 
-    # center hub — gate then bit
-    _scrawl(ax, 0, 0.05, "g", font=display, size=18, color=WHITE, rot=-2)
-    _scrawl(ax, 0, -0.10, "b_i", font=brush, size=12, color=GOLD, rot=3)
+    # hub
+    draw_text(ax, 0, 0.035, "g", scale=0.12, color=WHITE, rot_deg=0, lw=1.7, rng=rng)
+    draw_text(ax, 0, -0.10, "b_i", scale=0.08, color=GOLD, rot_deg=0, lw=1.35, rng=rng)
 
-    # margin essays — wacky, not creepy
-    essays = [
-        (-1.42, 0.40, "ask the wheel\nfirst", brush, -7),
-        (1.38, 0.25, "two pins\nmiss the pie", tag, 6),
-        (-1.35, -0.55, "adaptive:\none spoke", brush, 4),
-        (1.32, -0.65, "bounds meet:\ntail in mouth", tag, -5),
-    ]
-    for x, y, t, fnt, rot in essays:
-        _scrawl(ax, x, y, t, font=fnt, size=10, color=SOFT, rot=rot)
+    # four quiet callouts — aligned, no wild tilt
+    draw_text(ax, -1.30, 0.35, "ask wheel first", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
+    draw_text(ax, 1.30, 0.35, "two pins: 1/K", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
+    draw_text(ax, -1.30, -0.45, "adaptive path", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
+    draw_text(ax, 1.30, -0.45, "bounds meet", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
 
-    # sober footer
     ax.text(
         0,
-        -1.42,
-        r"$G_2(K)=1-1/K$   ·   matching construction closes the bound   ·   analogue only",
+        -1.35,
+        r"$G_2(K)=1-1/K$  ·  matching construction  ·  analogue only",
         ha="center",
         color=GOLD,
-        fontsize=9.2,
+        fontsize=9.5,
         fontfamily="serif",
     )
     ax.text(
         0,
-        -1.52,
-        "personal faces used locally if present · binaries not shipped",
+        -1.45,
+        "CHARM13 house hand  ·  even circular plate",
         ha="center",
         color=DIM,
         fontsize=7.5,
@@ -1311,8 +1215,8 @@ def fig_cyclic_gate_ouroboros() -> None:
         fontstyle="italic",
     )
 
-    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=220, facecolor=VOID, bbox_inches="tight", pad_inches=0.16)
-    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.16)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=240, facecolor=VOID, bbox_inches="tight", pad_inches=0.14)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.14)
     plt.close(fig)
 
 

@@ -533,26 +533,12 @@ def anim_parity_ratio_3d() -> None:
 
 
 def anim_cyclic_gate_walk() -> None:
-    """Walk the dual-ouroboros cyclic gate (gold radial, scrawl labels)."""
-    from matplotlib import font_manager
+    """Walk the dual-ouroboros cyclic gate with CHARM13 house hand."""
+    import sys
     from pathlib import Path
 
-    hand = "DejaVu Sans"
-    font_dir = Path(__file__).resolve().parent / "fonts"
-    for fname in ("Sabarian.ttf", "TheMiladiator.ttf", "Ink Free"):
-        # try local personal faces first
-        pass
-    for path in sorted(font_dir.glob("*.ttf")) + sorted(font_dir.glob("*.otf")):
-        try:
-            font_manager.fontManager.addfont(str(path))
-            hand = font_manager.FontProperties(fname=str(path)).get_name()
-            if "Sabarian" in path.name or "sabarian" in path.name.lower():
-                break
-        except Exception:
-            continue
-    else:
-        names = {f.name for f in font_manager.fontManager.ttflist}
-        hand = next((n for n in ("Ink Free", "Segoe Print") if n in names), "DejaVu Sans")
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from house_hand import draw_text
 
     K = 12
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
@@ -561,6 +547,7 @@ def anim_cyclic_gate_walk() -> None:
     fig.patch.set_facecolor(VOID)
     ax = fig.add_subplot(111)
     R = 0.82
+    rng = np.random.default_rng(3)
 
     def update(frame):
         ax.clear()
@@ -570,49 +557,49 @@ def anim_cyclic_gate_walk() -> None:
         ax.axis("off")
         ax.set_facecolor(VOID)
         fig.patch.set_facecolor(VOID)
-        ax.text(0, 1.18, "wheel walk", ha="center", color=WHITE, fontsize=16, fontfamily=hand)
-        ax.text(0, 1.05, "g then the tooth", ha="center", color=MUTED, fontsize=10, fontfamily=hand)
-        # ouroboros ring
-        th = np.linspace(0, 2 * np.pi, 200)
-        sc = 1.0 + 0.03 * np.sin(6 * th)
-        ax.plot(1.12 * sc * np.cos(th), 1.12 * sc * np.sin(th), color=SOFT, lw=2.0)
-        ax.plot(1.08 * sc * np.cos(th), 1.08 * sc * np.sin(th), color=GOLD, lw=1.0, alpha=0.8)
-        # gold wheel
+        draw_text(ax, 0, 1.16, "wheel walk", scale=0.11, color=WHITE, rng=rng, lw=1.5, rot_deg=0)
+        draw_text(ax, 0, 1.02, "g then b_i", scale=0.055, color=MUTED, rng=rng, lw=1.05, rot_deg=0)
+        th = np.linspace(0, 2 * np.pi, 360)
+        # even circles only
+        ax.plot(1.12 * np.cos(th), 1.12 * np.sin(th), color=SOFT, lw=2.1)
+        ax.plot(1.08 * np.cos(th), 1.08 * np.sin(th), color=GOLD, lw=1.05, alpha=0.9)
         ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.2))
+        ax.add_patch(plt.Circle((0, 0), 0.80, fill=False, edgecolor=GOLD_DEEP, lw=0.8))
         ax.add_patch(plt.Circle((0, 0), 0.20, fill=False, edgecolor=GOLD, lw=1.4))
         active = (frame // (n_frames // K)) % K
         for j in range(K):
             a = np.pi / 2 - 2 * np.pi * j / K
             ax.plot(
-                [0.22 * np.cos(a), R * 0.97 * np.cos(a)],
-                [0.22 * np.sin(a), R * 0.97 * np.sin(a)],
+                [0.22 * np.cos(a), R * 0.98 * np.cos(a)],
+                [0.22 * np.sin(a), R * 0.98 * np.sin(a)],
                 color=GOLD if j == active else GOLD_DEEP,
-                lw=1.8 if j == active else 1.1,
+                lw=1.75 if j == active else 1.1,
             )
             am = a - np.pi / K
-            rl = 0.55
             on = j == active
-            ax.text(
-                rl * np.cos(am),
-                rl * np.sin(am),
+            draw_text(
+                ax,
+                0.54 * np.cos(am),
+                0.54 * np.sin(am),
                 fifths[j],
-                ha="center",
-                va="center",
+                scale=0.095 if on else 0.07,
                 color=WHITE if on else MUTED,
-                fontsize=12 if on else 9,
-                fontfamily=hand,
-                rotation=float(np.degrees(am) - 90),
+                rot_deg=float(np.degrees(am) - 90),
+                lw=1.35 if on else 1.0,
+                rng=rng,
             )
-        ax.text(0, 0.04, "g", ha="center", color=WHITE, fontsize=15, fontfamily=hand)
-        ax.text(0, -0.12, f"b_{active+1}", ha="center", color=GOLD, fontsize=11, fontfamily=hand)
-        ax.text(
+        draw_text(ax, 0, 0.03, "g", scale=0.11, color=WHITE, rng=rng, lw=1.55, rot_deg=0)
+        draw_text(ax, 0, -0.11, f"b{active+1}", scale=0.075, color=GOLD, rng=rng, lw=1.25, rot_deg=0)
+        draw_text(
+            ax,
             0,
-            -1.28,
-            "named spoke -> TV=1    two pins miss the pie",
-            ha="center",
+            -1.26,
+            "named spoke TV=1  ·  two pins mass 1/K",
+            scale=0.048,
             color=MUTED,
-            fontsize=9,
-            fontfamily=hand,
+            rng=rng,
+            lw=1.0,
+            rot_deg=0,
         )
         return []
 
