@@ -1048,128 +1048,202 @@ def fig_deep_equation_wall() -> None:
     plt.close(fig)
 
 
+def _hand_fonts() -> tuple[str, str]:
+    """Pick wacky-not-creepy handwriting faces available on the machine."""
+    from matplotlib import font_manager
+
+    names = {f.name for f in font_manager.fontManager.ttflist}
+    # scrawl for labels / title; secondary for tiny marginalia
+    prefer_main = ["Ink Free", "Segoe Print", "Lucida Handwriting", "Bradley Hand ITC", "Comic Sans MS"]
+    prefer_edge = ["Segoe Print", "Ink Free", "MV Boli", "Tempus Sans ITC"]
+    main = next((n for n in prefer_main if n in names), "DejaVu Sans")
+    edge = next((n for n in prefer_edge if n in names and n != main), main)
+    return main, edge
+
+
+def _scrawl(ax, x, y, text: str, *, font: str, size: float, color=SOFT, rot: float = 0.0, alpha: float = 1.0, ha="center", va="center", weight="normal"):
+    """Hand-margin note: slight multi-pass offset so it feels inked, not typeset."""
+    # ghost under-ink
+    ax.text(
+        x + 0.006,
+        y - 0.005,
+        text,
+        ha=ha,
+        va=va,
+        color=DIM,
+        fontsize=size,
+        fontfamily=font,
+        rotation=rot,
+        alpha=0.55 * alpha,
+        zorder=6,
+    )
+    ax.text(
+        x,
+        y,
+        text,
+        ha=ha,
+        va=va,
+        color=color,
+        fontsize=size,
+        fontfamily=font,
+        rotation=rot,
+        alpha=alpha,
+        fontweight=weight,
+        zorder=7,
+    )
+
+
 def fig_cyclic_gate_ouroboros() -> None:
-    """Circle-of-fifths / cyclic gate for the address construction + ouroboros close.
+    """Circle-of-fifths / cyclic gate — wacky hand-scrawl edition (not creepy).
 
-    Pedagogical analogue only: the K-ary gate g is a closed cyclic menu of branches;
-    adaptive policy names the degree then sounds the local bit. The matching upper
-    and lower bounds close on themselves (ouroboros): G_2(K)=1-1/K is eaten and remade.
+    Pedagogical analogue only. Labels use system handwriting faces + jitter.
     """
-    K = 12  # classical fifths count; law holds for general K>=2
-    # Circle-of-fifths order on twelve stations (labels are mnemonic, not a claim)
+    rng = np.random.default_rng(13)  # stable wackiness
+    hand, hand2 = _hand_fonts()
+    K = 12
+    # Circle-of-fifths order — mnemonic branch tags
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
+    # Cryptic-but-goofy second ring (not occult-horror — lab notebook energy)
+    cryptic = [
+        "ask",
+        "then",
+        "spin",
+        "name",
+        "bite?",
+        "nope",
+        "local",
+        "only",
+        "1/K",
+        "oops",
+        "pair",
+        "miss",
+    ]
 
-    fig = plt.figure(figsize=(10.5, 10.5), dpi=220)
+    fig = plt.figure(figsize=(10.8, 11.0), dpi=220)
     fig.patch.set_facecolor(VOID)
-    ax = fig.add_axes([0.06, 0.08, 0.88, 0.84])
-    ax.set_xlim(-1.35, 1.35)
-    ax.set_ylim(-1.45, 1.35)
+    ax = fig.add_axes([0.05, 0.07, 0.90, 0.88])
+    ax.set_xlim(-1.45, 1.45)
+    ax.set_ylim(-1.55, 1.40)
     ax.set_aspect("equal")
     ax.axis("off")
     ax.set_facecolor(VOID)
 
-    ax.text(
+    # Title in scrawl
+    _scrawl(ax, 0, 1.28, "ye olde cyclic gate  (address construction)", font=hand, size=16, color=WHITE, rot=rng.uniform(-1.5, 1.5))
+    _scrawl(
+        ax,
         0,
-        1.22,
-        r"Cyclic gate  ·  address construction",
-        ha="center",
-        va="center",
-        color=WHITE,
-        fontsize=15,
-        fontfamily="serif",
-    )
-    ax.text(
-        0,
-        1.12,
-        r"pedagogical analogue of $g(i,x)=i$  on  $K$ branches  (shown $K{=}12$)",
-        ha="center",
-        va="center",
+        1.16,
+        "hand notes · not a music theorem · K=12 stickers on a general K-wheel",
+        font=hand2,
+        size=9.5,
         color=MUTED,
-        fontsize=9.5,
-        fontfamily="serif",
-        fontstyle="italic",
+        rot=rng.uniform(-1.0, 1.0),
     )
 
-    # Ouroboros outer ring (thick arc + head)
-    R_out = 1.05
-    R_in = 0.72
-    ring = Wedge((0, 0), R_out, 0, 360, width=R_out - 0.98, facecolor=VOID, edgecolor=SOFT, linewidth=1.2)
-    ax.add_patch(ring)
-    # subtle gold accent arc
-    arc_gold = Arc((0, 0), 2 * R_out, 2 * R_out, theta1=20, theta2=100, color=GOLD, lw=1.4, alpha=0.85)
-    ax.add_patch(arc_gold)
+    R_out = 1.08
+    R_in = 0.74
 
-    # Serpent head (simple wedge near theta=90°) — ouroboros bite
-    bite_ang = np.deg2rad(95)
-    hx, hy = (R_out + 0.02) * np.cos(bite_ang), (R_out + 0.02) * np.sin(bite_ang)
+    # Wobbly outer ouroboros ring (not a perfect circle)
+    thetas = np.linspace(0, 2 * np.pi, 240)
+    wobble = 1.0 + 0.018 * np.sin(5 * thetas + 0.4) + 0.012 * np.cos(3 * thetas)
+    xs = R_out * wobble * np.cos(thetas)
+    ys = R_out * wobble * np.sin(thetas)
+    ax.plot(xs, ys, color=SOFT, lw=1.35, solid_capstyle="round", zorder=3)
+    # gold bite arc
+    m = (thetas > 0.35) & (thetas < 1.55)
+    ax.plot(xs[m], ys[m], color=GOLD, lw=2.0, solid_capstyle="round", zorder=4)
+
+    # Serpent head doodle (friendly, not horror)
+    bite = 0.95
+    hx, hy = R_out * 1.02 * np.cos(bite), R_out * 1.02 * np.sin(bite)
     ax.annotate(
         "",
-        xy=(0.92 * R_out * np.cos(np.deg2rad(70)), 0.92 * R_out * np.sin(np.deg2rad(70))),
+        xy=(R_out * 0.93 * np.cos(0.55), R_out * 0.93 * np.sin(0.55)),
         xytext=(hx, hy),
-        arrowprops=dict(arrowstyle="-|>", color=GOLD, lw=1.5, mutation_scale=14),
+        arrowprops=dict(arrowstyle="-|>", color=GOLD, lw=1.6, mutation_scale=15),
+        zorder=8,
     )
-    ax.text(
-        1.18 * np.cos(bite_ang),
-        1.18 * np.sin(bite_ang),
-        "ouroboros",
-        color=GOLD,
-        fontsize=8,
-        fontfamily="serif",
-        ha="center",
-        va="center",
-        rotation=8,
-    )
+    _scrawl(ax, 1.22 * np.cos(bite), 1.22 * np.sin(bite), "tail→mouth", font=hand2, size=9, color=GOLD, rot=18)
 
-    # Inner cycle: K stations (fifths labels as mnemonic for branch index)
+    # Spokes + stations with jitter
     for j in range(K):
-        # start at top, clockwise like many fifths diagrams
-        theta = np.pi / 2 - 2 * np.pi * j / K
-        x = R_in * np.cos(theta)
-        y = R_in * np.sin(theta)
+        theta = np.pi / 2 - 2 * np.pi * j / K + rng.uniform(-0.03, 0.03)
+        rr = R_in * rng.uniform(0.97, 1.03)
+        x, y = rr * np.cos(theta), rr * np.sin(theta)
+        # imperfect little "sticker" circles
+        rad = 0.10 + rng.uniform(-0.012, 0.012)
         ax.add_patch(
-            Circle((x, y), 0.105, facecolor=VOID, edgecolor=WHITE if j % 3 == 0 else DIM, linewidth=1.1)
+            Circle(
+                (x + rng.uniform(-0.01, 0.01), y + rng.uniform(-0.01, 0.01)),
+                rad,
+                facecolor=VOID,
+                edgecolor=WHITE if j % 3 == 0 else MUTED,
+                linewidth=rng.uniform(0.9, 1.4),
+                zorder=5,
+            )
         )
-        ax.text(x, y, fifths[j], ha="center", va="center", color=WHITE, fontsize=8.5, fontfamily="serif")
-        # radial spoke (gate outcome)
-        ax.plot([0.12 * np.cos(theta), 0.58 * np.cos(theta)], [0.12 * np.sin(theta), 0.58 * np.sin(theta)], color=RULE, lw=0.7)
+        rot = float(np.degrees(theta) - 90 + rng.uniform(-12, 12))
+        _scrawl(ax, x, y, fifths[j], font=hand, size=11, color=WHITE, rot=rot * 0.15)
+        # cryptic outer scrap
+        r2 = 1.22 + rng.uniform(-0.03, 0.03)
+        _scrawl(
+            ax,
+            r2 * np.cos(theta),
+            r2 * np.sin(theta),
+            cryptic[j],
+            font=hand2,
+            size=7.5,
+            color=MUTED,
+            rot=rot * 0.25 + rng.uniform(-8, 8),
+            alpha=0.9,
+        )
+        # spoke, slightly broken
+        ax.plot(
+            [0.14 * np.cos(theta), 0.56 * np.cos(theta)],
+            [0.14 * np.sin(theta), 0.56 * np.sin(theta)],
+            color=RULE,
+            lw=rng.uniform(0.55, 0.95),
+            solid_capstyle="round",
+            zorder=2,
+        )
 
-    # Center: gate then bit
-    ax.add_patch(Circle((0, 0), 0.28, facecolor=VOID, edgecolor=SOFT, linewidth=1.2))
-    ax.text(0, 0.06, r"$g$", ha="center", va="center", color=WHITE, fontsize=16, fontfamily="serif")
-    ax.text(0, -0.10, "then", ha="center", va="center", color=MUTED, fontsize=8, fontfamily="serif", fontstyle="italic")
-    ax.text(0, -0.20, r"$b_i$", ha="center", va="center", color=GOLD, fontsize=12, fontfamily="serif")
+    # Center blob
+    ax.add_patch(Circle((0.01, -0.01), 0.30, facecolor=VOID, edgecolor=SOFT, linewidth=1.3, zorder=5))
+    _scrawl(ax, 0, 0.07, "g ???", font=hand, size=15, color=WHITE, rot=-3)
+    _scrawl(ax, 0, -0.08, "then b_i", font=hand, size=12, color=GOLD, rot=4)
+    _scrawl(ax, 0, -0.20, "(the tooth)", font=hand2, size=8, color=MUTED, rot=-2)
 
-    # Adaptive path callout
-    ax.annotate(
-        "adaptive: name the degree,\nthen sound the local bit",
-        xy=(R_in * np.cos(np.pi / 2 - 2 * np.pi * 1 / K), R_in * np.sin(np.pi / 2 - 2 * np.pi * 1 / K)),
-        xytext=(0.55, -1.22),
-        fontsize=9,
-        color=SOFT,
-        fontfamily="serif",
-        ha="center",
-        arrowprops=dict(arrowstyle="->", color=MUTED, lw=0.9),
-        bbox=dict(boxstyle="square,pad=0.35", facecolor=VOID, edgecolor=DIM, linewidth=0.8),
-    )
+    # Wacky margin essays
+    notes = [
+        (-1.32, 0.55, "rule of thumb:\nask the WHEEL first", -8),
+        (1.15, 0.35, "two stickers\n≠ the whole pie", 7),
+        (-1.20, -0.75, "adaptive =\nfollow one spoke", 5),
+        (1.05, -0.85, "nonadaptive =\nplant two pins\n& hope", -6),
+        (-0.15, 0.95, "∴  name i", 2),
+    ]
+    for x, y, t, rot in notes:
+        _scrawl(ax, x, y, t, font=hand2, size=8.8, color=SOFT, rot=rot, ha="center")
 
-    # Nonadaptive: two fixed stations cannot cover the circle
-    ax.text(
+    # Bottom: keep one sober math line so the textbook reader is not abandoned
+    _scrawl(
+        ax,
         0,
-        -1.38,
-        r"nonadaptive budget 2: any fixed pair covers mass $1/K$  ·  $D^{\mathrm{na}}=1/K$  ·  $D^{\mathrm{ad}}=1$",
-        ha="center",
+        -1.32,
+        "any two pins → mass about 1/K     adaptive on the named spoke → TV = 1",
+        font=hand2,
+        size=9.5,
         color=MUTED,
-        fontsize=9,
-        fontfamily="serif",
+        rot=-0.5,
     )
     ax.text(
         0,
-        -1.48,
-        r"bounds meet:  $G_2(K)=1-1/K$   (ouroboros — upper bound eaten by construction)",
+        -1.46,
+        r"$G_2(K)=1-1/K$   ·   bounds meet (ouroboros)   ·   analogue only",
         ha="center",
         color=GOLD,
-        fontsize=9.2,
-        fontfamily="serif",
+        fontsize=9,
+        fontfamily="serif",  # one clean line of "typeset truth"
     )
 
     fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=220, facecolor=VOID, bbox_inches="tight", pad_inches=0.18)

@@ -533,36 +533,47 @@ def anim_parity_ratio_3d() -> None:
 
 
 def anim_cyclic_gate_walk() -> None:
-    """Walk the cyclic gate: adaptive names branch i, then reads bit i."""
+    """Walk the cyclic gate with scrawly labels (wacky, not creepy)."""
+    from matplotlib import font_manager
+
+    names = {f.name for f in font_manager.fontManager.ttflist}
+    hand = next((n for n in ("Ink Free", "Segoe Print", "Lucida Handwriting") if n in names), "DejaVu Sans")
+
     K = 12
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
-    n_frames = 96  # 8 frames per station
-    fig = plt.figure(figsize=(7.2, 7.2), dpi=120)
+    n_frames = 96
+    fig = plt.figure(figsize=(7.2, 7.4), dpi=120)
     fig.patch.set_facecolor(VOID)
     ax = fig.add_subplot(111)
     R = 0.78
+    rng = np.random.default_rng(7)
+    # pre-jitter station angles once so the wheel feels hand-drawn but stable
+    jitter = rng.uniform(-0.025, 0.025, size=K)
 
     def update(frame):
         ax.clear()
-        ax.set_xlim(-1.25, 1.25)
-        ax.set_ylim(-1.25, 1.25)
+        ax.set_xlim(-1.3, 1.3)
+        ax.set_ylim(-1.35, 1.25)
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_facecolor(VOID)
         fig.patch.set_facecolor(VOID)
-        ax.set_title(
-            r"Cyclic gate  ·  adaptive walk  ($g$ then $b_i$)",
+        ax.text(
+            0,
+            1.12,
+            "wheel walk  ·  ask g, then the tooth",
+            ha="center",
             color=WHITE,
-            fontsize=12,
-            fontfamily="serif",
-            pad=8,
+            fontsize=13,
+            fontfamily=hand,
         )
-        # ring
-        circ = plt.Circle((0, 0), 1.02, fill=False, edgecolor=DIM, lw=1.0)
-        ax.add_patch(circ)
+        # wobbly ring
+        th = np.linspace(0, 2 * np.pi, 180)
+        wob = 1.0 + 0.02 * np.sin(4 * th)
+        ax.plot(1.05 * wob * np.cos(th), 1.05 * wob * np.sin(th), color=DIM, lw=1.1)
         active = (frame // (n_frames // K)) % K
         for j in range(K):
-            theta = np.pi / 2 - 2 * np.pi * j / K
+            theta = np.pi / 2 - 2 * np.pi * j / K + jitter[j]
             x, y = R * np.cos(theta), R * np.sin(theta)
             on = j == active
             ax.add_patch(
@@ -571,7 +582,7 @@ def anim_cyclic_gate_walk() -> None:
                     0.11,
                     fill=False,
                     edgecolor=GOLD if on else (WHITE if j % 3 == 0 else DIM),
-                    lw=1.6 if on else 1.0,
+                    lw=1.7 if on else 1.0,
                 )
             )
             ax.text(
@@ -581,22 +592,23 @@ def anim_cyclic_gate_walk() -> None:
                 ha="center",
                 va="center",
                 color=WHITE if on else MUTED,
-                fontsize=8,
-                fontfamily="serif",
+                fontsize=10 if on else 8,
+                fontfamily=hand,
+                rotation=float(np.degrees(theta) - 90) * 0.12,
             )
             if on:
-                ax.plot([0, 0.62 * x / R * R], [0, 0.62 * y / R * R], color=GOLD, lw=1.4)
-        ax.add_patch(plt.Circle((0, 0), 0.22, fill=False, edgecolor=SOFT, lw=1.1))
-        ax.text(0, 0.04, "g", ha="center", color=WHITE, fontsize=14, fontfamily="serif")
-        ax.text(0, -0.12, f"i={active+1}", ha="center", color=GOLD, fontsize=9, fontfamily="serif")
+                ax.plot([0, 0.62 * x], [0, 0.62 * y], color=GOLD, lw=1.5, solid_capstyle="round")
+        ax.add_patch(plt.Circle((0, 0), 0.24, fill=False, edgecolor=SOFT, lw=1.1))
+        ax.text(0, 0.05, "g ???", ha="center", color=WHITE, fontsize=13, fontfamily=hand)
+        ax.text(0, -0.12, f"tooth {active+1}", ha="center", color=GOLD, fontsize=10, fontfamily=hand)
         ax.text(
             0,
-            -1.15,
-            r"$D_{\mathrm{ad}}=1$  on the named degree",
+            -1.22,
+            "named spoke → TV=1   ·   two pins can't hold the rim",
             ha="center",
             color=MUTED,
             fontsize=9,
-            fontfamily="serif",
+            fontfamily=hand,
         )
         return []
 
