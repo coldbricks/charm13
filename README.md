@@ -56,7 +56,15 @@ T0–T1 are the product-facing inspection regimes. T2 depends on borrowed crypto
 
 ## The mathematical spine (animated)
 
-On the **k-pair family**—uniform random branch, payload bit differs under the two hypotheses—an adaptive policy with budget two (observe branch identity, then the bit on that branch) achieves total-variation advantage **1**. The best nonadaptive suite of budget two achieves **2/k**. The gap is **1 − 2/k**, which tends to **1** as branching grows. Myopic “pick the locally strongest single check first” never opens with the branch query and suffers approximation ratio **k/2**.
+**Sharp finite law (budget 2, OPEN queries, active arity ≤ K):**
+
+\[
+G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K.
+\]
+
+Binary case: gap at most **1/2**, attained by the M4 four-world butterfly (support-minimal and gap-maximal). Proof package: [`research/m5/`](research/m5/). Novelty of the sharp law is **unresolved** pending primary-source collision; do not read this as a claim of invention.
+
+**Habitat application (k-pair family)**—uniform random branch, payload bit differs under the two hypotheses, off-branch bits return `na`—an adaptive policy with budget two (observe branch identity, then the bit on that branch) achieves total-variation advantage **1**. The best nonadaptive suite of budget two achieves **2/k**. The gap is **1 − 2/k**, which tends to **1** as branching grows. Myopic “pick the locally strongest single check first” never opens with the branch query and suffers approximation ratio **k/2**. (This \(2/k\) is a habitat closed form, not the sharp universal \(1/K\).)
 
 <p align="center">
   <img src="assets/figures/anim_gap_growth.gif" alt="Adaptive vs nonadaptive advantage as k grows" width="860"/>
@@ -66,7 +74,7 @@ On the **k-pair family**—uniform random branch, payload bit differs under the 
   <img src="assets/figures/anim_gap_to_one.gif" alt="Gap approaching one" width="860"/>
 </p>
 
-The same envelope extends to every fixed budget B ≥ 2: nonadaptive advantage is min(B,k)/k while adaptive advantage saturates at 1 once B ≥ 2. A fixed-size checklist therefore cannot uniformly bound adaptive risk across all branching factors.
+On the k-pair family the same envelope extends to every fixed budget B ≥ 2: nonadaptive advantage is min(B,k)/k while adaptive advantage saturates at 1 once B ≥ 2. A fixed-size checklist therefore cannot uniformly bound adaptive risk across all branching factors.
 
 <p align="center">
   <img src="assets/figures/gap_all_B.png" alt="Gap for multiple budgets" width="860"/>
@@ -103,7 +111,7 @@ python run_ladder.py
 python run_ladder_high.py
 ```
 
-**Novelty packaging.** The abstract phenomenon that adaptivity can dominate nonadaptive experiments is classical (sequential hypothesis testing, costly feature acquisition). Residual contribution of this repository is exact closed forms on filesystem-shaped query models, reproducible certificates, assumption hygiene (including path-prefix legality), and **product scars**—doctrine that changes how the tool describes itself.
+**Novelty packaging.** The abstract phenomenon that adaptivity can dominate nonadaptive experiments is classical (sequential hypothesis testing, costly feature acquisition). The M5 sharp seed package (\(G_2(K)=1-1/K\), flattening, butterfly uniqueness) is **proved in the frozen model; literature novelty unresolved**. Residual repository contribution includes exact closed forms on filesystem-shaped query models, reproducible certificates, assumption hygiene (including path-prefix legality), and **product scars**—doctrine that changes how the tool describes itself.
 
 ---
 
@@ -237,4 +245,4 @@ Reproduce certificates with the ladder runners and `research/m4` / `research/m5`
 
 ## License & version
 
-MIT · **v0.3.4**
+MIT · **v0.3.5**

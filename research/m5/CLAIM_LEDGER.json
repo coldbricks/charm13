@@ -1,13 +1,73 @@
 {
-  "mission": "M5",
-  "primary": "M5-U",
-  "success_label": "PROVED, FORMALIZATION PARTIAL WITH AN EXPLICIT GAP",
-  "novelty_packaging": "KNOWN RESULT, NEW APPLICATION",
+  "mission": "M5 Extremal Geometry of Budgeted Inspection",
+  "date": "2026-07-12",
+  "model": "finite worlds; deterministic globally addressable unit-cost queries unless stated; worst-case budget; transcript excludes terminal decision",
+  "terminal_status": "PROVED - NOVELTY UNRESOLVED",
   "claims": [
     {
+      "id": "M5-L0",
+      "title": "Deterministic policies suffice",
+      "status": "PROVED - KNOWN BASELINE",
+      "novelty": "not claimed",
+      "proof": "SEED_THEOREMS.md#lemma-23--deterministic-policies-suffice",
+      "formalization": "not started"
+    },
+    {
+      "id": "M5-L1",
+      "title": "Exact weighted-classification-tree reduction",
+      "status": "PROVED - PRIOR-ART BRIDGE",
+      "novelty": "not claimed",
+      "proof": "SEED_THEOREMS.md#theorem-31--bayes-error-equivalence",
+      "formalization": "not started"
+    },
+    {
+      "id": "M5-T1",
+      "title": "Active support r <= B+1 implies no adaptivity gap",
+      "status": "PROVED - NOVELTY UNRESOLVED",
+      "novelty": "requires primary-source collision audit",
+      "proof": "SEED_THEOREMS.md#theorem-41--small-active-support-kills-adaptivity",
+      "formalization": "not started",
+      "certificates": "EXPERIMENTS/test_m5_exact.py::sanity_small_support_no_gap"
+    },
+    {
+      "id": "M5-T2",
+      "title": "Budget-two root-arity bound D_ad <= K D_na",
+      "status": "PROVED - NOVELTY UNRESOLVED",
+      "novelty": "requires comparison with active testing and feature acquisition",
+      "proof": "SEED_THEOREMS.md#theorem-51--root-arity-bound",
+      "formalization": "not started"
+    },
+    {
+      "id": "M5-T3",
+      "title": "Sharp extremal law G_2(K)=1-1/K",
+      "status": "PROVED - NOVELTY UNRESOLVED",
+      "novelty": "candidate sharp finite adaptivity law; do not publicize as new",
+      "proof": "SEED_THEOREMS.md#theorem-53--the-arity-bound-is-exactly-sharp",
+      "formalization": "not started",
+      "certificates": "EXPERIMENTS/test_m5_exact.py K=2..7"
+    },
+    {
+      "id": "M5-T4",
+      "title": "Four-active-world binary extremizer is the butterfly",
+      "status": "PROVED - NOVELTY UNRESOLVED",
+      "novelty": "candidate finite equality classification",
+      "proof": "SEED_THEOREMS.md#theorem-71--unique-support-minimal-binary-extremizer",
+      "formalization": "not started",
+      "certificates": "EXPERIMENTS/test_m5_exact.py four_world_extremal_cores"
+    },
+    {
+      "id": "M5-T5",
+      "title": "Near factor-two equality forces branch balance and locality",
+      "status": "PROVED - BASELINE STABILITY",
+      "novelty": "not claimed; launch point for a metric stability theorem",
+      "proof": "SEED_THEOREMS.md#theorem-81--near-factor-two-equality-forces-balance-and-locality",
+      "formalization": "not started"
+    },
+    {
       "id": "M5-U",
-      "title": "Unbounded adaptivity gap at budget 2 (k-pair family)",
-      "status": "PROVED",
+      "title": "k-pair habitat: unbounded gap envelope + greedy failure",
+      "status": "PROVED - KNOWN RESULT, NEW APPLICATION",
+      "novelty": "habitat packaging; not the sharp universal envelope",
       "constants": {
         "D2_adaptive": "1",
         "D2_nonadaptive": "2/k",
@@ -18,7 +78,35 @@
         "greedy_ratio": "k/2"
       },
       "proof": "PROOFS/UNBOUNDED_ADAPTIVITY_GAP.md",
+      "certificates": "EXPERIMENTS/test_m5.py",
       "product_scar": "static smell suite does not bound adaptive T1; myopic local-first arbitrarily bad"
+    },
+    {
+      "id": "M5-C1",
+      "title": "Exact support-constrained curve G_2(K,r)",
+      "status": "OPEN",
+      "novelty": "unknown",
+      "note": "Proposition 6.1 gives envelope m <= min(K, floor(r/2)); matching curve incomplete"
+    },
+    {
+      "id": "M5-C2",
+      "title": "Equality classification for K>2",
+      "status": "OPEN",
+      "novelty": "unknown"
+    },
+    {
+      "id": "M5-C3",
+      "title": "Distance-to-extremizer stability theorem",
+      "status": "OPEN",
+      "novelty": "unknown",
+      "partial": "M5-T5 is a weak balance/locality consequence only"
+    },
+    {
+      "id": "M5-C4",
+      "title": "Sharp adaptivity law for B >= 3",
+      "status": "OPEN",
+      "novelty": "unknown",
+      "note": "k-pair family still gives Gap_B -> 1 for each fixed B>=2 (M6)"
     }
   ]
 }

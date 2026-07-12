@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.5
+
+### M5 theorem package (math → doctrine)
+
+- Install full M5 seed package: flattening \(r\le B+1\), root-arity bound, sharp law \(G_2(K)=1-1/K\), four-world butterfly uniqueness, first stability statement
+- Exact-rational certificates: `research/m5/EXPERIMENTS/m5_exact.py` (K=2..7, butterfly cores, support sanity)
+- Correct packaging: k-pair \(D_{\mathrm{na}}=2/k\) is a **habitat** family; sharp universal envelope is \(1-1/K\)
+- Retain k-pair / greedy failure as product scar (gate-before-local)
+- Docs: `docs/T1_BUDGET.md`, README mathematical spine, `research/LADDER_MASTER.md`
+- Novelty label held: **PROVED — NOVELTY UNRESOLVED** for the sharp seed package
+
+### Explicit non-claims
+
+- No literature-novelty press language; no Lean formalization yet; no T4; no real-disk warranty
+
 ## 0.3.4
 
 ### Product doctrine (research → tool)

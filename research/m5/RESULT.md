@@ -1,8 +1,8 @@
-# M5 RESULT — Unbounded adaptivity gap
+# M5 RESULT — Extremal geometry of budgeted inspection
 
-**Mission:** M5-Ω track (crowned claim: characterization of Gap at fixed B)  
+**Mission:** M5 theorem package (seed audit + sharp envelope + habitat application)  
 **Date:** 2026-07-12  
-**Baseline:** CHARM13 v0.3.3; M4 closed  
+**Baseline:** CHARM13 ≥ v0.3.3; M4 closed  
 
 ---
 
@@ -10,107 +10,113 @@
 
 ### Primary
 
-**`PROVED, FORMALIZATION PARTIAL WITH AN EXPLICIT GAP`**
+**`PROVED — NOVELTY UNRESOLVED`**
 
-(Analytic closed form + machine certificates for finite k; no Lean yet.)
+Analytic seed package independently re-derived and machine-certified on finite instances. Literature novelty audit incomplete (no public “new math” language). Lean formalization not started.
 
-### Central statement
+### Crown statements (proved in the frozen OPEN model)
 
-> There exists an explicit infinite family of finite instances `(P_k, Q_k)` (the **k-pair / which-then-bit** habitat) such that for every `k ≥ 2`:
->
-> $$D_2(P_k,Q_k)=1, \qquad D_2^{\mathrm{na}}(P_k,Q_k)=\frac2k,$$
->
-> hence
->
-> $$\mathrm{Gap}_2(k)=1-\frac2k \to 1, \qquad \frac{D_2}{D_2^{\mathrm{na}}}=\frac k2 \to \infty.$$
->
-> Moreover adaptive budget to perfect separation is **2**, nonadaptive is **k** (unbounded separation), and **myopic greedy** first-query selection has approximation ratio `k/2` (unbounded failure).
+| Id | Statement | Status |
+|----|-----------|--------|
+| M5-L0 | Deterministic policies suffice for finite TV | PROVED — known baseline |
+| M5-L1 | Exact weighted classification-tree reduction \(D=1-2R\) | PROVED — prior-art bridge |
+| M5-T1 | \(r\le B+1\) ⇒ \(D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}\) (flattening) | PROVED — novelty unresolved |
+| M5-T2 | Root-arity: \(D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}}\) | PROVED — novelty unresolved |
+| M5-T3 | Sharp law \(G_2(K)=1-1/K\) with matching construction | PROVED — novelty unresolved |
+| M5-T4 | Four-active-world binary extremizer = M4 butterfly (unique up to symmetry) | PROVED — novelty unresolved |
+| M5-T5 | Near factor-two equality forces branch balance and locality | PROVED — baseline stability |
+| M5-U | k-pair habitat: \(D_2=1\), \(D_2^{\mathrm{na}}=2/k\), greedy ratio \(k/2\) | PROVED — application family |
 
-Proof: `PROOFS/UNBOUNDED_ADAPTIVITY_GAP.md`  
-Code: `EXPERIMENTS/enum_core.py`, `EXPERIMENTS/test_m5.py`
+### Central sharp statement
+
+> Under globally addressable unit-cost queries of active arity at most \(K\), at budget two:
+>
+> \[
+> D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}},
+> \qquad
+> D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\le 1-\frac1K,
+> \]
+>
+> and both are **exactly sharp**: there exists a finite family with
+>
+> \[
+> D_2^{\mathrm{ad}}=1,\qquad D_2^{\mathrm{na}}=\frac1K.
+> \]
+>
+> Hence
+>
+> \[
+> G_2(K) := \sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr) = 1-\frac1K.
+> \]
+
+For binary queries (\(K=2\)): \(D_2^{\mathrm{ad}}\le 2D_2^{\mathrm{na}}\) and the largest additive gap is exactly \(1/2\). The M4 four-world witness is therefore **support-minimal** (by flattening, \(r\ge 4\)) and **gap-maximal** among binary OPEN queries at budget two.
+
+Proofs: `SEED_THEOREMS.md`  
+Sharp certificates: `EXPERIMENTS/m5_exact.py`, `EXPERIMENTS/test_m5_exact.py`  
+k-pair application: `PROOFS/UNBOUNDED_ADAPTIVITY_GAP.md`, `EXPERIMENTS/test_m5.py`
 
 ---
 
-## Why this is bolder than M4
+## Correction relative to earlier M5 packaging
 
-| M4 | M5 |
-|----|----|
-| One gap of ½ on 4 worlds | **Gap → 1** at fixed budget 2 |
-| Minimality n=4 unguarded | **Unbounded ratio** adaptive/nonadaptive |
-| Existence | **Closed-form infinite family** |
-| — | **Greedy unboundedly bad** |
-| — | **No fixed checklist size dominates adaptive T1** (Cor U6) |
+Earlier M5 crowned the **k-pair / which-then-bit** family as the primary envelope with
 
----
+\[
+D_2^{\mathrm{na}}=\frac2k,\qquad \mathrm{Gap}=1-\frac2k\to 1.
+\]
 
-## Honest hierarchy (scientist protocol)
+That family remains **correct** and remains the right CHARM-shaped model for myopic greedy failure and “gate before local.” It is **not** the sharp universal construction under arity-\(k\) queries.
 
-1. **The inequalities are real** — not prose.  
-2. **The abstract idea that adaptivity helps is known** — fixed-horizon active HT, feature acquisition.  
-3. **Residual value:** exact family, unbounded gap/ratio, budget separation, greedy failure, CHARM product scar.  
-4. **Not claimed:** new distance; T4; that real disk habitats equal this family.  
-5. **Formalization:** Lean still open.  
-6. **Literature:** entry points only until MIRROR completes OPENED citations.
+| Family | Gate arity | \(D_2^{\mathrm{ad}}\) | \(D_2^{\mathrm{na}}\) | Gap | Role |
+|--------|------------|------------------------|------------------------|-----|------|
+| Sharp address construction | \(K\) | \(1\) | \(1/K\) | \(1-1/K\) | **Extremal law** |
+| k-pair (`bit_j` → `na` off-branch) | \(k\) | \(1\) | \(2/k\) | \(1-2/k\) | Habitat + greedy scar |
 
-Novelty label for packaging: **`KNOWN RESULT, NEW APPLICATION`** (strong application + exact envelope).
+Both gaps tend to \(1\) as arity/branching \(\to\infty\). The sharp package is the tighter finite law.
 
 ---
 
-## Companion theorems in the same proof file
+## Honest hierarchy
 
-| Id | Statement |
-|----|-----------|
-| U1 | D₂ = 1 for all k |
-| U2 | D₂^{na} = 2/k for k≥2 |
-| U3 | Gap→1, ratio→∞ |
-| U4 | B_ad^*=2, B_na^*=k (k≥2) |
-| U5 | Myopic greedy ratio k/2 |
-| U6 | No fixed-B nonadaptive suite uniformly controls adaptive risk |
+1. **Inequalities are real** — analytic + rational certificates.  
+2. **Adaptivity helps** is classical (active HT, feature acquisition, classification trees).  
+3. **Residual value:** support flattening, sharp finite root-arity law, equality classification of the binary butterfly, first stability statement, CHARM product scars.  
+4. **Not claimed:** literature novelty; new statistical distance; T4; that real disks equal either family.  
+5. **Open:** support-constrained curve \(G_2(K,r)\); full metric stability; \(B\ge 3\) sharp law; Lean; completed prior-art collision.
+
+Novelty packaging for residual packaging language: **`PROVED — NOVELTY UNRESOLVED`** (sharp package); k-pair product scars remain **`KNOWN RESULT, NEW APPLICATION`**.
 
 ---
 
 ## Machine verification
 
 ```powershell
-cd C:\Users\coldb\charm13\research\m5\EXPERIMENTS
-python test_m5.py
-python enum_core.py
+cd research\m5\EXPERIMENTS
+python test_m5_exact.py   # sharp package + butterfly + support sanity
+python test_m5.py         # k-pair closed forms + greedy
+python m5_exact.py        # table K=2..7
+python enum_core.py       # k-pair table
 ```
 
-Expected: all tests OK; table k=2..12 matches theory.
+Expected: all PASS; sharp \(K=2..7\) gives \(\mathrm{ad}=1\), \(\mathrm{na}=1/K\); k-pair \(k=2..12\) gives \(\mathrm{na}=2/k\).
 
 ---
 
 ## Product scar
 
-`PRODUCT_DELTA.md` — docs: static smell ≠ adaptive T1; myopic local-first can be arbitrarily weak; bench/smell sketches for gate-before-local.
+`PRODUCT_DELTA.md` — static smell ≠ adaptive T1; gate-before-local; do not present \(2/k\) as the universal extremal constant; cite \(G_2(K)=1-1/K\) for the sharp envelope and k-pair for habitat/greedy stories.
 
 ---
 
-## What was believed before M5
+## Open frontier (post-seed)
 
-- M4 gap of ½ might be “the” illustrative constant.  
-- Fixed smell suites might be thought to scale as “more rules ⇒ closer to T1.”  
-- Greedy strongest-finding-first might seem reasonable.
-
-## What is now proved
-
-- Gap can be **worse than any constant < 1** at **B=2**.  
-- Nonadaptive budget must **grow with habitat branching** to match adaptive budget 2.  
-- Myopic local-first is **arbitrarily suboptimal**.
-
-## Falsifier
-
-- Error in case analysis of nonadaptive pairs.  
-- Different nonadaptive model (e.g. free adaptive addressing) — must be stated.  
-- Prior paper with identical closed forms on this exact family — then pure KNOWN RESULT (still useful packaging).
-
----
-
-## How CHARM13 should change
-
-See PRODUCT_DELTA. Minimum: **docs honesty this week**.  
-Do not retune weights as M5 output.
+1. Exact support-constrained curve \(G_2(K,r)\).  
+2. Equality classification for \(K>2\).  
+3. Quantitative distance-to-extremizer stability beyond Theorem 8.1.  
+4. Sharp \(G_B(K)\) for \(B\ge 3\).  
+5. Guarded-vs-informational compilation theorems (abstract only).  
+6. Lean formalization of T1–T4.  
+7. Completed primary-source collision matrix.
 
 ---
 
@@ -118,10 +124,12 @@ Do not retune weights as M5 output.
 
 | Role | Verdict |
 |------|---------|
-| CHARM13 | Crown U-family as M5 primary |
-| HUNTER | Certificates green for k≤12; analytic holds for all k |
-| MIRROR | Package as known-phenomenon + exact envelope; block “new theory of TV” |
-| Press | Do **not** say “proves when folders are fake”; say “proves adaptive gap can be arbitrarily large at budget 2 in an explicit family” |
+| DIRECTOR | Freeze OPEN model; crown sharp \(G_2(K)\); retain k-pair as application |
+| BLACKWELL | TV objective held; score monoid not substituted |
+| HYDRA | Finite certificates green; no counterexample to seed package in scope |
+| ARCHIVIST | Collision map started; novelty unresolved |
+| REFEREE | Accept as proved-in-model; block novelty press |
+| BRIDGE | Docs honesty + catalog pointers only |
 
-**Mission M5 mathematical core: SUCCESS under proved unbounded gap.**  
+**Mission M5 mathematical core: SUCCESS under sharp seed package.**  
 **Annals-grade pure novelty: NOT CLAIMED.**

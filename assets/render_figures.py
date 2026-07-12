@@ -46,17 +46,24 @@ def save(fig, name: str) -> None:
 def fig_adaptivity_gap() -> None:
     k = np.arange(2, 41)
     d_ad = np.ones_like(k, dtype=float)
-    d_na = 2.0 / k
+    d_na_habitat = 2.0 / k
+    d_na_sharp = 1.0 / k
     fig, ax = plt.subplots(figsize=(9, 5), dpi=160)
-    style_axes(ax, "Adaptivity gap at budget B = 2  (k-pair family)", "branching factor k", "total variation advantage")
+    style_axes(
+        ax,
+        "Adaptivity gap at budget B = 2",
+        "arity / branching K",
+        "total variation advantage",
+    )
     ax.plot(k, d_ad, color=BLACK, linewidth=2.6, label="adaptive  D = 1")
-    ax.plot(k, d_na, color=GOLD_DEEP, linewidth=2.6, label="nonadaptive  D = 2/k")
-    ax.fill_between(k, d_na, d_ad, color=GOLD, alpha=0.45, label="Gap = 1 - 2/k")
+    ax.plot(k, d_na_sharp, color=GOLD_DEEP, linewidth=2.6, label="sharp nonadaptive  D = 1/K")
+    ax.plot(k, d_na_habitat, color=GRAY, linewidth=2.0, linestyle="--", label="k-pair habitat  D = 2/k")
+    ax.fill_between(k, d_na_sharp, d_ad, color=GOLD, alpha=0.45, label="Sharp gap G2(K) = 1 - 1/K")
     ax.set_ylim(-0.02, 1.08)
-    ax.legend(frameon=True, facecolor=WHITE, edgecolor=GOLD_DEEP, fontsize=10)
+    ax.legend(frameon=True, facecolor=WHITE, edgecolor=GOLD_DEEP, fontsize=9)
     ax.annotate(
-        "as k grows, Gap -> 1\n(checklist loses, curiosity wins)",
-        xy=(26, 0.88),
+        "sharp envelope G2(K)=1-1/K\n(k-pair is a weaker habitat form)",
+        xy=(24, 0.72),
         fontsize=10,
         color=BLACK,
         bbox=dict(boxstyle="round,pad=0.45", facecolor=GOLD, edgecolor=BLACK, alpha=0.95),
@@ -211,9 +218,9 @@ def fig_formula_sheet() -> None:
     ax.text(5, 8.95, "finite-model ladder  ·  Purdue black & old gold", ha="center", fontsize=9, color=GOLD)
 
     rows = [
-        (7.15, "D_ad(k,B) = 0 | 1/k | 1", "adaptive TV for 1-bit k-pair (B = 0, 1, >=2)"),
-        (5.55, "D_na(k,B) = min(B,k) / k", "best fixed checklist of budget B"),
-        (3.95, "Gap_B(k) -> 1  as  k -> infinity", "for every fixed B >= 2"),
+        (7.15, "G_2(K) = 1 - 1/K", "sharp budget-2 adaptivity gap (arity <= K)"),
+        (5.55, "D_ad=1, D_na=1/K", "matching address-function construction"),
+        (3.95, "k-pair: D_na = min(B,k)/k", "habitat family (not the sharp envelope)"),
         (2.35, "B*_ad = 1+m    B*_na = k*m", "parity perfect-separation budgets"),
         (0.75, "refused = any_bad  OR  S >= 0.6", "product dual gate (S = severity monoid)"),
     ]
@@ -330,15 +337,15 @@ def fig_wtf_hero() -> None:
         spine.set_color(GOLD)
         spine.set_linewidth(1.2)
     k = np.linspace(2, 40, 120)
-    gap = 1.0 - 2.0 / k
+    gap = 1.0 - 1.0 / k  # sharp G_2(K)
     ax_r.fill_between(k, 0, gap, color=GOLD, alpha=0.22)
     ax_r.plot(k, gap, color=GOLD, linewidth=2.4)
     ax_r.set_xlim(2, 40)
     ax_r.set_ylim(0, 1.05)
-    ax_r.set_xlabel("branching factor  k", color="#C4B59A", fontsize=9)
-    ax_r.set_ylabel("Gap₂(k)", color="#C4B59A", fontsize=9)
+    ax_r.set_xlabel("query arity  K", color="#C4B59A", fontsize=9)
+    ax_r.set_ylabel("G₂(K)", color="#C4B59A", fontsize=9)
     ax_r.tick_params(colors="#A89878", labelsize=8)
-    ax_r.set_title("Gap₂(k)  →  1", color=GOLD, fontsize=11, fontweight="bold", pad=8)
+    ax_r.set_title("G₂(K) = 1 − 1/K  →  1", color=GOLD, fontsize=11, fontweight="bold", pad=8)
     ax_r.grid(True, color=GOLD_DEEP, alpha=0.25, linestyle="--", linewidth=0.7)
     ax_r.axhline(1.0, color=GOLD, alpha=0.35, lw=0.8)
     ax_r.annotate(

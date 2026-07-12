@@ -6,7 +6,7 @@ https://github.com/coldbricks/charm13
 ## Recommended path
 
 1. Maintain code, figures, and certificates on GitHub.  
-2. Tag releases (e.g. `v0.3.4`).  
+2. Tag releases (e.g. `v0.3.5`).  
 3. Deposit a frozen snapshot on **[Zenodo](https://zenodo.org/)** for a DOI (optional GitHub–Zenodo integration).  
 4. Optionally write a short technical note (problem, definitions, theorems, limitations, product mapping) before any preprint server submission.
 

@@ -3,7 +3,7 @@
 **Status:** binding doctrine for the project  
 **Mark:** CHARM / CHARM13  
 **Code:** `C:\Users\coldb\charm13`  
-**Version this plan assumes:** 0.3.4 (`forge`, `smell`, `bench`, habitats, any-bad blows, T1 budget doctrine)
+**Version this plan assumes:** 0.3.5 (`forge`, `smell`, `bench`, habitats, any-bad blows, T1 budget doctrine, M5 sharp package)
 
 This document is how the work is understood. Not marketing. Not a feature wishlist.
 If a choice conflicts with this file, this file wins until it is deliberately revised.
@@ -164,7 +164,7 @@ weights: bad=0.55, warn=0.25, info=0.05
 refuse   = (∃ bad)  ∨  (blown_score ≥ 0.6)
 ```
 
-**Semantics (binding, v0.3.4+):**
+**Semantics (binding, v0.3.5+):**
 
 - Weights are **ordinal engineering severities**, not calibrated probabilities.
 - The product is a severity monoid (noisy-OR algebra), not P(generated | tree).

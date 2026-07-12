@@ -218,11 +218,12 @@ def run_m11() -> dict:
     assert theory_gap(3, 2) == Fraction(1, 3)
     doctrine = [
         "Static smell = nonadaptive observer",
+        "Sharp budget-2 envelope: G_2(K)=1-1/K under OPEN arity-K queries (novelty unresolved)",
         "Adaptive T1 with B>=2 can force D=1 on k-pair camouflage for every k",
         "Myopic severity ordering is unboundedly suboptimal",
         "Capacity under adaptive B>=2 is zero for ε<1 on this family",
-        "M4 single gap is the floor; ladder shows envelope",
-        "Never claim T4; never claim general disks equal k-pair",
+        "M4 single gap is the binary floor; sharp package + ladder show the envelope",
+        "Never claim T4; never claim general disks equal k-pair; no novelty press language",
     ]
     return {
         "mission": "M11",
@@ -324,7 +325,7 @@ def main() -> int:
         "| Mission | Title | Status |",
         "|---------|-------|--------|",
         "| M4 | Finite adaptive gap 1/2 + minimality | PROVED (see research/m4) |",
-        "| M5 | Unbounded gap at B=2 (k-pair) | PROVED (see research/m5) |",
+        "| M5 | Sharp G_2(K)=1-1/K + k-pair habitat / greedy | PROVED — NOVELTY UNRESOLVED (seed); k-pair PROVED |",
     ]
     for s in summary:
         lines.append(f"| {s['mission']} | {s['title']} | {s['status']} |")
@@ -332,10 +333,19 @@ def main() -> int:
         "",
         "## Central ladder theorem (compressed)",
         "",
+        "### Sharp budget-2 law (M5 seed package)",
+        "",
+        r"- Root arity: \(D_2^{\mathrm{ad}}\le K\,D_2^{\mathrm{na}}\)",
+        r"- Extremal: \(G_2(K)=1-1/K\) (matching construction \(D_{\mathrm{ad}}=1\), \(D_{\mathrm{na}}=1/K\))",
+        r"- Flattening: \(r\le B+1\Rightarrow D_B^{\mathrm{ad}}=D_B^{\mathrm{na}}\) (OPEN model)",
+        r"- Binary equality: four-world extremizer is the M4 butterfly (unique up to symmetry)",
+        "",
+        "### k-pair habitat family (M5-U–M11)",
+        "",
         "On the k-pair habitat family, for integers k≥1, B≥0:",
         "",
         r"- \(D_B^{\mathrm{ad}} = 0\) if B=0; \(1/k\) if B=1; \(1\) if B≥2",
-        r"- \(D_B^{\mathrm{na}} = \min(B,k)/k\)",
+        r"- \(D_B^{\mathrm{na}} = \min(B,k)/k\)  *(family closed form; not the sharp \(1/K\) construction)*",
         r"- For every fixed B≥2: \(\mathrm{Gap}_B(k)\to 1\) as k→∞",
         r"- Myopic greedy achieves only \(D_B^{\mathrm{na}}\); ratio →∞",
         r"- Adaptive camouflage capacity for ε<1 at B≥2 is **0**",
@@ -345,6 +355,10 @@ def main() -> int:
         "```powershell",
         "cd C:\\Users\\coldb\\charm13\\research\\ladder",
         "python run_ladder.py",
+        "python run_ladder_high.py",
+        "cd ..\\m5\\EXPERIMENTS",
+        "python test_m5_exact.py",
+        "python test_m5.py",
         "```",
         "",
     ]
