@@ -269,66 +269,90 @@ def fig_loop_diagram() -> None:
 
 
 def fig_wtf_hero() -> None:
-    """Landing hero: deliberate intellectual vertigo, still honest."""
-    fig, ax = plt.subplots(figsize=(11, 6.2), dpi=170)
-    ax.set_xlim(0, 11)
-    ax.set_ylim(0, 6.2)
-    ax.axis("off")
-    fig.patch.set_facecolor(BLACK)
-    ax.set_facecolor(BLACK)
+    """Landing hero: clean two-panel layout, Purdue palette, high contrast."""
+    fig = plt.figure(figsize=(12, 6.8), dpi=180)
+    fig.patch.set_facecolor("#0A0A0A")
 
-    ax.text(0.5, 5.55, "CHARM13", color=GOLD, fontsize=28, fontweight="bold")
-    ax.text(0.5, 5.05, "wait — what is this", color=CREAM, fontsize=16, style="italic")
-    ax.text(
-        0.5,
-        4.35,
-        "A camouflage factory that builds cover stories for encrypted volumes…\n"
-        "then runs a detector that is allowed to refuse its own lies.\n"
-        "Plus finite-model math showing that a curious adaptive inspector\n"
-        "can crush a fixed checklist of the same look-budget — arbitrarily hard.",
+    # left copy / right chart
+    ax_l = fig.add_axes([0.055, 0.12, 0.48, 0.78])
+    ax_r = fig.add_axes([0.58, 0.18, 0.37, 0.62])
+    ax_l.set_xlim(0, 1)
+    ax_l.set_ylim(0, 1)
+    ax_l.axis("off")
+    ax_l.set_facecolor("#0A0A0A")
+
+    ax_l.text(0.0, 0.94, "CHARM13", color=GOLD, fontsize=32, fontweight="bold", fontfamily="serif")
+    ax_l.text(0.0, 0.84, "wait — what is this", color="#E8DCC4", fontsize=15, fontstyle="italic", fontfamily="serif")
+
+    ax_l.text(
+        0.0,
+        0.68,
+        "A camouflage factory for encrypted volumes that builds\n"
+        "on-disk cover stories — then runs a detector allowed to\n"
+        "refuse its own lies.\n\n"
+        "Finite-model math: a curious adaptive inspector can beat\n"
+        "a fixed checklist of the same look-budget — arbitrarily hard.",
         color=GOLD,
-        fontsize=11,
-        linespacing=1.45,
+        fontsize=10.5,
+        linespacing=1.55,
+        fontfamily="serif",
+        verticalalignment="top",
     )
 
-    # mini sparkline data drawn manually
-    ks = np.linspace(2, 30, 80)
-    gap = 1 - 2 / ks
-    # map to box
-    x0, x1, y0, y1 = 6.2, 10.5, 3.4, 5.7
-    ax.add_patch(
-        FancyBboxPatch(
-            (x0 - 0.15, y0 - 0.25),
-            x1 - x0 + 0.3,
-            y1 - y0 + 0.45,
-            boxstyle="round,pad=0.05,rounding_size=0.1",
-            facecolor="#111111",
-            edgecolor=GOLD,
-            linewidth=1.4,
-        )
-    )
-    ax.text((x0 + x1) / 2, y1 + 0.05, "Gap_2(k) → 1", ha="center", color=GOLD, fontsize=10)
-    xs = x0 + (ks - ks.min()) / (ks.max() - ks.min()) * (x1 - x0)
-    ys = y0 + gap * (y1 - y0 - 0.2)
-    ax.plot(xs, ys, color=GOLD, linewidth=2.4)
-    ax.fill_between(xs, y0, ys, color=GOLD, alpha=0.2)
+    # rule
+    ax_l.plot([0, 0.92], [0.38, 0.38], color=GOLD_DEEP, lw=1, solid_capstyle="round")
 
     bullets = [
-        ("01", "Not a new cipher. Encryption is borrowed. Story is the product."),
-        ("02", "blown_score is a severity monoid — not P(this is fake)."),
-        ("03", "Static smell ≠ full adaptive T1. Math proves the gap can hit 1."),
-        ("04", "Refuse if blown. Self-falsification is the feature."),
-        ("05", "T4: no claim. Ever. Detection framing, not anti-forensics."),
+        ("01", "Not a new cipher — story is the product"),
+        ("02", "Score is a severity monoid, not P(fake)"),
+        ("03", "Static smell ≠ adaptive T1 (gap can hit 1)"),
+        ("04", "Refuse if blown — self-falsification"),
+        ("05", "T4: no claim. Detection framing only"),
     ]
-    y = 3.0
+    y = 0.32
     for num, text in bullets:
-        ax.text(0.5, y, num, color=GOLD, fontsize=11, fontweight="bold", family="monospace")
-        ax.text(1.2, y, text, color=CREAM, fontsize=10.5)
-        y -= 0.48
+        ax_l.text(0.0, y, num, color=GOLD, fontsize=9.5, fontweight="bold", fontfamily="monospace", va="center")
+        ax_l.text(0.08, y, text, color="#F0E6D2", fontsize=10, fontfamily="serif", va="center")
+        y -= 0.055
 
-    ax.text(0.5, 0.35, "Boiler Up  ·  black & old gold  ·  measure twice, cut once", color=GOLD_DEEP, fontsize=9)
-    fig.tight_layout()
-    save(fig, "landing_hero")
+    ax_l.text(
+        0.0,
+        0.02,
+        "Boiler Up  ·  Purdue black & old gold  ·  measure twice, cut once",
+        color="#8E6F3E",
+        fontsize=8.5,
+        fontfamily="serif",
+    )
+
+    # right: real chart panel
+    ax_r.set_facecolor("#141414")
+    for spine in ax_r.spines.values():
+        spine.set_color(GOLD)
+        spine.set_linewidth(1.2)
+    k = np.linspace(2, 40, 120)
+    gap = 1.0 - 2.0 / k
+    ax_r.fill_between(k, 0, gap, color=GOLD, alpha=0.22)
+    ax_r.plot(k, gap, color=GOLD, linewidth=2.4)
+    ax_r.set_xlim(2, 40)
+    ax_r.set_ylim(0, 1.05)
+    ax_r.set_xlabel("branching factor  k", color="#C4B59A", fontsize=9)
+    ax_r.set_ylabel("Gap₂(k)", color="#C4B59A", fontsize=9)
+    ax_r.tick_params(colors="#A89878", labelsize=8)
+    ax_r.set_title("Gap₂(k)  →  1", color=GOLD, fontsize=11, fontweight="bold", pad=8)
+    ax_r.grid(True, color=GOLD_DEEP, alpha=0.25, linestyle="--", linewidth=0.7)
+    ax_r.axhline(1.0, color=GOLD, alpha=0.35, lw=0.8)
+    ax_r.annotate(
+        "checklist loses\nas habitats branch",
+        xy=(28, 0.93),
+        fontsize=8,
+        color=BLACK,
+        ha="center",
+        bbox=dict(boxstyle="round,pad=0.3", facecolor=GOLD, edgecolor="none", alpha=0.95),
+    )
+
+    fig.savefig(OUT / "landing_hero.png", dpi=180, facecolor="#0A0A0A", bbox_inches="tight", pad_inches=0.15)
+    fig.savefig(OUT / "landing_hero.svg", facecolor="#0A0A0A", bbox_inches="tight", pad_inches=0.15)
+    plt.close(fig)
 
 
 def main() -> None:

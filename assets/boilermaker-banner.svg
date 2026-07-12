@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="56" viewBox="0 0 880 56" role="img" aria-label="CHARM13 — Boilermaker black and gold">
-  <title>CHARM13</title>
-  <!-- Purdue Black #000000 · Purdue Old Gold #CFB991 -->
-  <rect width="880" height="56" fill="#000000"/>
-  <rect x="0" y="0" width="8" height="56" fill="#CFB991"/>
-  <rect x="0" y="48" width="880" height="8" fill="#CFB991"/>
-  <text x="28" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" fill="#CFB991">CHARM13</text>
-  <text x="160" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#E8DCC4">detection-backed habitat naturalness · refuse if blown</text>
-  <text x="780" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#CFB991" text-anchor="end">Boiler Up</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="64" viewBox="0 0 960 64" role="img" aria-label="CHARM13">
+  <rect width="960" height="64" fill="#0A0A0A"/>
+  <rect x="0" y="0" width="4" height="64" fill="#CFB991"/>
+  <rect x="0" y="60" width="960" height="4" fill="#CFB991"/>
+  <text x="28" y="40" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700" fill="#CFB991" letter-spacing="0.04em">CHARM13</text>
+  <line x1="168" y1="18" x2="168" y2="48" stroke="#CFB991" stroke-opacity="0.45" stroke-width="1"/>
+  <text x="186" y="32" font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#E8DCC4">detection-backed habitat naturalness</text>
+  <text x="186" y="50" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#A89878">refuse if blown · not a new cipher · no T4 claim</text>
+  <text x="932" y="40" font-family="Georgia, 'Times New Roman', serif" font-size="12" fill="#CFB991" text-anchor="end" letter-spacing="0.06em">BOILER UP</text>
 </svg>
