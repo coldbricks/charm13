@@ -1069,53 +1069,46 @@ def _snake_head(ax, tip, direction, scale=0.11, color=SOFT, eye=GOLD):
 
 
 def fig_cyclic_gate_ouroboros() -> None:
-    """Cyclic gate — clean textbook plate for the address construction.
+    """Cyclic gate — pure diagram of the address construction.
 
-    Even circle, K=12 radial branches (circle-of-fifths labels as mnemonic),
-    subtle dual ouroboros ring. No scrap badges, no logo clutter.
+    Circle-of-fifths labels are a mnemonic for branch index i=1..K.
+    No decorative heads, badges, or scrap text.
     """
     K = 12
-    # Circle-of-fifths order: mnemonic labels for branch index i=1..K
-    fifths = ["C", "G", "D", "A", "E", "B", "F♯", "D♭", "A♭", "E♭", "B♭", "F"]
+    # Circle-of-fifths order (mnemonic only)
+    fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
 
-    fig = plt.figure(figsize=(9.2, 9.6), dpi=240)
+    fig = plt.figure(figsize=(8.8, 9.4), dpi=240)
     fig.patch.set_facecolor(VOID)
-    ax = fig.add_axes([0.08, 0.10, 0.84, 0.82])
-    ax.set_xlim(-1.25, 1.25)
-    ax.set_ylim(-1.35, 1.25)
+    ax = fig.add_axes([0.08, 0.12, 0.84, 0.80])
+    ax.set_xlim(-1.15, 1.15)
+    ax.set_ylim(-1.25, 1.15)
     ax.set_aspect("equal")
     ax.axis("off")
     ax.set_facecolor(VOID)
 
-    # Title
-    ax.text(0, 1.14, "Cyclic gate", ha="center", va="center", color=WHITE, fontsize=16, fontfamily="serif")
+    ax.text(0, 1.05, "Cyclic gate", ha="center", va="center", color=WHITE, fontsize=17, fontfamily="serif")
     ax.text(
         0,
-        1.04,
-        r"address construction  ·  $g(i,x)=i$, then $b_i$  ·  $K=12$ shown",
+        0.94,
+        r"Matching construction for $G_2(K)=1-1/K$  (shown at $K=12$)",
         ha="center",
         va="center",
         color=MUTED,
         fontsize=10,
         fontfamily="serif",
-        style="italic",
     )
 
-    # Outer ouroboros (even circle + two heads only)
-    R_ring = 1.02
-    th = np.linspace(0, 2 * np.pi, 512)
-    ax.plot(R_ring * np.cos(th), R_ring * np.sin(th), color=SOFT, lw=2.0, zorder=3)
-    ax.plot((R_ring - 0.028) * np.cos(th), (R_ring - 0.028) * np.sin(th), color=GOLD, lw=0.9, alpha=0.85, zorder=4)
-    for ang, dsign in ((np.pi / 2, 1.0), (-np.pi / 2, -1.0)):
-        tip = np.array([R_ring * np.cos(ang), R_ring * np.sin(ang)])
-        tang = np.array([-np.sin(ang), np.cos(ang)]) * dsign
-        _snake_head(ax, tip, tang, scale=0.095, color=SOFT, eye=GOLD)
+    # Single clean outer ring (closed cycle — no heads)
+    R_ring = 0.92
+    ax.add_patch(Circle((0, 0), R_ring, facecolor=VOID, edgecolor=SOFT, linewidth=1.4, zorder=2))
+    ax.add_patch(Circle((0, 0), R_ring - 0.03, facecolor=VOID, edgecolor=GOLD, linewidth=0.8, zorder=2))
 
     # Radial wheel
     R_out = 0.78
-    R_in = 0.18
+    R_in = 0.20
     ax.add_patch(Circle((0, 0), R_out, facecolor=VOID, edgecolor=GOLD, linewidth=2.0, zorder=3))
-    ax.add_patch(Circle((0, 0), R_in, facecolor=VOID, edgecolor=GOLD, linewidth=1.4, zorder=5))
+    ax.add_patch(Circle((0, 0), R_in, facecolor=VOID, edgecolor=GOLD, linewidth=1.5, zorder=5))
 
     for j in range(K):
         a0 = np.pi / 2 - 2 * np.pi * j / K
@@ -1128,7 +1121,6 @@ def fig_cyclic_gate_ouroboros() -> None:
             zorder=4,
         )
         am = (a0 + a1) / 2
-        # upright labels (not radial-rotated junk)
         ax.text(
             0.52 * np.cos(am),
             0.52 * np.sin(am),
@@ -1136,7 +1128,7 @@ def fig_cyclic_gate_ouroboros() -> None:
             ha="center",
             va="center",
             color=WHITE,
-            fontsize=12,
+            fontsize=13,
             fontfamily="serif",
             zorder=6,
         )
@@ -1147,37 +1139,37 @@ def fig_cyclic_gate_ouroboros() -> None:
             ha="center",
             va="center",
             color=MUTED,
-            fontsize=8,
+            fontsize=8.5,
             fontfamily="serif",
             zorder=6,
         )
 
-    # Hub math
-    ax.text(0, 0.04, r"$g$", ha="center", va="center", color=WHITE, fontsize=18, fontfamily="serif", zorder=7)
-    ax.text(0, -0.10, r"$b_i$", ha="center", va="center", color=GOLD, fontsize=13, fontfamily="serif", zorder=7)
+    # Hub: gate then bit
+    ax.text(0, 0.05, r"$g$", ha="center", va="center", color=WHITE, fontsize=20, fontfamily="serif", zorder=7)
+    ax.text(0, -0.12, r"$b_i$", ha="center", va="center", color=GOLD, fontsize=14, fontfamily="serif", zorder=7)
 
-    # Single clear legend (not scattered badges)
-    legend = (
-        r"adaptive budget 2: read $g$, then $b_i$ on that branch  $\Rightarrow$  $D=1$"
-        "\n"
-        r"nonadaptive budget 2: any fixed pair  $\Rightarrow$  $D=1/K$"
-        "\n"
-        r"ouroboros: upper bound meets construction  $\Rightarrow$  $G_2(K)=1-1/K$"
-    )
+    # One path example: highlight branch i=1 (C, top-right of top sector midpoint)
+    # First sector is from 90° clockwise — midpoint at 75° for i=1 label position
+    # Visual cue: gold arc arrow around outside from g concept — keep minimal
+    # Legend only:
     ax.text(
         0,
-        -1.18,
-        legend,
+        -1.05,
+        r"Adaptive ($B{=}2$): observe $g{=}i$, then $b_i$  $\Rightarrow$  $D_2^{\mathrm{ad}}=1$"
+        "\n"
+        r"Nonadaptive ($B{=}2$): any fixed pair of queries  $\Rightarrow$  $D_2^{\mathrm{na}}=1/K$"
+        "\n"
+        r"Labels C, G, D, $\ldots$ are circle-of-fifths mnemonics for branch index $i$",
         ha="center",
         va="top",
         color=SOFT,
-        fontsize=9.5,
+        fontsize=9.8,
         fontfamily="serif",
-        linespacing=1.55,
+        linespacing=1.6,
     )
 
-    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=240, facecolor=VOID, bbox_inches="tight", pad_inches=0.18)
-    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.18)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=240, facecolor=VOID, bbox_inches="tight", pad_inches=0.2)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.2)
     plt.close(fig)
 
 

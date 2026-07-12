@@ -557,9 +557,7 @@ def anim_cyclic_gate_walk() -> None:
             fontfamily="serif",
             pad=10,
         )
-        th = np.linspace(0, 2 * np.pi, 360)
-        ax.plot(1.02 * np.cos(th), 1.02 * np.sin(th), color=SOFT, lw=1.6)
-        ax.plot(0.99 * np.cos(th), 0.99 * np.sin(th), color=GOLD, lw=0.85, alpha=0.85)
+        ax.add_patch(plt.Circle((0, 0), 0.92, fill=False, edgecolor=SOFT, lw=1.3))
         ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.0))
         ax.add_patch(plt.Circle((0, 0), 0.18, fill=False, edgecolor=GOLD, lw=1.3))
         active = (frame // (n_frames // K)) % K
