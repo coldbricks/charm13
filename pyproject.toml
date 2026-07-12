@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "charm13"
-version = "0.3.7"
-description = "Finite-model budgeted adaptive inspection; detection-backed habitat cover for encrypted volumes"
+version = "0.3.8"
+description = "Exact envelopes for budgeted adaptive inspection (finite models). G2(K)=1-1/K. Certificates. Product scar."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

@@ -1,6 +1,8 @@
 # Theorem catalog — CHARM13 finite-model ladder
 
-**Status.** Statements below are proved inside the frozen finite models named in each section. Literature novelty for the M5 sharp seed package is **unresolved**. Adaptive-versus-nonadaptive superiority in the abstract is classical. Residual repository value is exact envelopes, equality classification, certificates, assumption hygiene, and product scars.
+Proved statements only. No marketing voice.
+
+**Status.** Frozen finite models as named below. M5 sharp seed package: **proved in-model; literature novelty unresolved**. Abstract adaptive-versus-nonadaptive superiority: classical. Residual content: exact envelopes, equality classification, rational certificates, assumption hygiene, product scars.
 
 **Notation.** Finite world set $W$. Distributions $P,Q$ on $W$. Signed measure $\mu=P-Q$ with $\sum_w\mu(w)=0$. Active support $S_\mu=\\{w:\mu(w)\ne0\\}$, $r=|S_\mu|$. A query is a total map $q:W\to Y_q$ of finite alphabet. Unless marked otherwise, queries are **OPEN**: globally addressable, non-destructive, unit cost. Adaptive budget-$B$ policies are deterministic decision trees of depth $\le B$. Nonadaptive budget-$B$ policies fix $\le B$ queries before any observation. Objectives:
 

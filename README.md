@@ -7,43 +7,41 @@
 </p>
 
 <p align="center"><em>
-Finite-model mathematics of budgeted adaptive inspection.<br/>
-Detection-backed habitat construction for encrypted-volume cover stories.<br/>
-Design basis · load path · capacity limits · as-built verification.
+Exact envelopes for budgeted adaptive inspection.<br/>
+Finite models. Matching constructions. Machine certificates.<br/>
+Product doctrine is a scar of the theorems — not the other way around.
 </em></p>
 
 ---
 
-## Design basis
+## Stance
 
-CHARM13 is built the way a large structure is designed: **name the loads, draw the load path, size members for controlling cases, detail the connections, and refuse to sign what fails the check.**
+This repository is a **finite-model research spine** with an engineering scar.
 
-| Element | In this system |
-|---------|----------------|
-| **Foundation** | L0 cipher (borrowed — VeraCrypt or equivalent). Capacity for confidentiality of bytes is external. |
-| **Superstructure** | L2–L4 cover: habitat trees, ecology, size bands, identities, checksums. |
-| **Load path** | `forge` → construct → `smell` → dual refuse. Continuity matters: forge must not emit what smell would blow, unless the operator overrides with `--i-know`. |
-| **Service loads** | T0–T1: glancing and short technical inspection. Designed for. |
-| **Ultimate / unclaimed** | T4 laboratory process. Explicitly off the sealed drawings. |
-| **Member capacity** | Finite-model envelopes $G_2(K)$, habitat closed forms — exact, not vibe. |
-| **Connection detailing** | Dual refuse gate; severity monoid (not a posterior); gate-before-local doctrine. |
-| **As-built checks** | `charm bench`, machine certificates, known-bad fixtures must fail. |
+The primary object is the worst-case additive gap between adaptive and nonadaptive total variation under a look budget, in an OPEN unit-cost query model. The sharp budget-two law is proved in-model:
 
-Math is the stress analysis. The CLI is the construction sequence. Threat tiers are the load cases. Non-claims are the unstamped sheets.
+$$
+G_2(K)=\sup\bigl(D_2^{\mathrm{ad}}-D_2^{\mathrm{na}}\bigr)=1-\frac1K.
+$$
+
+Literature novelty of that seed package is **unresolved**. Abstract adaptivity gains are classical. What is carried here, coldly: support flattening, root-arity, matching constructions, equality classification of the binary extremizer, habitat closed forms, exact rational certificates, and the product consequences that follow if one refuses to lie about static checklists.
+
+No T4 claims. No new cipher. No score-as-probability marketing. If a statement is not sealed, it is left blank.
+
+Catalog · proofs · ladder:  
+[`research/THEOREMS.md`](research/THEOREMS.md) · [`research/m5/SEED_THEOREMS.md`](research/m5/SEED_THEOREMS.md) · [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md)
 
 ---
 
 ## Objects
 
-Let $W$ be finite. Fix distributions $P,Q$ and signed mass $\mu=P-Q$. A **query** is a total map $q:W\to Y_q$. An **adaptive** budget-$B$ policy is a decision tree of depth $\le B$; a **nonadaptive** policy fixes $\le B$ queries before any observation. Write $D_B^{\mathrm{ad}}$ and $D_B^{\mathrm{na}}$ for optimal transcript total variation. Active support size:
+Let $W$ be finite. Distributions $P,Q$. Signed mass $\mu=P-Q$. Query $q:W\to Y_q$. Adaptive policies: decision trees of depth $\le B$. Nonadaptive policies: at most $B$ queries fixed in advance. Objectives $D_B^{\mathrm{ad}}$, $D_B^{\mathrm{na}}$ = optimal transcript total variation. Active support:
 
 $$
 r=\bigl|\\{w:\mu(w)\ne 0\\}\bigr|.
 $$
 
-Unless marked otherwise, queries are **OPEN** (globally addressable, unit cost, non-destructive).
-
-Canonical statement catalog: [`research/THEOREMS.md`](research/THEOREMS.md) · proofs: [`research/m5/SEED_THEOREMS.md`](research/m5/SEED_THEOREMS.md) · ladder: [`research/LADDER_MASTER.md`](research/LADDER_MASTER.md).
+**OPEN** means globally addressable, unit cost, non-destructive — unless a theorem says otherwise.
 
 ---
 
@@ -279,11 +277,13 @@ python assets/render_animations.py
 
 ---
 
-## Construction sequence (product scar)
+## Implementation scar (secondary)
 
-Encrypted volumes solve confidentiality of **bytes**. They do not solve **narrative**. CHARM13 constructs habitat cover trees, measures them with a detection oracle, and **refuses** when the cover is blown. L0 is the foundation (borrowed). CHARM13 owns the superstructure and the refuse joint.
+Encrypted volumes solve confidentiality of **bytes**. They do not solve **narrative**. The engineering layer constructs habitat cover trees, measures them, and **refuses** when the cover is blown. Cipher capacity (L0) is borrowed. Cover construction and the refuse joint are owned here.
 
-**Static smell is a nonadaptive inspection checklist** — service-level quality control, not a full adaptive demand envelope. Clean reports are necessary detailing, not an ultimate-capacity certificate against every adaptive look of similar length.
+**Design basis (compressed).** Name the loads. Draw the load path (`forge → smell → refuse`). Size members for controlling cases. Detail connections (dual gate; severity monoid ≠ posterior). Leave T4 unstamped. As-built checks: `charm bench`, known-bad must fail.
+
+**Static smell is nonadaptive.** Clean reports are necessary QC — not an adaptive demand certificate at comparable look length. That is the theorem speaking through the tool.
 
 ```text
 charm doctor
@@ -422,5 +422,7 @@ Process: [`docs/SKUNKWORKS.md`](docs/SKUNKWORKS.md) · security: [`SECURITY.md`]
 
 ## Author · license · version
 
-**David Lombardo** · MIT · **v0.3.7**  
-Repository: [github.com/coldbricks/charm13](https://github.com/coldbricks/charm13)
+**David Lombardo** · MIT · **v0.3.8**  
+[github.com/coldbricks/charm13](https://github.com/coldbricks/charm13)
+
+Statements are finite, falsifiable, and deliberately cold.

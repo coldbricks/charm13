@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.8
+
+### Voice / packaging
+
+- Landing stance: research spine first; product as implementation scar
+- Colder theorem-forward abstract; compressed design basis moved below the math
+- Repo metadata aligned to exact-envelope framing
+
 ## 0.3.7
 
 ### Research surface
