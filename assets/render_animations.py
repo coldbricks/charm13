@@ -533,73 +533,66 @@ def anim_parity_ratio_3d() -> None:
 
 
 def anim_cyclic_gate_walk() -> None:
-    """Walk the dual-ouroboros cyclic gate with CHARM13 house hand."""
-    import sys
-    from pathlib import Path
-
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from house_hand import draw_text
-
+    """Clean cyclic-gate walk: highlight branch i, then bit on that spoke."""
     K = 12
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
     n_frames = 96
-    fig = plt.figure(figsize=(7.4, 7.6), dpi=120)
+    fig = plt.figure(figsize=(7.0, 7.4), dpi=130)
     fig.patch.set_facecolor(VOID)
     ax = fig.add_subplot(111)
-    R = 0.82
-    rng = np.random.default_rng(3)
+    R = 0.78
 
     def update(frame):
         ax.clear()
-        ax.set_xlim(-1.35, 1.35)
-        ax.set_ylim(-1.40, 1.30)
+        ax.set_xlim(-1.2, 1.2)
+        ax.set_ylim(-1.28, 1.18)
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_facecolor(VOID)
         fig.patch.set_facecolor(VOID)
-        draw_text(ax, 0, 1.16, "wheel walk", scale=0.11, color=WHITE, rng=rng, lw=1.5, rot_deg=0)
-        draw_text(ax, 0, 1.02, "g then b_i", scale=0.055, color=MUTED, rng=rng, lw=1.05, rot_deg=0)
+        ax.set_title(
+            r"Cyclic gate  ·  adaptive: $g$ then $b_i$",
+            color=WHITE,
+            fontsize=12.5,
+            fontfamily="serif",
+            pad=10,
+        )
         th = np.linspace(0, 2 * np.pi, 360)
-        # even circles only
-        ax.plot(1.12 * np.cos(th), 1.12 * np.sin(th), color=SOFT, lw=2.1)
-        ax.plot(1.08 * np.cos(th), 1.08 * np.sin(th), color=GOLD, lw=1.05, alpha=0.9)
-        ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.2))
-        ax.add_patch(plt.Circle((0, 0), 0.80, fill=False, edgecolor=GOLD_DEEP, lw=0.8))
-        ax.add_patch(plt.Circle((0, 0), 0.20, fill=False, edgecolor=GOLD, lw=1.4))
+        ax.plot(1.02 * np.cos(th), 1.02 * np.sin(th), color=SOFT, lw=1.6)
+        ax.plot(0.99 * np.cos(th), 0.99 * np.sin(th), color=GOLD, lw=0.85, alpha=0.85)
+        ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.0))
+        ax.add_patch(plt.Circle((0, 0), 0.18, fill=False, edgecolor=GOLD, lw=1.3))
         active = (frame // (n_frames // K)) % K
         for j in range(K):
             a = np.pi / 2 - 2 * np.pi * j / K
+            on = j == active
             ax.plot(
-                [0.22 * np.cos(a), R * 0.98 * np.cos(a)],
-                [0.22 * np.sin(a), R * 0.98 * np.sin(a)],
-                color=GOLD if j == active else GOLD_DEEP,
-                lw=1.75 if j == active else 1.1,
+                [0.18 * np.cos(a), R * np.cos(a)],
+                [0.18 * np.sin(a), R * np.sin(a)],
+                color=GOLD if on else GOLD_DEEP,
+                lw=2.0 if on else 1.05,
             )
             am = a - np.pi / K
-            on = j == active
-            draw_text(
-                ax,
-                0.54 * np.cos(am),
-                0.54 * np.sin(am),
+            ax.text(
+                0.52 * np.cos(am),
+                0.52 * np.sin(am),
                 fifths[j],
-                scale=0.095 if on else 0.07,
+                ha="center",
+                va="center",
                 color=WHITE if on else MUTED,
-                rot_deg=float(np.degrees(am) - 90),
-                lw=1.35 if on else 1.0,
-                rng=rng,
+                fontsize=11 if on else 9,
+                fontfamily="serif",
             )
-        draw_text(ax, 0, 0.03, "g", scale=0.11, color=WHITE, rng=rng, lw=1.55, rot_deg=0)
-        draw_text(ax, 0, -0.11, f"b{active+1}", scale=0.075, color=GOLD, rng=rng, lw=1.25, rot_deg=0)
-        draw_text(
-            ax,
+        ax.text(0, 0.03, r"$g$", ha="center", color=WHITE, fontsize=15, fontfamily="serif")
+        ax.text(0, -0.10, rf"$b_{{{active+1}}}$", ha="center", color=GOLD, fontsize=12, fontfamily="serif")
+        ax.text(
             0,
-            -1.26,
-            "named spoke TV=1  ·  two pins mass 1/K",
-            scale=0.048,
+            -1.18,
+            rf"branch $i={active+1}$  ·  $D_{{\mathrm{{ad}}}}=1$  ·  nonadaptive pair $\Rightarrow 1/K$",
+            ha="center",
             color=MUTED,
-            rng=rng,
-            lw=1.0,
-            rot_deg=0,
+            fontsize=9,
+            fontfamily="serif",
         )
         return []
 

@@ -1069,154 +1069,115 @@ def _snake_head(ax, tip, direction, scale=0.11, color=SOFT, eye=GOLD):
 
 
 def fig_cyclic_gate_ouroboros() -> None:
-    """Cyclic gate + dual ouroboros — even circle, professional plate.
+    """Cyclic gate — clean textbook plate for the address construction.
 
-    True circles (no scallop). Gold radial K=12 wheel. Dual heads. House-hand
-    lettering (original strokes). Pedagogical analogue only.
+    Even circle, K=12 radial branches (circle-of-fifths labels as mnemonic),
+    subtle dual ouroboros ring. No scrap badges, no logo clutter.
     """
-    import sys
-
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from house_hand import draw_text
-
-    rng = np.random.default_rng(7)
     K = 12
-    fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
-    rim_scraps = ["g=i", "b_i", "1/K", "TV=1", "B=2", "OPEN", "ad", "na", "G2", "flat", "spoke", "pair"]
+    # Circle-of-fifths order: mnemonic labels for branch index i=1..K
+    fifths = ["C", "G", "D", "A", "E", "B", "F♯", "D♭", "A♭", "E♭", "B♭", "F"]
 
-    fig = plt.figure(figsize=(10.5, 10.8), dpi=240)
+    fig = plt.figure(figsize=(9.2, 9.6), dpi=240)
     fig.patch.set_facecolor(VOID)
-    ax = fig.add_axes([0.05, 0.07, 0.90, 0.88])
-    ax.set_xlim(-1.42, 1.42)
-    ax.set_ylim(-1.50, 1.38)
+    ax = fig.add_axes([0.08, 0.10, 0.84, 0.82])
+    ax.set_xlim(-1.25, 1.25)
+    ax.set_ylim(-1.35, 1.25)
     ax.set_aspect("equal")
     ax.axis("off")
     ax.set_facecolor(VOID)
 
-    # Title — steady house hand (minimal tilt)
-    draw_text(ax, 0, 1.26, "cyclic gate", scale=0.14, color=WHITE, rot_deg=0, lw=1.65, rng=rng)
-    draw_text(
-        ax,
+    # Title
+    ax.text(0, 1.14, "Cyclic gate", ha="center", va="center", color=WHITE, fontsize=16, fontfamily="serif")
+    ax.text(
         0,
-        1.12,
-        "address construction  ·  open model",
-        scale=0.05,
+        1.04,
+        r"address construction  ·  $g(i,x)=i$, then $b_i$  ·  $K=12$ shown",
+        ha="center",
+        va="center",
         color=MUTED,
-        rot_deg=0,
-        lw=1.05,
-        rng=rng,
+        fontsize=10,
+        fontfamily="serif",
+        style="italic",
     )
 
-    # --- even circles: ouroboros ring ---
-    R_snake = 1.12
+    # Outer ouroboros (even circle + two heads only)
+    R_ring = 1.02
     th = np.linspace(0, 2 * np.pi, 512)
-    ax.plot(R_snake * np.cos(th), R_snake * np.sin(th), color=SOFT, lw=2.5, solid_capstyle="round", zorder=4)
-    ax.plot(
-        (R_snake - 0.035) * np.cos(th),
-        (R_snake - 0.035) * np.sin(th),
-        color=GOLD,
-        lw=1.15,
-        alpha=0.9,
-        zorder=5,
-    )
-    # dual heads (top / bottom), tangent-aligned
+    ax.plot(R_ring * np.cos(th), R_ring * np.sin(th), color=SOFT, lw=2.0, zorder=3)
+    ax.plot((R_ring - 0.028) * np.cos(th), (R_ring - 0.028) * np.sin(th), color=GOLD, lw=0.9, alpha=0.85, zorder=4)
     for ang, dsign in ((np.pi / 2, 1.0), (-np.pi / 2, -1.0)):
-        tip = np.array([R_snake * np.cos(ang), R_snake * np.sin(ang)])
+        tip = np.array([R_ring * np.cos(ang), R_ring * np.sin(ang)])
         tang = np.array([-np.sin(ang), np.cos(ang)]) * dsign
-        _snake_head(ax, tip, tang, scale=0.12, color=SOFT, eye=GOLD)
+        _snake_head(ax, tip, tang, scale=0.095, color=SOFT, eye=GOLD)
 
-    # rim scraps on a true circle
-    R_band = 1.28
-    for j, scrap in enumerate(rim_scraps):
-        a = np.pi / 2 - 2 * np.pi * (j + 0.5) / K
-        draw_text(
-            ax,
-            R_band * np.cos(a),
-            R_band * np.sin(a),
-            scrap,
-            scale=0.048,
-            color=MUTED,
-            rot_deg=float(np.degrees(a) - 90),
-            lw=1.0,
-            rng=rng,
-        )
-
-    # --- gold radial wheel (concentric true circles) ---
-    R_outer = 0.86
-    R_mid = 0.80
-    R_inner = 0.20
-    ax.add_patch(Circle((0, 0), R_outer, facecolor=VOID, edgecolor=GOLD, linewidth=2.4, zorder=3))
-    ax.add_patch(Circle((0, 0), R_mid, facecolor=VOID, edgecolor=GOLD_DEEP, linewidth=0.9, zorder=3))
-    ax.add_patch(Circle((0, 0), R_inner, facecolor=VOID, edgecolor=GOLD, linewidth=1.7, zorder=6))
+    # Radial wheel
+    R_out = 0.78
+    R_in = 0.18
+    ax.add_patch(Circle((0, 0), R_out, facecolor=VOID, edgecolor=GOLD, linewidth=2.0, zorder=3))
+    ax.add_patch(Circle((0, 0), R_in, facecolor=VOID, edgecolor=GOLD, linewidth=1.4, zorder=5))
 
     for j in range(K):
         a0 = np.pi / 2 - 2 * np.pi * j / K
         a1 = np.pi / 2 - 2 * np.pi * (j + 1) / K
         ax.plot(
-            [R_inner * 1.02 * np.cos(a0), R_outer * 0.99 * np.cos(a0)],
-            [R_inner * 1.02 * np.sin(a0), R_outer * 0.99 * np.sin(a0)],
+            [R_in * np.cos(a0), R_out * np.cos(a0)],
+            [R_in * np.sin(a0), R_out * np.sin(a0)],
             color=GOLD,
-            lw=1.25,
-            solid_capstyle="butt",
+            lw=1.15,
             zorder=4,
         )
         am = (a0 + a1) / 2
-        # radial-aligned labels (readable, even spacing)
-        draw_text(
-            ax,
-            0.55 * np.cos(am),
-            0.55 * np.sin(am),
+        # upright labels (not radial-rotated junk)
+        ax.text(
+            0.52 * np.cos(am),
+            0.52 * np.sin(am),
             fifths[j],
-            scale=0.10,
+            ha="center",
+            va="center",
             color=WHITE,
-            rot_deg=float(np.degrees(am) - 90),
-            lw=1.4,
-            rng=rng,
+            fontsize=12,
+            fontfamily="serif",
+            zorder=6,
         )
-        draw_text(
-            ax,
-            0.72 * np.cos(am),
-            0.72 * np.sin(am),
+        ax.text(
+            0.68 * np.cos(am),
+            0.68 * np.sin(am),
             str(j + 1),
-            scale=0.042,
-            color=GOLD,
-            rot_deg=0,
-            lw=0.95,
-            rng=rng,
+            ha="center",
+            va="center",
+            color=MUTED,
+            fontsize=8,
+            fontfamily="serif",
+            zorder=6,
         )
 
-    # hub
-    draw_text(ax, 0, 0.035, "g", scale=0.12, color=WHITE, rot_deg=0, lw=1.7, rng=rng)
-    draw_text(ax, 0, -0.10, "b_i", scale=0.08, color=GOLD, rot_deg=0, lw=1.35, rng=rng)
+    # Hub math
+    ax.text(0, 0.04, r"$g$", ha="center", va="center", color=WHITE, fontsize=18, fontfamily="serif", zorder=7)
+    ax.text(0, -0.10, r"$b_i$", ha="center", va="center", color=GOLD, fontsize=13, fontfamily="serif", zorder=7)
 
-    # four quiet callouts — aligned, no wild tilt
-    draw_text(ax, -1.30, 0.35, "ask wheel first", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
-    draw_text(ax, 1.30, 0.35, "two pins: 1/K", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
-    draw_text(ax, -1.30, -0.45, "adaptive path", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
-    draw_text(ax, 1.30, -0.45, "bounds meet", scale=0.048, color=SOFT, rot_deg=0, lw=1.05, rng=rng)
-
+    # Single clear legend (not scattered badges)
+    legend = (
+        r"adaptive budget 2: read $g$, then $b_i$ on that branch  $\Rightarrow$  $D=1$"
+        "\n"
+        r"nonadaptive budget 2: any fixed pair  $\Rightarrow$  $D=1/K$"
+        "\n"
+        r"ouroboros: upper bound meets construction  $\Rightarrow$  $G_2(K)=1-1/K$"
+    )
     ax.text(
         0,
-        -1.35,
-        r"$G_2(K)=1-1/K$  ·  matching construction  ·  analogue only",
+        -1.18,
+        legend,
         ha="center",
-        color=GOLD,
+        va="top",
+        color=SOFT,
         fontsize=9.5,
         fontfamily="serif",
-    )
-    ax.text(
-        0,
-        -1.45,
-        "CHARM13 house hand  ·  even circular plate",
-        ha="center",
-        color=DIM,
-        fontsize=7.5,
-        fontfamily="serif",
-        fontstyle="italic",
+        linespacing=1.55,
     )
 
-    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=240, facecolor=VOID, bbox_inches="tight", pad_inches=0.14)
-    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.14)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=240, facecolor=VOID, bbox_inches="tight", pad_inches=0.18)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.18)
     plt.close(fig)
 
 
