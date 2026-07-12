@@ -6,15 +6,36 @@
   <img src="assets/figures/landing_hero.png" alt="CHARM13 — finite-model inspection geometry" width="920"/>
 </p>
 
-<p align="center"><em>
-Notes on budgeted adaptive inspection in finite models.<br/>
-Exact envelopes, matching constructions, and certificates.<br/>
-An engineering application is recorded after the mathematics.
-</em></p>
+---
+
+## Field guide — CHARM13 and budgeted inspection
+
+### Positioning
+
+CHARM13 is an engineering system for **habitat camouflage evaluation and construction** around encrypted volumes, together with a finite-model research program on **budgeted adaptive distinguishability** of attributed filesystem trees. Read it like a design package for a large structure: design basis, load path, capacity, connections, as-built checks — not a feature list.
+
+It does not introduce a new cipher. Confidentiality of bytes is the **foundation** (external L0, e.g. VeraCrypt). CHARM13 owns the **superstructure**: cover naturalness, detection, refuse-on-blown.
+
+| Layer | Role | Owner |
+|-------|------|--------|
+| Cryptographic ciphertext | Foundation — secrecy of content | External L0 (VeraCrypt, etc.) |
+| Cover / habitat story | Superstructure — on-disk narrative | CHARM13 forge + smell |
+
+Most tools stop at the foundation. CHARM13 draws a continuous load path: **construct → measure → refuse**.
+
+Full field notes: [`docs/FIELD_GUIDE.md`](docs/FIELD_GUIDE.md) · doctrine: [`docs/MASTER.md`](docs/MASTER.md) · T1 budget: [`docs/T1_BUDGET.md`](docs/T1_BUDGET.md)
+
+```text
+pip install -e .
+charm doctor
+charm bench
+charm forge -o D:\packs\demo -t photo_library --placeholder -s 1024 --force
+charm smell D:\packs\demo -t photo_library
+```
 
 ---
 
-## Preface
+## Preface (mathematical notes)
 
 These notes develop the comparison between **adaptive** and **nonadaptive** observation under a fixed look budget $B$, measured in total variation of transcript laws. The ambient setting is finite. Queries are maps $q\colon W\to Y_q$. Unless otherwise stated they are *open*: globally addressable, of unit cost, and non-destructive.
 
