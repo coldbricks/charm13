@@ -533,78 +533,82 @@ def anim_parity_ratio_3d() -> None:
 
 
 def anim_cyclic_gate_walk() -> None:
-    """Walk the cyclic gate with scrawly labels (wacky, not creepy)."""
+    """Walk the dual-ouroboros cyclic gate (gold radial, scrawl labels)."""
     from matplotlib import font_manager
+    from pathlib import Path
 
-    names = {f.name for f in font_manager.fontManager.ttflist}
-    hand = next((n for n in ("Ink Free", "Segoe Print", "Lucida Handwriting") if n in names), "DejaVu Sans")
+    hand = "DejaVu Sans"
+    font_dir = Path(__file__).resolve().parent / "fonts"
+    for fname in ("Sabarian.ttf", "TheMiladiator.ttf", "Ink Free"):
+        # try local personal faces first
+        pass
+    for path in sorted(font_dir.glob("*.ttf")) + sorted(font_dir.glob("*.otf")):
+        try:
+            font_manager.fontManager.addfont(str(path))
+            hand = font_manager.FontProperties(fname=str(path)).get_name()
+            if "Sabarian" in path.name or "sabarian" in path.name.lower():
+                break
+        except Exception:
+            continue
+    else:
+        names = {f.name for f in font_manager.fontManager.ttflist}
+        hand = next((n for n in ("Ink Free", "Segoe Print") if n in names), "DejaVu Sans")
 
     K = 12
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
     n_frames = 96
-    fig = plt.figure(figsize=(7.2, 7.4), dpi=120)
+    fig = plt.figure(figsize=(7.4, 7.6), dpi=120)
     fig.patch.set_facecolor(VOID)
     ax = fig.add_subplot(111)
-    R = 0.78
-    rng = np.random.default_rng(7)
-    # pre-jitter station angles once so the wheel feels hand-drawn but stable
-    jitter = rng.uniform(-0.025, 0.025, size=K)
+    R = 0.82
 
     def update(frame):
         ax.clear()
-        ax.set_xlim(-1.3, 1.3)
-        ax.set_ylim(-1.35, 1.25)
+        ax.set_xlim(-1.35, 1.35)
+        ax.set_ylim(-1.40, 1.30)
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_facecolor(VOID)
         fig.patch.set_facecolor(VOID)
-        ax.text(
-            0,
-            1.12,
-            "wheel walk  ·  ask g, then the tooth",
-            ha="center",
-            color=WHITE,
-            fontsize=13,
-            fontfamily=hand,
-        )
-        # wobbly ring
-        th = np.linspace(0, 2 * np.pi, 180)
-        wob = 1.0 + 0.02 * np.sin(4 * th)
-        ax.plot(1.05 * wob * np.cos(th), 1.05 * wob * np.sin(th), color=DIM, lw=1.1)
+        ax.text(0, 1.18, "wheel walk", ha="center", color=WHITE, fontsize=16, fontfamily=hand)
+        ax.text(0, 1.05, "g then the tooth", ha="center", color=MUTED, fontsize=10, fontfamily=hand)
+        # ouroboros ring
+        th = np.linspace(0, 2 * np.pi, 200)
+        sc = 1.0 + 0.03 * np.sin(6 * th)
+        ax.plot(1.12 * sc * np.cos(th), 1.12 * sc * np.sin(th), color=SOFT, lw=2.0)
+        ax.plot(1.08 * sc * np.cos(th), 1.08 * sc * np.sin(th), color=GOLD, lw=1.0, alpha=0.8)
+        # gold wheel
+        ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.2))
+        ax.add_patch(plt.Circle((0, 0), 0.20, fill=False, edgecolor=GOLD, lw=1.4))
         active = (frame // (n_frames // K)) % K
         for j in range(K):
-            theta = np.pi / 2 - 2 * np.pi * j / K + jitter[j]
-            x, y = R * np.cos(theta), R * np.sin(theta)
-            on = j == active
-            ax.add_patch(
-                plt.Circle(
-                    (x, y),
-                    0.11,
-                    fill=False,
-                    edgecolor=GOLD if on else (WHITE if j % 3 == 0 else DIM),
-                    lw=1.7 if on else 1.0,
-                )
+            a = np.pi / 2 - 2 * np.pi * j / K
+            ax.plot(
+                [0.22 * np.cos(a), R * 0.97 * np.cos(a)],
+                [0.22 * np.sin(a), R * 0.97 * np.sin(a)],
+                color=GOLD if j == active else GOLD_DEEP,
+                lw=1.8 if j == active else 1.1,
             )
+            am = a - np.pi / K
+            rl = 0.55
+            on = j == active
             ax.text(
-                x,
-                y,
+                rl * np.cos(am),
+                rl * np.sin(am),
                 fifths[j],
                 ha="center",
                 va="center",
                 color=WHITE if on else MUTED,
-                fontsize=10 if on else 8,
+                fontsize=12 if on else 9,
                 fontfamily=hand,
-                rotation=float(np.degrees(theta) - 90) * 0.12,
+                rotation=float(np.degrees(am) - 90),
             )
-            if on:
-                ax.plot([0, 0.62 * x], [0, 0.62 * y], color=GOLD, lw=1.5, solid_capstyle="round")
-        ax.add_patch(plt.Circle((0, 0), 0.24, fill=False, edgecolor=SOFT, lw=1.1))
-        ax.text(0, 0.05, "g ???", ha="center", color=WHITE, fontsize=13, fontfamily=hand)
-        ax.text(0, -0.12, f"tooth {active+1}", ha="center", color=GOLD, fontsize=10, fontfamily=hand)
+        ax.text(0, 0.04, "g", ha="center", color=WHITE, fontsize=15, fontfamily=hand)
+        ax.text(0, -0.12, f"b_{active+1}", ha="center", color=GOLD, fontsize=11, fontfamily=hand)
         ax.text(
             0,
-            -1.22,
-            "named spoke → TV=1   ·   two pins can't hold the rim",
+            -1.28,
+            "named spoke -> TV=1    two pins miss the pie",
             ha="center",
             color=MUTED,
             fontsize=9,

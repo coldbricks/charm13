@@ -28,6 +28,11 @@ stations. The labeling is mnemonic. The law holds for every integer $K\\\ge 2$.
 Figure: `assets/figures/cyclic_gate_ouroboros.png`  
 Animation: `assets/figures/anim_cyclic_gate.gif`
 
+**Visual lineage (local only).** User inspiration plates under `assets/inspiration/`
+(gitignored): dual-head geometric ouroboros, gold radial wheel, slate void.
+Local personal faces under `assets/fonts/` (gitignored binaries; see that README)
+may be used when rendering; they are not redistributed with the repository.
+
 ---
 
 ## 2. Ouroboros (bounds that close on themselves)

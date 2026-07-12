@@ -19,3 +19,10 @@ Thumbs.db
 
 *.zip
 research/m4/*DOCKET*
+
+# Personal-use fonts (do not redistribute)
+assets/fonts/*.ttf
+assets/fonts/*.otf
+assets/fonts/*.woff*
+assets/inspiration/
+
