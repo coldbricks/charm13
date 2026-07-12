@@ -96,6 +96,10 @@ Under adaptive inspection with B ≥ 2 on the k-pair family, indistinguishabilit
   <img src="assets/figures/formula_sheet.png" alt="Closed-form board" width="860"/>
 </p>
 
+<p align="center">
+  <img src="assets/figures/theorem_board.png" alt="Flattening and sharp budget-two law" width="720"/>
+</p>
+
 Static charts and SVG sources live in [`assets/figures/`](assets/figures/). Regenerate:
 
 ```powershell
