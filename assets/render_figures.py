@@ -8,7 +8,16 @@ from __future__ import annotations
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch, Rectangle
+from matplotlib.patches import (
+    FancyBboxPatch,
+    Rectangle,
+    Circle,
+    FancyArrowPatch,
+    Arc,
+    Wedge,
+)
+from matplotlib.patches import PathPatch
+from matplotlib.path import Path as MplPath
 import numpy as np
 
 # Academic black paper
@@ -1039,6 +1048,168 @@ def fig_deep_equation_wall() -> None:
     plt.close(fig)
 
 
+def fig_cyclic_gate_ouroboros() -> None:
+    """Circle-of-fifths / cyclic gate for the address construction + ouroboros close.
+
+    Pedagogical analogue only: the K-ary gate g is a closed cyclic menu of branches;
+    adaptive policy names the degree then sounds the local bit. The matching upper
+    and lower bounds close on themselves (ouroboros): G_2(K)=1-1/K is eaten and remade.
+    """
+    K = 12  # classical fifths count; law holds for general K>=2
+    # Circle-of-fifths order on twelve stations (labels are mnemonic, not a claim)
+    fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
+
+    fig = plt.figure(figsize=(10.5, 10.5), dpi=220)
+    fig.patch.set_facecolor(VOID)
+    ax = fig.add_axes([0.06, 0.08, 0.88, 0.84])
+    ax.set_xlim(-1.35, 1.35)
+    ax.set_ylim(-1.45, 1.35)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    ax.set_facecolor(VOID)
+
+    ax.text(
+        0,
+        1.22,
+        r"Cyclic gate  ·  address construction",
+        ha="center",
+        va="center",
+        color=WHITE,
+        fontsize=15,
+        fontfamily="serif",
+    )
+    ax.text(
+        0,
+        1.12,
+        r"pedagogical analogue of $g(i,x)=i$  on  $K$ branches  (shown $K{=}12$)",
+        ha="center",
+        va="center",
+        color=MUTED,
+        fontsize=9.5,
+        fontfamily="serif",
+        fontstyle="italic",
+    )
+
+    # Ouroboros outer ring (thick arc + head)
+    R_out = 1.05
+    R_in = 0.72
+    ring = Wedge((0, 0), R_out, 0, 360, width=R_out - 0.98, facecolor=VOID, edgecolor=SOFT, linewidth=1.2)
+    ax.add_patch(ring)
+    # subtle gold accent arc
+    arc_gold = Arc((0, 0), 2 * R_out, 2 * R_out, theta1=20, theta2=100, color=GOLD, lw=1.4, alpha=0.85)
+    ax.add_patch(arc_gold)
+
+    # Serpent head (simple wedge near theta=90°) — ouroboros bite
+    bite_ang = np.deg2rad(95)
+    hx, hy = (R_out + 0.02) * np.cos(bite_ang), (R_out + 0.02) * np.sin(bite_ang)
+    ax.annotate(
+        "",
+        xy=(0.92 * R_out * np.cos(np.deg2rad(70)), 0.92 * R_out * np.sin(np.deg2rad(70))),
+        xytext=(hx, hy),
+        arrowprops=dict(arrowstyle="-|>", color=GOLD, lw=1.5, mutation_scale=14),
+    )
+    ax.text(
+        1.18 * np.cos(bite_ang),
+        1.18 * np.sin(bite_ang),
+        "ouroboros",
+        color=GOLD,
+        fontsize=8,
+        fontfamily="serif",
+        ha="center",
+        va="center",
+        rotation=8,
+    )
+
+    # Inner cycle: K stations (fifths labels as mnemonic for branch index)
+    for j in range(K):
+        # start at top, clockwise like many fifths diagrams
+        theta = np.pi / 2 - 2 * np.pi * j / K
+        x = R_in * np.cos(theta)
+        y = R_in * np.sin(theta)
+        ax.add_patch(
+            Circle((x, y), 0.105, facecolor=VOID, edgecolor=WHITE if j % 3 == 0 else DIM, linewidth=1.1)
+        )
+        ax.text(x, y, fifths[j], ha="center", va="center", color=WHITE, fontsize=8.5, fontfamily="serif")
+        # radial spoke (gate outcome)
+        ax.plot([0.12 * np.cos(theta), 0.58 * np.cos(theta)], [0.12 * np.sin(theta), 0.58 * np.sin(theta)], color=RULE, lw=0.7)
+
+    # Center: gate then bit
+    ax.add_patch(Circle((0, 0), 0.28, facecolor=VOID, edgecolor=SOFT, linewidth=1.2))
+    ax.text(0, 0.06, r"$g$", ha="center", va="center", color=WHITE, fontsize=16, fontfamily="serif")
+    ax.text(0, -0.10, "then", ha="center", va="center", color=MUTED, fontsize=8, fontfamily="serif", fontstyle="italic")
+    ax.text(0, -0.20, r"$b_i$", ha="center", va="center", color=GOLD, fontsize=12, fontfamily="serif")
+
+    # Adaptive path callout
+    ax.annotate(
+        "adaptive: name the degree,\nthen sound the local bit",
+        xy=(R_in * np.cos(np.pi / 2 - 2 * np.pi * 1 / K), R_in * np.sin(np.pi / 2 - 2 * np.pi * 1 / K)),
+        xytext=(0.55, -1.22),
+        fontsize=9,
+        color=SOFT,
+        fontfamily="serif",
+        ha="center",
+        arrowprops=dict(arrowstyle="->", color=MUTED, lw=0.9),
+        bbox=dict(boxstyle="square,pad=0.35", facecolor=VOID, edgecolor=DIM, linewidth=0.8),
+    )
+
+    # Nonadaptive: two fixed stations cannot cover the circle
+    ax.text(
+        0,
+        -1.38,
+        r"nonadaptive budget 2: any fixed pair covers mass $1/K$  ·  $D^{\mathrm{na}}=1/K$  ·  $D^{\mathrm{ad}}=1$",
+        ha="center",
+        color=MUTED,
+        fontsize=9,
+        fontfamily="serif",
+    )
+    ax.text(
+        0,
+        -1.48,
+        r"bounds meet:  $G_2(K)=1-1/K$   (ouroboros — upper bound eaten by construction)",
+        ha="center",
+        color=GOLD,
+        fontsize=9.2,
+        fontfamily="serif",
+    )
+
+    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=220, facecolor=VOID, bbox_inches="tight", pad_inches=0.18)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.18)
+    plt.close(fig)
+
+
+def fig_ouroboros_gap() -> None:
+    """Ouroboros as G2(K)→1: the gap curve closing toward unity."""
+    fig, ax = _fig(10.2, 5.8)
+    style_axes(
+        ax,
+        r"Ouroboros of the gap:  $G_2(K)=1-1/K$ eats toward $1$",
+        r"arity  $K$",
+        r"$G_2(K)$",
+    )
+    K = np.linspace(2, 48, 400)
+    gap = 1.0 - 1.0 / K
+    ax.fill_between(K, 0, gap, color=WHITE, alpha=0.06, zorder=1)
+    ax.plot(K, gap, color=WHITE, lw=2.2, zorder=5)
+    ax.axhline(1.0, color=DIM, lw=0.8, linestyle=":", zorder=2)
+    # bite markers
+    for k, lab in [(2, r"$K{=}2$"), (12, r"$K{=}12$"), (48, r"$K\to\infty$")]:
+        g = 1 - 1 / k
+        ax.scatter([k], [g], s=42, color=GOLD, edgecolors=VOID, linewidths=0.7, zorder=8)
+    ax.annotate(
+        "tail in mouth:\nconstruction meets bound",
+        xy=(36, 1 - 1 / 36),
+        xytext=(18, 0.35),
+        fontsize=9.5,
+        color=SOFT,
+        fontfamily="serif",
+        arrowprops=dict(arrowstyle="->", color=MUTED, lw=0.9),
+        bbox=dict(boxstyle="square,pad=0.35", facecolor=VOID, edgecolor=SOFT, linewidth=0.9),
+    )
+    callout(ax, 8, 0.78, r"$G_2\to 1$")
+    fig.tight_layout()
+    save(fig, "ouroboros_gap")
+
+
 def main() -> None:
     fig_wtf_hero()
     fig_adaptivity_gap()
@@ -1057,6 +1228,8 @@ def main() -> None:
     fig_stability_board()
     fig_habitat_closed_forms()
     fig_deep_equation_wall()
+    fig_cyclic_gate_ouroboros()
+    fig_ouroboros_gap()
     print(f"wrote figures → {OUT}")
     for p in sorted(OUT.glob("*.png")):
         print(" ", p.name)

@@ -532,6 +532,79 @@ def anim_parity_ratio_3d() -> None:
     plt.close(fig)
 
 
+def anim_cyclic_gate_walk() -> None:
+    """Walk the cyclic gate: adaptive names branch i, then reads bit i."""
+    K = 12
+    fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
+    n_frames = 96  # 8 frames per station
+    fig = plt.figure(figsize=(7.2, 7.2), dpi=120)
+    fig.patch.set_facecolor(VOID)
+    ax = fig.add_subplot(111)
+    R = 0.78
+
+    def update(frame):
+        ax.clear()
+        ax.set_xlim(-1.25, 1.25)
+        ax.set_ylim(-1.25, 1.25)
+        ax.set_aspect("equal")
+        ax.axis("off")
+        ax.set_facecolor(VOID)
+        fig.patch.set_facecolor(VOID)
+        ax.set_title(
+            r"Cyclic gate  ·  adaptive walk  ($g$ then $b_i$)",
+            color=WHITE,
+            fontsize=12,
+            fontfamily="serif",
+            pad=8,
+        )
+        # ring
+        circ = plt.Circle((0, 0), 1.02, fill=False, edgecolor=DIM, lw=1.0)
+        ax.add_patch(circ)
+        active = (frame // (n_frames // K)) % K
+        for j in range(K):
+            theta = np.pi / 2 - 2 * np.pi * j / K
+            x, y = R * np.cos(theta), R * np.sin(theta)
+            on = j == active
+            ax.add_patch(
+                plt.Circle(
+                    (x, y),
+                    0.11,
+                    fill=False,
+                    edgecolor=GOLD if on else (WHITE if j % 3 == 0 else DIM),
+                    lw=1.6 if on else 1.0,
+                )
+            )
+            ax.text(
+                x,
+                y,
+                fifths[j],
+                ha="center",
+                va="center",
+                color=WHITE if on else MUTED,
+                fontsize=8,
+                fontfamily="serif",
+            )
+            if on:
+                ax.plot([0, 0.62 * x / R * R], [0, 0.62 * y / R * R], color=GOLD, lw=1.4)
+        ax.add_patch(plt.Circle((0, 0), 0.22, fill=False, edgecolor=SOFT, lw=1.1))
+        ax.text(0, 0.04, "g", ha="center", color=WHITE, fontsize=14, fontfamily="serif")
+        ax.text(0, -0.12, f"i={active+1}", ha="center", color=GOLD, fontsize=9, fontfamily="serif")
+        ax.text(
+            0,
+            -1.15,
+            r"$D_{\mathrm{ad}}=1$  on the named degree",
+            ha="center",
+            color=MUTED,
+            fontsize=9,
+            fontfamily="serif",
+        )
+        return []
+
+    ani = animation.FuncAnimation(fig, update, frames=n_frames, interval=1000 / 12, blit=False)
+    _save_gif(ani, OUT / "anim_cyclic_gate.gif", fps=12)
+    plt.close(fig)
+
+
 def main() -> None:
     # 2D high-fps
     anim_gap_growth()
@@ -541,6 +614,7 @@ def main() -> None:
     anim_greedy_blowup()
     anim_dual_envelope()
     anim_loop_pulse()
+    anim_cyclic_gate_walk()
     # 3D selective
     anim_gap_surface_3d()
     anim_g2_surface_3d()

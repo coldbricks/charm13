@@ -173,6 +173,20 @@ Q(i,x)=\frac{\mathbf{1}_{x_i=1}}{K\\,2^{K-1}},\quad
 g(i,x)=i,\\; b_j(i,x)=x_j.
 $$
 
+**Remark (cyclic gate; pedagogical).** The gate $g$ is a closed cyclic menu of $K$ branches. An adaptive policy names a degree on the cycle, then reads the local bit on that degree. A nonadaptive pair of queries can fix at most two stations and captures mass of order $1/K$. When $K=12$, the classical circle of fifths supplies a familiar labeling of the stations (mnemonic only). The matching of upper bound and construction is the *ouroboros* of the argument: the bound is eaten by an attaining family, so $G_2(K)=1-1/K$ closes on itself. See [`research/ANALOGUES.md`](research/ANALOGUES.md).
+
+<p align="center">
+  <img src="assets/figures/cyclic_gate_ouroboros.png" alt="Cyclic gate and ouroboros" width="720"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/anim_cyclic_gate.gif" alt="Adaptive walk on the cyclic gate" width="520"/>
+</p>
+
+<p align="center">
+  <img src="assets/figures/ouroboros_gap.png" alt="Ouroboros of G2(K) approaching 1" width="860"/>
+</p>
+
 Gain-sensitive support bound and open curve:
 
 $$
