@@ -535,45 +535,40 @@ def anim_parity_ratio_3d() -> None:
 def anim_cyclic_gate_walk() -> None:
     """Clean cyclic-gate walk: highlight branch i, then bit on that spoke."""
     K = 12
+    # Clockwise fifths from C at 12 o'clock
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
     n_frames = 96
-    fig = plt.figure(figsize=(7.0, 7.4), dpi=130)
+    fig = plt.figure(figsize=(7.0, 7.6), dpi=130)
     fig.patch.set_facecolor(VOID)
     ax = fig.add_subplot(111)
-    R = 0.78
+    R = 0.74
 
     def update(frame):
         ax.clear()
-        ax.set_xlim(-1.2, 1.2)
-        ax.set_ylim(-1.28, 1.18)
+        ax.set_xlim(-1.15, 1.15)
+        ax.set_ylim(-1.25, 1.22)
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_facecolor(VOID)
         fig.patch.set_facecolor(VOID)
-        ax.set_title(
-            r"Cyclic gate  ·  adaptive: $g$ then $b_i$",
-            color=WHITE,
-            fontsize=12.5,
-            fontfamily="serif",
-            pad=10,
-        )
-        ax.add_patch(plt.Circle((0, 0), 0.92, fill=False, edgecolor=SOFT, lw=1.3))
+        ax.text(0, 1.12, r"Cyclic gate  ·  adaptive: $g$ then $b_i$", ha="center", color=WHITE, fontsize=12.5, fontfamily="serif")
+        ax.add_patch(plt.Circle((0, 0), 0.88, fill=False, edgecolor=SOFT, lw=1.3))
         ax.add_patch(plt.Circle((0, 0), R, fill=False, edgecolor=GOLD, lw=2.0))
         ax.add_patch(plt.Circle((0, 0), 0.18, fill=False, edgecolor=GOLD, lw=1.3))
         active = (frame // (n_frames // K)) % K
         for j in range(K):
-            a = np.pi / 2 - 2 * np.pi * j / K
+            am = np.pi / 2 - 2 * np.pi * j / K  # C at top
+            a_spoke = am + np.pi / K
             on = j == active
             ax.plot(
-                [0.18 * np.cos(a), R * np.cos(a)],
-                [0.18 * np.sin(a), R * np.sin(a)],
+                [0.18 * np.cos(a_spoke), R * np.cos(a_spoke)],
+                [0.18 * np.sin(a_spoke), R * np.sin(a_spoke)],
                 color=GOLD if on else GOLD_DEEP,
                 lw=2.0 if on else 1.05,
             )
-            am = a - np.pi / K
             ax.text(
-                0.52 * np.cos(am),
-                0.52 * np.sin(am),
+                0.50 * np.cos(am),
+                0.50 * np.sin(am),
                 fifths[j],
                 ha="center",
                 va="center",
@@ -585,8 +580,8 @@ def anim_cyclic_gate_walk() -> None:
         ax.text(0, -0.10, rf"$b_{{{active+1}}}$", ha="center", color=GOLD, fontsize=12, fontfamily="serif")
         ax.text(
             0,
-            -1.18,
-            rf"branch $i={active+1}$  ·  $D_{{\mathrm{{ad}}}}=1$  ·  nonadaptive pair $\Rightarrow 1/K$",
+            -1.12,
+            rf"$i={active+1}$ ({fifths[active]})  ·  $D_{{\mathrm{{ad}}}}=1$  ·  nonadaptive pair $\Rightarrow 1/K$",
             ha="center",
             color=MUTED,
             fontsize=9,

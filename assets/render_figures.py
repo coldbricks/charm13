@@ -1075,22 +1075,24 @@ def fig_cyclic_gate_ouroboros() -> None:
     No decorative heads, badges, or scrap text.
     """
     K = 12
-    # Circle-of-fifths order (mnemonic only)
+    # Clockwise circle of fifths from C at 12 o'clock (standard teaching order).
+    # Perfect-fifth steps: C→G→D→A→E→B→F#→C#/Db→G#/Ab→D#/Eb→A#/Bb→F→C
     fifths = ["C", "G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F"]
 
-    fig = plt.figure(figsize=(8.8, 9.4), dpi=240)
+    fig = plt.figure(figsize=(8.8, 9.8), dpi=240)
     fig.patch.set_facecolor(VOID)
-    ax = fig.add_axes([0.08, 0.12, 0.84, 0.80])
+    # Extra top margin so title clears the ring
+    ax = fig.add_axes([0.08, 0.11, 0.84, 0.78])
     ax.set_xlim(-1.15, 1.15)
-    ax.set_ylim(-1.25, 1.15)
+    ax.set_ylim(-1.20, 1.28)
     ax.set_aspect("equal")
     ax.axis("off")
     ax.set_facecolor(VOID)
 
-    ax.text(0, 1.05, "Cyclic gate", ha="center", va="center", color=WHITE, fontsize=17, fontfamily="serif")
+    ax.text(0, 1.20, "Cyclic gate", ha="center", va="center", color=WHITE, fontsize=17, fontfamily="serif")
     ax.text(
         0,
-        0.94,
+        1.10,
         r"Matching construction for $G_2(K)=1-1/K$  (shown at $K=12$)",
         ha="center",
         va="center",
@@ -1099,31 +1101,31 @@ def fig_cyclic_gate_ouroboros() -> None:
         fontfamily="serif",
     )
 
-    # Single clean outer ring (closed cycle — no heads)
-    R_ring = 0.92
+    # Gap between subtitle (y≈1.10) and outer ring top (y = R_ring)
+    R_ring = 0.88
     ax.add_patch(Circle((0, 0), R_ring, facecolor=VOID, edgecolor=SOFT, linewidth=1.4, zorder=2))
-    ax.add_patch(Circle((0, 0), R_ring - 0.03, facecolor=VOID, edgecolor=GOLD, linewidth=0.8, zorder=2))
+    ax.add_patch(Circle((0, 0), R_ring - 0.028, facecolor=VOID, edgecolor=GOLD, linewidth=0.8, zorder=2))
 
-    # Radial wheel
-    R_out = 0.78
-    R_in = 0.20
+    # Radial wheel — C centered at top (12 o'clock)
+    R_out = 0.74
+    R_in = 0.19
     ax.add_patch(Circle((0, 0), R_out, facecolor=VOID, edgecolor=GOLD, linewidth=2.0, zorder=3))
     ax.add_patch(Circle((0, 0), R_in, facecolor=VOID, edgecolor=GOLD, linewidth=1.5, zorder=5))
 
     for j in range(K):
-        a0 = np.pi / 2 - 2 * np.pi * j / K
-        a1 = np.pi / 2 - 2 * np.pi * (j + 1) / K
+        # Sector j centered at angle am; spokes at edges
+        am = np.pi / 2 - 2 * np.pi * j / K  # C at top for j=0
+        a_spoke = am + np.pi / K
         ax.plot(
-            [R_in * np.cos(a0), R_out * np.cos(a0)],
-            [R_in * np.sin(a0), R_out * np.sin(a0)],
+            [R_in * np.cos(a_spoke), R_out * np.cos(a_spoke)],
+            [R_in * np.sin(a_spoke), R_out * np.sin(a_spoke)],
             color=GOLD,
             lw=1.15,
             zorder=4,
         )
-        am = (a0 + a1) / 2
         ax.text(
-            0.52 * np.cos(am),
-            0.52 * np.sin(am),
+            0.50 * np.cos(am),
+            0.50 * np.sin(am),
             fifths[j],
             ha="center",
             va="center",
@@ -1133,8 +1135,8 @@ def fig_cyclic_gate_ouroboros() -> None:
             zorder=6,
         )
         ax.text(
-            0.68 * np.cos(am),
-            0.68 * np.sin(am),
+            0.64 * np.cos(am),
+            0.64 * np.sin(am),
             str(j + 1),
             ha="center",
             va="center",
@@ -1148,18 +1150,14 @@ def fig_cyclic_gate_ouroboros() -> None:
     ax.text(0, 0.05, r"$g$", ha="center", va="center", color=WHITE, fontsize=20, fontfamily="serif", zorder=7)
     ax.text(0, -0.12, r"$b_i$", ha="center", va="center", color=GOLD, fontsize=14, fontfamily="serif", zorder=7)
 
-    # One path example: highlight branch i=1 (C, top-right of top sector midpoint)
-    # First sector is from 90° clockwise — midpoint at 75° for i=1 label position
-    # Visual cue: gold arc arrow around outside from g concept — keep minimal
-    # Legend only:
     ax.text(
         0,
-        -1.05,
+        -1.08,
         r"Adaptive ($B{=}2$): observe $g{=}i$, then $b_i$  $\Rightarrow$  $D_2^{\mathrm{ad}}=1$"
         "\n"
         r"Nonadaptive ($B{=}2$): any fixed pair of queries  $\Rightarrow$  $D_2^{\mathrm{na}}=1/K$"
         "\n"
-        r"Labels C, G, D, $\ldots$ are circle-of-fifths mnemonics for branch index $i$",
+        r"Clockwise fifths from C at 12 o'clock (mnemonic for branch index $i$)",
         ha="center",
         va="top",
         color=SOFT,
@@ -1168,8 +1166,8 @@ def fig_cyclic_gate_ouroboros() -> None:
         linespacing=1.6,
     )
 
-    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=240, facecolor=VOID, bbox_inches="tight", pad_inches=0.2)
-    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.2)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.png", dpi=240, facecolor=VOID, bbox_inches="tight", pad_inches=0.22)
+    fig.savefig(OUT / "cyclic_gate_ouroboros.svg", facecolor=VOID, bbox_inches="tight", pad_inches=0.22)
     plt.close(fig)
 
 
